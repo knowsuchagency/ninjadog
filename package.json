@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "https://github.com/knowsuchagency/ppug",
   "author": "Stephan Fitzpatrick",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "pug-cli": "^1.0.0-alpha6"
+  }
 }
