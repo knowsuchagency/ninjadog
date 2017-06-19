@@ -11,5 +11,5 @@ class PugPreprocessor(Extension):
         return render(source)
 
 
-def include_me(config):
+def includeme(config):
     config.add_jinja2_extension(PugPreprocessor, name='.pug')
