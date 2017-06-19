@@ -1,4 +1,5 @@
 from jinja2.ext import Extension
+from pyramid_jinja2 import _caller_package
 from pathlib import Path
 from ppug import render
 
@@ -14,6 +15,11 @@ class PugPreprocessor(Extension):
 
 
 def includeme(config):
-    config.add_jinja2_renderer('.pug')
-    config.add_jinja2_extension(PugPreprocessor)
+    package = _caller_package(('pyramid', 'pyramid.', 'pyramid_jinja2'))
+    config.add_jinja2_renderer('.pug', package=package)
+    config.add_jinja2_extension(PugPreprocessor, name='.pug')
+
+    # always insert default search path relative to package
+    default_search_path = '%s:' % (package.__name__,)
+    config.add_jinja2_search_path(default_search_path, name='.pug')
 
