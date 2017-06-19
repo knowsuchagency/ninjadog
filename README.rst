@@ -28,7 +28,46 @@ Pug template support in Python
 Features
 --------
 
-* TODO
+* Render `.pug templates <https://pugjs.org/api/getting-started.html>`_ (formerly `jade <https://naltatis.github.io/jade-syntax-docs/>`_)
+
+Usage
+-----
+
+You can use the render function to simply render a block of pug-formatted text to html
+
+.. code-block:: python
+
+    from ppug import render
+
+    string = 'h1 hello, world'
+
+    print(render(string)) # -> <h1>hello, world</h1>
+
+You can also use the PugPreprocessor extension to use jinja-template syntax in pug templates
+
+.. code-block:: python
+
+    from jinja2 import Environment
+    from ppug.ext.jinja2 import PugPreprocessor
+
+    string = 'h1 hello, {{ name }}'
+
+    env = Environment(extensions=(PugPreprocessor,))
+
+    template = env.from_string(string)
+
+    print(template.render(name='world')) # -> <h1>hello, world</h1>
+
+To use pug templates with Pyramid, simply include them with your configuration
+after `pyramid-jinja2`. This will use the PugPreprocessor class to allow you to
+use jinja2 template syntax within pug templates.
+
+.. code-block:: python
+
+    config = Configurator()
+    config.include('pyramid_jinja2')
+    config.include('ppug.ext.pyramid')
+
 
 Credits
 ---------
