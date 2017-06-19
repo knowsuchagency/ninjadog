@@ -12,9 +12,12 @@ import subprocess as sp
 import shlex
 
 
-def render(text: str) -> str:
+def render(text: str, cwd: Path=None) -> str:
     """
     Convert pug template to html.
+    
+    A Path variable may be passed for instances such as
+    in the template where the extends keyword needs it.
     """
     PUG_CLI_PATH = Path(__file__).parent.joinpath('node_modules/.bin/pug')
 
@@ -24,16 +27,18 @@ def render(text: str) -> str:
         return sp.run(f'{str(PUG_CLI_PATH)} < {shlex.quote(fp.name)}',
                       shell=True,
                       stdout=sp.PIPE,
+                      cwd=None,
                       ).stdout.decode('utf8')
 
 
 if __name__ == '__main__':
-    string = """
+    from textwrap import dedent
+    string = dedent("""
     p
       a(href='google.com') google
       |
       | to
       |
       a(href='github.com') github
-    """
+    """)
     print(render(string))

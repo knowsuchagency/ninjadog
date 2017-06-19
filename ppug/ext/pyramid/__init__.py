@@ -1,4 +1,5 @@
 from jinja2.ext import Extension
+from pathlib import Path
 from ppug import render
 
 
@@ -9,9 +10,8 @@ class PugPreprocessor(Extension):
 
     def preprocess(self, source, name, filename=None):
         "Renders pug template if filename has .pug extension"
-        # if filename and filename.endswith('.pug'):
-        #     return render(source)
-        return render(source)
+        template_parent_path = Path(filename).parent
+        return render(source, cwd=template_parent_path)
 
 
 def includeme(config):
