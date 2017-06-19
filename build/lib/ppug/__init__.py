@@ -25,7 +25,7 @@ def render(text: str, template_path: Path=None) -> str:
         fp.write(text)
         fp.seek(0)
 
-        path_argument = f'-p {str(template_path)}' if template_path else ''
+        path_argument = f'-p {shlex.quote(str(template_path))}' if template_path else ''
         return sp.run(f'{str(PUG_CLI_PATH)} {path_argument} < {shlex.quote(fp.name)}',
                       shell=True,
                       stdout=sp.PIPE,
