@@ -6,20 +6,26 @@
 import pytest
 
 
-from ppug import ppug
+import ppug
 
 
-@pytest.fixture
-def response():
-    """Sample pytest fixture.
-
-    See more at: http://doc.pytest.org/en/latest/fixture.html
-    """
-    # import requests
-    # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
+def test_hello_world():
+    assert ppug.render('h1 hello world') == '<h1>hello world</h1>'
 
 
-def test_content(response):
-    """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
+def test_jinja2_template_syntax():
+    assert ppug.render('h1 hello {{ name }}!') == '<h1>hello {{ name }}!</h1>'
+
+
+def test_whitespace():
+    from textwrap import dedent
+    string = dedent("""
+    p
+        a(href='google.com') google
+        |
+        | to
+        |
+        a(href='github.com') github
+    """)
+
+    assert ppug.render(string) == '<p><a href="google.com">google</a> to <a href="github.com">github</a></p>'

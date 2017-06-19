@@ -12,8 +12,9 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    # TODO: put package requirements here
     'calmjs',
+    'jinja2',
+    'pyramid_jinja2',
 ]
 
 setup_requirements = [
@@ -25,6 +26,12 @@ test_requirements = [
     'pytest',
     # TODO: put package test requirements here
 ]
+
+extras_calmjs = {
+    'node_modules': {
+        'pug': '/.bin/pug',
+    }
+}
 
 setup(
     name='ppug',
@@ -56,4 +63,5 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     setup_requires=setup_requirements,
+    extras_calmjs=extras_calmjs,
 )
