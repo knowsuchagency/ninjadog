@@ -15,8 +15,8 @@ class PugPreprocessor(Extension):
 
 
 def includeme(config):
-    config.add_jinja2_extension(PugPreprocessor)
     config.add_jinja2_renderer('.pug')
+    config.add_jinja2_extension(PugPreprocessor, name='.pug')
 
 
 if __name__ == '__main__':
