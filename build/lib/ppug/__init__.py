@@ -12,7 +12,7 @@ import subprocess as sp
 import shlex
 
 
-def render(text: str, cwd: Path=None) -> str:
+def render(text: str, template_path: Path=None) -> str:
     """
     Convert pug template to html.
     
@@ -24,10 +24,12 @@ def render(text: str, cwd: Path=None) -> str:
     with NamedTemporaryFile('w') as fp:
         fp.write(text)
         fp.seek(0)
-        return sp.run(f'{str(PUG_CLI_PATH)} < {shlex.quote(fp.name)}',
+
+        path_argument = f'-p {str(template_path)}' if template_path else ''
+        return sp.run(f'{str(PUG_CLI_PATH)} {path_argument} < {shlex.quote(fp.name)}',
                       shell=True,
                       stdout=sp.PIPE,
-                      cwd=None,
+                      cwd=template_path.parent if template_path else None,
                       ).stdout.decode('utf8')
 
 

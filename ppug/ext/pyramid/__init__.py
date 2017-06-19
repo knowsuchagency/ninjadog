@@ -10,8 +10,7 @@ class PugPreprocessor(Extension):
 
     def preprocess(self, source, name, filename=None):
         "Renders pug template if filename has .pug extension"
-        template_parent_path = Path(filename).parent
-        return render(source, cwd=template_parent_path)
+        return render(source, template_path=Path(filename))
 
 
 def includeme(config):
