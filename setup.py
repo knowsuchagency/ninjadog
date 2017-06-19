@@ -15,6 +15,7 @@ requirements = [
     'calmjs',
     'jinja2',
     'pyramid_jinja2',
+    'pyramid_mako',
 ]
 
 setup_requirements = [

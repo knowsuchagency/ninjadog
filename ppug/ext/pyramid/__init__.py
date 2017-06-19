@@ -1,7 +1,16 @@
 from jinja2.ext import Extension
 from pyramid_jinja2 import _caller_package
+
 from pathlib import Path
+
 from ppug import render
+from ppug import render as preprocessor
+
+from pyramid_mako import (
+    MakoRendererFactory,
+    parse_options_from_settings,
+    PkgResourceTemplateLookup,
+    )
 
 
 class PugPreprocessor(Extension):
@@ -14,12 +23,15 @@ class PugPreprocessor(Extension):
         return render(source, template_path=Path(filename))
 
 
+class PugRenderer:
+    def __init__(self, info):
+        info.settings['mako.preprocessor'] = preprocessor
+        factory = MakoRendererFactory()
+        self.makoRenderer = factory(info)
+
+    def __call__(self, value, system):
+        return self.makoRenderer(value, system)
+
+
 def includeme(config):
-    package = _caller_package(('pyramid', 'pyramid.', 'pyramid_jinja2'))
-    config.add_jinja2_renderer('.pug', package=package)
-    config.add_jinja2_extension(PugPreprocessor, name='.pug')
-
-    # always insert default search path relative to package
-    default_search_path = '%s:' % (package.__name__,)
-    config.add_jinja2_search_path(default_search_path, name='.pug')
-
+    config.add_renderer('.pug', PugRenderer)
