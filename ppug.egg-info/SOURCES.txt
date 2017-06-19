@@ -21,7 +21,6 @@ ppug/ppug.py
 ppug.egg-info/PKG-INFO
 ppug.egg-info/SOURCES.txt
 ppug.egg-info/dependency_links.txt
-ppug.egg-info/extras_calmjs.json
 ppug.egg-info/not-zip-safe
 ppug.egg-info/requires.txt
 ppug.egg-info/top_level.txt
