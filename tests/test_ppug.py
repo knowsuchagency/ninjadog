@@ -33,3 +33,9 @@ def test_conditional():
         h1 hello #{ name }
     """)
     assert ppug.render(string, context={'name': 'sam'}) == '<h1>hello sam</h1>'
+
+    string = dedent("""
+    if person.name == 'sam'
+        h1 hello #{ person.name }
+    """)
+    assert ppug.render(string, context={'person': {'name': 'sam'}}) == '<h1>hello sam</h1>'

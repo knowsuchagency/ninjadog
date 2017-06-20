@@ -1,9 +1,11 @@
-from ppug.ext.jinja2 import PugPreprocessor
+from ppug.ext.jinja2 import PugPreprocessor, jinja2_renderer
+from jinja2.ext import Extension
 from pyramid_jinja2 import *
 from ppug import render
 from pathlib import Path
 from pprint import pprint
 import logging
+
 
 class PugTemplateRenderer(Jinja2TemplateRenderer):
     def __call__(self, value, system):
@@ -14,12 +16,19 @@ class PugTemplateRenderer(Jinja2TemplateRenderer):
                              'as value: %s' % str(ex))
         template = self.template_loader()
         jinja2_string = template.render(system)
-        logging.info('this is the system variable')
-        logging.info(system)
-        return ''
-        return render(jinja2_string,
-                      template_path=Path(template.filename),
-                      context=system)
+        print('this is the template to be rendered by pug:')
+        print(jinja2_string)
+
+        # filter out only dictionary values for pug rendering
+        context = {k: v for k, v in system.items() if isinstance(v, dict)}
+        print('this is the context to be rendered by pug template')
+        pprint(context)
+        print('this was the original system')
+        pprint(system)
+        return jinja2_renderer(jinja2_string,
+                               system,
+                               template_path=Path(template.filename),
+                               context=context)
 
 
 class PugRendererFactory(object):
@@ -84,7 +93,16 @@ def add_pug_renderer(config, name, settings_prefix='jinja2.', package=None):
         ('pug-renderer', name), register, order=ENV_CONFIG_PHASE)
 
 
+class PugPreprocessor2(Extension):
+    """
+    Renders pug template prior to jinja2 rendering
+    """
 
+    def preprocess(self, source, name, filename=None):
+        """Render pug template."""
+        if source.strip().startswith('extends'):
+            return render(source, template_path=Path(filename) if filename else None)
+        return source
 
 
 def includeme(config):
@@ -92,4 +110,3 @@ def includeme(config):
     # config.add_jinja2_extension(PugPreprocessor, name='.pug')
     config.add_directive('add_pug_renderer', add_pug_renderer)
     config.add_pug_renderer('.pug')
-
