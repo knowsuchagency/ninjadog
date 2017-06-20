@@ -69,6 +69,12 @@ use jinja2 template syntax within pug templates.
     config.include('ppug.ext.pyramid')
 
 
+Notes
+-----
+
+Please note that nodejs must be installed for this package to work.
+
+
 Credits
 ---------
 
