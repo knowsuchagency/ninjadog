@@ -28,7 +28,7 @@ test_requirements = [
 
 setup(
     name='ppug',
-    version='0.1.0',
+    version='0.1.1',
     description="Pug template support in Python",
     long_description=readme + '\n\n' + history,
     author="Stephan Fitzpatrick",
