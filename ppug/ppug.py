@@ -3,30 +3,10 @@
 """Main module."""
 from tempfile import NamedTemporaryFile
 from pathlib import Path
-import typing as T
 import subprocess as sp
-import logging
+import typing as T
 import shlex
 import json
-
-def jsonify(obj: T.Any) -> T.Optional[str]:
-    if isinstance(obj, str):
-        try:
-            json.loads(obj)
-            # valid string, return the object
-            return obj
-        except json.decoder.JSONDecodeError:
-            logging.error(f'{obj} is not a valid json string')
-            raise
-    else:
-        try:
-            result = json.dumps(obj)
-            # serializable
-            return result
-        except TypeError:
-            logging.error(f'{obj} is not json serializable')
-            raise
-
 
 def render(text: str, template_path: Path = None, context: T.Any=None) -> str:
     """
@@ -47,7 +27,10 @@ def render(text: str, template_path: Path = None, context: T.Any=None) -> str:
         fp.seek(0)
 
         path_argument = f'-p {shlex.quote(str(template_path))}' if template_path else ''
-        context_argument = f'-O {shlex.quote(jsonify(context))}' if context else ''
+        if context:
+            context_argument = f'-O {shlex.quote(json.dumps(context, skipkeys=True, default=lambda _: ""))}'
+        else:
+            context_argument = ''
 
         return sp.run(f'{str(PUG_CLI_PATH)} {path_argument} {context_argument} < {shlex.quote(fp.name)}',
                       shell=True,
