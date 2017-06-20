@@ -21,3 +21,15 @@ def test_hello_world():
 def test_jinja2_template_syntax():
     assert ppug.render('h1 hello {{ name }}!') == '<h1>hello {{ name }}!</h1>'
 
+def test_context():
+    context = {'name': 'Derp'}
+    assert ppug.render('h1 hello #{ name }', context=context) == '<h1>hello Derp</h1>'
+    assert ppug.render("h1= name", context=context) == '<h1>Derp</h1>'
+
+def test_conditional():
+    from textwrap import dedent
+    string = dedent("""
+    if name == 'sam'
+        h1 hello #{ name }
+    """)
+    assert ppug.render(string, context={'name': 'sam'}) == '<h1>hello sam</h1>'
