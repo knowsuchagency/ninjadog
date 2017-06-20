@@ -22,7 +22,7 @@ deploy:
     repo: knowsuchagency/ppug
     tags: true
 install:
-  pip install -U tox-travis
+  - pip install -U tox-travis
   - if [ $TRAVIS_OS_NAME = linux ]; then curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - sudo apt-get install -y nodejs; else brew install bar; fi
 language: python
 python:
