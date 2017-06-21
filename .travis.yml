@@ -21,6 +21,9 @@ deploy:
     python: 3.6
     repo: knowsuchagency/ppug
     tags: true
+before_install:
+  - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+  - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 install:
   - pip install -U tox-travis
   - if [ $TRAVIS_OS_NAME = linux ]; then sudo apt-get install -y yarn; else brew install yarn; fi
