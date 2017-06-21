@@ -24,8 +24,10 @@ deploy:
 install:
   - pip install -U tox-travis
   - if [ $TRAVIS_OS_NAME = linux ]; then sudo apt-get install -y yarn; else brew install yarn; fi
+  - pip install .
+  - install-pug-cli
 language: python
 python:
-- 3.6
-- 3.5
+  - "3.6"
+  - "3.5"
 script: tox
