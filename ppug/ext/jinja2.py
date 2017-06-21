@@ -1,11 +1,12 @@
-from jinja2.ext import Extension
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
 from jinja2 import Environment
+from jinja2.ext import Extension
+
+from ppug import render
 from ppug.constants import EXTENSION_PATT
 from ppug.utils import get_extensions
-from ppug import render
-
-from tempfile import TemporaryDirectory
-from pathlib import Path
 
 
 class PugPreprocessor(Extension):
@@ -15,19 +16,19 @@ class PugPreprocessor(Extension):
 
     def preprocess(self, source, name, filename=None):
         """Render pug template."""
-        return render(source, template_path=Path(filename) if filename else None)
+        return render(source, filepath=Path(filename) if filename else None)
 
 
-def jinja2_renderer(text: str,
-                    template_path: Path = None,
+def jinja2_renderer(string: str = '',
+                    filepath: Path = None,
                     context: dict = None,
                     ):
     """
     Render pug templates that extend from other pug templates
     that have jinja2 syntax
     
-    :param text: text of the original template
-    :param template_path: the path of the original template
+    :param string: text of the original template
+    :param filepath: the path of the original template
     :param context: elements of the global context that are json-serializable
     :return: 
     """
@@ -36,10 +37,10 @@ def jinja2_renderer(text: str,
     env.globals = context if context else {}
 
     # early return - template does not extend
-    extends = EXTENSION_PATT.search(text)
+    extends = EXTENSION_PATT.search(string)
     if not extends:
-        return env.from_string(render(text, template_path, context)).render()
-    elif not template_path:
+        return env.from_string(render(string, filepath, context)).render()
+    elif not filepath:
         msg = 'You must pass the path to the template being rendered since it extends from other templates'
         raise ValueError(msg)
 
@@ -47,7 +48,7 @@ def jinja2_renderer(text: str,
 
         # first, render all the extensions in jinja2
         # and write them to the temporary directory
-        extensions = get_extensions(template_path)
+        extensions = get_extensions(filepath)
         for extension in extensions:
             with open(extension) as jinja2_template:
                 rendered_jinja = env.from_string(jinja2_template.read()).render()
@@ -57,5 +58,5 @@ def jinja2_renderer(text: str,
 
         # create a copy of the original template in the temporary
         # directory relative to the now-rendered pug templates
-        extended_path = Path(tempdir, template_path.name)
-        return render(text, extended_path, context)
+        extended_path = Path(tempdir, filepath.name)
+        return render(string, extended_path, context)

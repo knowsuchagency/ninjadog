@@ -1,16 +1,21 @@
+import typing as T
+from functools import partial
+from json import dumps
 from pathlib import Path
+
 from .constants import EXTENSION_PATT
 
+jsonify = partial(dumps, skipkeys=True, default=lambda _: '', ensure_ascii=False)
 
 
-def get_extensions(filepath) -> Path:
+def get_extensions(file: T.Union[str, Path]) -> T.Sequence[Path]:
     """
     Yield Path objects for pug templates that the pug
     template extends from.
     """
-    filepath = Path(filepath)
-    parent_path = filepath.parent
-    with open(filepath) as fp:
+    file = Path(file)
+    parent_path = file.parent
+    with open(file) as fp:
         match = EXTENSION_PATT.search(fp.read())
         if match:
             found = match.group(1)

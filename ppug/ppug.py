@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 
 """Main module."""
-from tempfile import NamedTemporaryFile
-from pathlib import Path
+import shlex
 import subprocess as sp
 import typing as T
-import shlex
-import json
+from pathlib import Path
+from tempfile import NamedTemporaryFile
 
 from .constants import PUG_CLI_PATH
+from .utils import jsonify
 
 
-def render(text: str, template_path: Path = None, context: T.Any = None) -> str:
+def render(string: str = '', filepath: T.Union[Path, str] = None, context: T.Any = None) -> str:
     """
     Convert pug template to html.
 
@@ -24,18 +24,26 @@ def render(text: str, template_path: Path = None, context: T.Any = None) -> str:
     The context can either be a json string or a json-serializable object
     """
 
+    # create Path object if filepath argument is given
+    # Path() is idempotent so this shouldn't make any difference
+    # if the filepath argument is of type Path
+    filepath = Path(filepath) if filepath else filepath
+
+    # if filepath is given instead of a string argument,
+    # return render of string
+    if filepath and not string:
+        with open(filepath) as fp:
+            return render(fp.read(), filepath)
+
     with NamedTemporaryFile('w') as fp:
-        fp.write(text)
+        fp.write(string)
         fp.seek(0)
 
-        path_argument = f'-p {shlex.quote(str(template_path))}' if template_path else ''
-        if context:
-            context_argument = f'-O {shlex.quote(json.dumps(context, skipkeys=True, default=lambda _: ""))}'
-        else:
-            context_argument = ''
+        path_argument = f'-p {shlex.quote(str(filepath))}' if filepath else ''
+        context_argument = f'-O {shlex.quote(jsonify(context))}' if context else ''
 
         return sp.run(f'{str(PUG_CLI_PATH.absolute())} {path_argument} {context_argument} < {shlex.quote(fp.name)}',
                       shell=True,
                       stdout=sp.PIPE,
-                      cwd=template_path.parent if template_path else None,
+                      cwd=filepath.parent if filepath else None,
                       ).stdout.decode('utf8')
