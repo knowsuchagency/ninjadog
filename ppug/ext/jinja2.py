@@ -1,10 +1,11 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from functools import partial
 
 from jinja2 import Environment
 from jinja2.ext import Extension
 
-from ppug import render
+from ppug import render as _render
 from ppug.constants import EXTENSION_PATT
 from ppug.utils import get_extensions
 
@@ -22,6 +23,7 @@ class PugPreprocessor(Extension):
 def jinja2_renderer(string: str = '',
                     filepath: Path = None,
                     context: dict = None,
+                    pretty: bool = False,
                     ):
     """
     Render pug templates that extend from other pug templates
@@ -32,6 +34,9 @@ def jinja2_renderer(string: str = '',
     :param context: elements of the global context that are json-serializable
     :return: 
     """
+    # lock pretty-print argument
+    render = partial(_render, pretty=pretty)
+
     # initialize jinja2 environment
     env = Environment()
     env.globals = context if context else {}

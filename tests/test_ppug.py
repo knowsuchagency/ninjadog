@@ -66,3 +66,35 @@ def test_jinja2_render_no_string_argument():
         assert ppug.jinja2_renderer(filepath=tempfile.name, context=context) \
                == ppug.jinja2_renderer(string, context=context) \
                == '<h1>hello ash</h1>'
+
+
+def test_jinja2_syntax_with_pug_syntax():
+    from textwrap import dedent
+    from ppug import jinja2_renderer
+    string = dedent("""
+    if person.name == "Bob"
+        h1 Hello Bob
+    else
+        h1 My name is #{ person.name }
+
+    p The persons's uppercase name is {{ person.get('name').upper() }}
+    p The person's name is #{ person.name }
+
+    if animal
+        h1 This should not output
+    else
+        p animal value is false
+    """).strip()
+
+    context = {'person': {'name': 'Bob'}, 'animal': None}
+
+    expected_output = dedent("""
+    <h1>Hello Bob</h1>
+    <p>The persons's uppercase name is BOB</p>
+    <p>The person's name is Bob</p>
+    <p>animal value is false</p>
+    """).strip()
+
+    actual_output = jinja2_renderer(string, context=context, pretty=True).strip()
+
+    assert expected_output == actual_output

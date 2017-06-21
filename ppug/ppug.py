@@ -11,7 +11,10 @@ from .constants import PUG_CLI_PATH
 from .utils import jsonify
 
 
-def render(string: str = '', filepath: T.Union[Path, str] = None, context: T.Any = None) -> str:
+def render(string: str = '',
+           filepath: T.Union[Path, str] = None,
+           context: T.Any = None,
+           pretty: bool = False) -> str:
     """
     Convert pug template to html.
 
@@ -39,10 +42,11 @@ def render(string: str = '', filepath: T.Union[Path, str] = None, context: T.Any
         fp.write(string)
         fp.seek(0)
 
-        path_argument = f'-p {shlex.quote(str(filepath))}' if filepath else ''
-        context_argument = f'-O {shlex.quote(jsonify(context))}' if context else ''
+        path = f'-p {shlex.quote(str(filepath))}' if filepath else ''
+        context = f'-O {shlex.quote(jsonify(context))}' if context else ''
+        pretty_print = '-P' if pretty else ''
 
-        return sp.run(f'{str(PUG_CLI_PATH.absolute())} {path_argument} {context_argument} < {shlex.quote(fp.name)}',
+        return sp.run(f'{str(PUG_CLI_PATH.absolute())} {pretty_print} {path} {context} < {shlex.quote(fp.name)}',
                       shell=True,
                       stdout=sp.PIPE,
                       cwd=filepath.parent if filepath else None,
