@@ -1,6 +1,6 @@
+from functools import partial
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from functools import partial
 
 from jinja2 import Environment
 from jinja2.ext import Extension
@@ -17,6 +17,7 @@ class PugPreprocessor(Extension):
 
     def preprocess(self, source, name, filename=None):
         """Render pug template."""
+        render = _render
         return render(source, filepath=Path(filename) if filename else None)
 
 
