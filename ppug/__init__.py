@@ -4,7 +4,7 @@
 
 __author__ = """Stephan Fitzpatrick"""
 __email__ = 'knowsuchagency@gmail.com'
-__version__ = '0.4.2'
+__version__ = '0.4.3'
 
 from ppug.ppug import render
 from ppug.ext.jinja2 import jinja2_renderer
