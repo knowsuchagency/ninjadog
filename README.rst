@@ -125,7 +125,7 @@ This will allow you to use jinja2 template syntax within pug templates.
 Installation
 ------------
 
-Please note that yarn must be installed for this package to work.
+Please note that npm must be installed for this package to work.
 
     pip install ppug
 
