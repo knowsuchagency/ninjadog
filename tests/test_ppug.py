@@ -6,6 +6,10 @@
 import pytest
 
 import ppug
+from ppug.scripts import install_pug_cli
+
+
+install_pug_cli.main()
 
 
 def test_node_installed():

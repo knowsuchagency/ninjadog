@@ -23,5 +23,3 @@ def main():
     with run(uninstallation_cmd), run(installation_cmd):
         print('beginning installation'); print()
     print(); print('finished installing pug-cli')
-
-    sys.exit(0)
