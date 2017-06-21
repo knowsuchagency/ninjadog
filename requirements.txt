@@ -1,3 +1,4 @@
+calmjs==2.1.0
 hupper==1.0
 Jinja2==2.9.6
 MarkupSafe==1.0

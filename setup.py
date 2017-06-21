@@ -24,6 +24,18 @@ test_requirements = [
     'pytest',
 ]
 
+package_json = {
+    'dependencies': {
+        'pug-cli': '^1.0.0-alpha6',
+    }
+}
+
+extras_calmjs = {
+    'node_modules': {
+        'pug': './bin/pug',
+    },
+}
+
 setup(
     name='ppug',
     version='0.4.4',
@@ -49,6 +61,7 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     setup_requires=setup_requirements,
+    package_json=package_json,
     entry_points={
         'console_scripts': ['install-pug-cli=ppug.scripts.install_pug_cli:main'],
     }
