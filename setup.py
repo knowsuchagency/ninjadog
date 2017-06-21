@@ -3,6 +3,8 @@
 
 """The setup script."""
 
+# TODO: refactor so as to use calm-js to install pug-cli for zappa
+
 from setuptools import setup, find_packages
 
 with open('README.rst') as readme_file:
