@@ -1,6 +1,6 @@
 {
   "name": "ppug",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "pug template support for python",
   "main": "index.js",
   "repository": "https://github.com/knowsuchagency/ppug",
