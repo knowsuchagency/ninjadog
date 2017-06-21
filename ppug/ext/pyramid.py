@@ -1,7 +1,6 @@
 from ppug.ext.jinja2 import jinja2_renderer
 from pyramid_jinja2 import *
 from pathlib import Path
-from pprint import pprint
 
 
 class PugTemplateRenderer(Jinja2TemplateRenderer):
@@ -13,7 +12,6 @@ class PugTemplateRenderer(Jinja2TemplateRenderer):
                              'as value: %s' % str(ex))
         template = self.template_loader()
         jinja2_string = template.render(system)
-        pprint(system)
         return jinja2_renderer(jinja2_string,
                                template_path=Path(template.filename),
                                context=system)

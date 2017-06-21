@@ -8,8 +8,6 @@ from tempfile import TemporaryDirectory
 from pathlib import Path
 
 
-
-
 class PugPreprocessor(Extension):
     """
     Renders pug template prior to jinja2 rendering
@@ -21,8 +19,8 @@ class PugPreprocessor(Extension):
 
 
 def jinja2_renderer(text: str,
-                    template_path: Path,
-                    context: dict=None,
+                    template_path: Path = None,
+                    context: dict = None,
                     ):
     """
     Render pug templates that extend from other pug templates
@@ -33,18 +31,23 @@ def jinja2_renderer(text: str,
     :param context: elements of the global context that are json-serializable
     :return: 
     """
+    # initialize jinja2 environment
+    env = Environment()
+    env.globals = context if context else {}
+
     # early return - template does not extend
     extends = EXTENSION_PATT.search(text)
     if not extends:
-        return render(text, template_path, context)
+        return env.from_string(render(text, template_path, context)).render()
+    elif not template_path:
+        msg = 'You must pass the path to the template being rendered since it extends from other templates'
+        raise ValueError(msg)
 
     with TemporaryDirectory() as tempdir:
 
         # first, render all the extensions in jinja2
         # and write them to the temporary directory
         extensions = get_extensions(template_path)
-        env = Environment()
-        env.globals = context
         for extension in extensions:
             with open(extension) as jinja2_template:
                 rendered_jinja = env.from_string(jinja2_template.read()).render()
@@ -56,8 +59,3 @@ def jinja2_renderer(text: str,
         # directory relative to the now-rendered pug templates
         extended_path = Path(tempdir, template_path.name)
         return render(text, extended_path, context)
-
-
-
-
-

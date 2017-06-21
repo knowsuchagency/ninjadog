@@ -8,7 +8,10 @@ import typing as T
 import shlex
 import json
 
-def render(text: str, template_path: Path = None, context: T.Any=None) -> str:
+from .constants import PUG_CLI_PATH
+
+
+def render(text: str, template_path: Path = None, context: T.Any = None) -> str:
     """
     Convert pug template to html.
 
@@ -20,7 +23,6 @@ def render(text: str, template_path: Path = None, context: T.Any=None) -> str:
     
     The context can either be a json string or a json-serializable object
     """
-    PUG_CLI_PATH = Path(__file__).parent.joinpath('node_modules/.bin/pug')
 
     with NamedTemporaryFile('w') as fp:
         fp.write(text)
@@ -32,7 +34,7 @@ def render(text: str, template_path: Path = None, context: T.Any=None) -> str:
         else:
             context_argument = ''
 
-        return sp.run(f'{str(PUG_CLI_PATH)} {path_argument} {context_argument} < {shlex.quote(fp.name)}',
+        return sp.run(f'{str(PUG_CLI_PATH.absolute())} {path_argument} {context_argument} < {shlex.quote(fp.name)}',
                       shell=True,
                       stdout=sp.PIPE,
                       cwd=template_path.parent if template_path else None,

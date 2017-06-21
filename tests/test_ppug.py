@@ -39,3 +39,7 @@ def test_conditional():
         h1 hello #{ person.name }
     """)
     assert ppug.render(string, context={'person': {'name': 'sam'}}) == '<h1>hello sam</h1>'
+
+def test_jinja2_renderer():
+    from ppug.ext.jinja2 import jinja2_renderer
+    assert jinja2_renderer('h1 hello {{ name }}', context={'name': 'fred'}) == '<h1>hello fred</h1>'

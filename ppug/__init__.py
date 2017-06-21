@@ -7,3 +7,4 @@ __email__ = 'knowsuchagency@gmail.com'
 __version__ = '0.2.0'
 
 from .ppug import render
+from .ext.jinja2 import jinja2_renderer
