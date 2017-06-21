@@ -128,6 +128,7 @@ Installation
 Please note that yarn must be installed for this package to work.
 
     pip install ppug
+
     install-pug-cli
 
 
