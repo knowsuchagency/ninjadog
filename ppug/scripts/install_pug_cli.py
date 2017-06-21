@@ -1,5 +1,6 @@
 import subprocess as sp
 import sys
+from os import environ
 from functools import partial
 from pathlib import Path
 
@@ -9,6 +10,10 @@ def main():
     package_base_dir = Path(__file__).parent.parent
     uninstallation_cmd = ('yarn', 'remove', 'pug-cli')
     installation_cmd = ('yarn', 'add', 'pug-cli')
+
+    # set package base directory as python path to (hopefully)
+    # avoid import errors
+    environ['PYTHONPATH'] = str(package_base_dir.absolute())
 
     run = partial(sp.Popen,
                   stdout=sys.stdout,

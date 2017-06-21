@@ -29,7 +29,7 @@ before_install:
 cache:
   yarn: true
 install:
-  - pip install -U tox-travis
+  - pip install -U tox-travis pytest
   - sudo apt-get install -y yarn
   - pip install .
   - export PYTHONPATH='.'
@@ -38,4 +38,5 @@ language: python
 python:
   - "3.6"
   - "3.5"
-script: tox
+#script: tox
+script: pytest -vv
