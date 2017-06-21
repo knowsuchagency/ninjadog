@@ -54,4 +54,7 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     setup_requires=setup_requirements,
+    entry_points={
+        'console_scripts': ['install-pug-cli=ppug.scripts.install_pug_cli:main'],
+    }
 )
