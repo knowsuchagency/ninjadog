@@ -7,6 +7,7 @@ include requirements.txt
 
 recursive-include tests *
 recursive-include node_modules *
+recursive-include ppug *
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
 
