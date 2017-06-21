@@ -23,7 +23,7 @@ deploy:
     tags: true
 install:
   - pip install -U tox-travis
-  - if [ $TRAVIS_OS_NAME = linux ]; then sudo apt-get install -y nodejs; else brew install bar; fi
+  - if [ $TRAVIS_OS_NAME = linux ]; then sudo apt-get install -y yarn; else brew install yarn; fi
 language: python
 python:
 - 3.6

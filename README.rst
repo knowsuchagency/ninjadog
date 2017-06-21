@@ -122,10 +122,13 @@ This will allow you to use jinja2 template syntax within pug templates.
     config.include('ppug.ext.pyramid')
 
 
-Notes
------
+Installation
+------------
 
-Please note that nodejs (and preferably yarn) must be installed for this package to work.
+Please note that yarn must be installed for this package to work.
+
+    pip install ppug
+    install-pug-cli
 
 
 Credits
