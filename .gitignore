@@ -191,4 +191,4 @@ crashlytics-build.properties
 fabric.properties
 
 # the public folder is where documentation will be rendered to
-public/
+public
