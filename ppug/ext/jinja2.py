@@ -12,13 +12,22 @@ from ppug.utils import get_extensions
 
 class PugPreprocessor(Extension):
     """
-    Renders pug template prior to jinja2 rendering
+    Jinja2 preprocessor that renders pug to html.
     """
 
     def preprocess(self, source, name, filename=None):
-        """Render pug template."""
-        render = _render
-        return render(source, filepath=Path(filename) if filename else None)
+        """
+        Render pug string to html.
+        
+        Args:
+            source: string to be rendered
+            name: the name of the template
+            filename: the filepath of the template
+
+        Returns: rendered html
+
+        """
+        return _render(source, filepath=Path(filename) if filename else None)
 
 
 def jinja2_renderer(string: str = '',
@@ -27,13 +36,22 @@ def jinja2_renderer(string: str = '',
                     pretty: bool = False,
                     ):
     """
-    Render pug templates that extend from other pug templates
-    that have jinja2 syntax
+    Renders pug and jinja2 syntax formatted string to html.
     
-    :param string: text of the original template
-    :param filepath: the path of the original template
-    :param context: elements of the global context that are json-serializable
-    :return: 
+    Jinja2 will be rendered first and can accept any Python
+    object as its context. 
+    
+    The pug-template engine will only receive json-serializable
+    data, however.
+    
+    Args:
+        string: the string to be rendered
+        filepath: the path to the template to be rendered
+        context: the data to be passed to the template engines
+        pretty: pretty html output
+
+    Returns: html string
+
     """
     # lock pretty-print argument
     render = partial(_render, pretty=pretty)

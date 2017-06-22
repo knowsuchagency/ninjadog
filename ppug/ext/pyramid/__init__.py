@@ -6,6 +6,13 @@ from ppug.ext.jinja2 import jinja2_renderer
 
 
 class PugTemplateRenderer(Jinja2TemplateRenderer):
+    """
+    Renders templates that have both pug and jinja2
+    syntax.
+    
+    Conforms to `IRenderer <http://docs.pylonsproject.org/projects/pyramid/en/latest/api/interfaces.html#pyramid.interfaces.IRenderer>`_
+    interface.
+    """
     def __call__(self, value, system):
         try:
             system.update(value)
@@ -20,6 +27,11 @@ class PugTemplateRenderer(Jinja2TemplateRenderer):
 
 
 class PugRendererFactory(object):
+    """
+    Renderer factory conforms to
+    `IRendererFactory <http://docs.pylonsproject.org/projects/pyramid/en/latest/api/interfaces.html#pyramid.interfaces.IRendererFactory>`_
+    interface.
+    """
     environment = None
 
     def __call__(self, info):

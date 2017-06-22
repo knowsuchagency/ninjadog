@@ -17,23 +17,16 @@ def render(string: str = '',
            pretty: bool = False,
            pug_cli_path: T.Union[Path, str] = PUG_CLI_PATH) -> str:
     """
-    Convert pug template to html.
-    
-    By default, the string argument is rendered to html.
-    
-    The filepath variable may also be passed to refer to a
-    pug template on the filesystem.
+    Render a pug template through the pug cli.
+    Args:
+        string: a string in pug syntax to be rendered
+        filepath: the path to a pug template
+        context: the data to be passed to the template
+        pretty: pretty html output
+        pug_cli_path: path to the pug cli
 
-    That argument is also necessary for instances where
-    the pug-cli needs to know the path to other templates
-    i.e. where a .pug template begins with the `extends` keyword.
-    
-    The context can either be a json string or a json-serializable object.
-    
-    If you want pretty-printed html output, set pretty to True.
-    
-    By default, the library will attempt to find the pug command itself,
-    But you may pass the path to the pug executable explicitly with pug_cli_path.
+    Returns: rendered html
+
     """
 
     # create Path object if filepath argument is given

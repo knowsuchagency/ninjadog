@@ -10,8 +10,13 @@ jsonify = partial(dumps, skipkeys=True, default=lambda _: '', ensure_ascii=False
 
 def get_extensions(file: T.Union[str, Path]) -> T.Sequence[Path]:
     """
-    Yield Path objects for pug templates that the pug
-    template extends from.
+    Yield successive filepaths of templates that the argument
+    either includes or extends from.
+    Args:
+        file: template file
+
+    Returns: iterator of paths
+
     """
     file = Path(file)
     parent_path = file.parent
