@@ -3,24 +3,14 @@
 
 """Tests for `ppug` package."""
 
-# TODO: fix tests so that they import from site-packages
-
 import pytest
 
-# make sure we're in temporary directory
-# so that we're sure to import ppug from
-# site-packages
-import os
-from tempfile import gettempdir
-os.chdir(gettempdir())
-os.environ['PWD'] = gettempdir()
-
 import ppug
+
 
 def test_npm_installed():
     from subprocess import run
     assert run(('which', 'npm')).returncode == 0, 'npm must be installed'
-
 
 
 def test_pug_cli_exists():

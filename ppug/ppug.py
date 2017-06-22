@@ -14,17 +14,26 @@ from ppug.utils import jsonify
 def render(string: str = '',
            filepath: T.Union[Path, str] = None,
            context: T.Any = None,
-           pretty: bool = False) -> str:
+           pretty: bool = False,
+           pug_cli_path: T.Union[Path, str] = PUG_CLI_PATH) -> str:
     """
     Convert pug template to html.
+    
+    By default, the string argument is rendered to html.
+    
+    The filepath variable may also be passed to refer to a
+    pug template on the filesystem.
 
-    A Path variable may be passed for instances where
+    That argument is also necessary for instances where
     the pug-cli needs to know the path to other templates
+    i.e. where a .pug template begins with the `extends` keyword.
     
-    i.e. where a .pug template begins with the `extends` keyword
-    .
+    The context can either be a json string or a json-serializable object.
     
-    The context can either be a json string or a json-serializable object
+    If you want pretty-printed html output, set pretty to True.
+    
+    By default, the library will attempt to find the pug command itself,
+    But you may pass the path to the pug executable explicitly with pug_cli_path.
     """
 
     # create Path object if filepath argument is given
@@ -42,11 +51,20 @@ def render(string: str = '',
         fp.write(string)
         fp.seek(0)
 
+        cmd = str(Path(pug_cli_path).absolute())
         path = f'-p {shlex.quote(str(filepath))}' if filepath else ''
-        context = f'-O {shlex.quote(jsonify(context))}' if context else ''
         pretty_print = '-P' if pretty else ''
 
-        return sp.run(f'{str(PUG_CLI_PATH.absolute())} {pretty_print} {path} {context} < {shlex.quote(fp.name)}',
+        if context is None:
+            context_arg = ''
+        elif isinstance(context, str):
+            context_arg = f'-O {shlex.quote(context)}'
+        else:
+            context_arg = f'-O {shlex.quote(jsonify(context))}'
+
+        input_file = shlex.quote(fp.name)
+
+        return sp.run(f'{cmd} {context_arg} {path} {pretty_print} < {input_file}',
                       shell=True,
                       stdout=sp.PIPE,
                       cwd=filepath.parent if filepath else None,
