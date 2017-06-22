@@ -26,7 +26,7 @@ before_install:
 install:
   - pip install -U pytest
   - npm install -g pug-cli
-  - pip install .
+  - python setup.py install
 language: python
 python:
   - "3.6"

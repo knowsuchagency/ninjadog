@@ -24,5 +24,3 @@ def get_extensions(file: T.Union[str, Path]) -> T.Sequence[Path]:
             path = Path(parent_path, found)
             yield path
             yield from get_extensions(path)
-        else:
-            return
