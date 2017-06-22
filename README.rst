@@ -23,6 +23,7 @@ ninjadog
 
 * Free software: MIT license
 * Documentation: http://journalpanic.com/ninjadog
+* GitHub: https://github.com/knowsuchagency/ninjadog
 
 
 
