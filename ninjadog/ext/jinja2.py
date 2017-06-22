@@ -5,9 +5,9 @@ from tempfile import TemporaryDirectory
 from jinja2 import Environment
 from jinja2.ext import Extension
 
-from ppug import render as _render
-from ppug.constants import EXTENSION_PATT
-from ppug.utils import get_extensions
+from ninjadog import render as _render
+from ninjadog.constants import EXTENSION_PATT
+from ninjadog.utils import get_extensions
 
 
 class PugPreprocessor(Extension):

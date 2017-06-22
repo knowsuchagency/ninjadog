@@ -2,7 +2,7 @@ from pathlib import Path
 
 from pyramid_jinja2 import *
 
-from ppug.ext.jinja2 import jinja2_renderer
+from ninjadog.ext.jinja2 import jinja2_renderer
 
 
 class PugTemplateRenderer(Jinja2TemplateRenderer):

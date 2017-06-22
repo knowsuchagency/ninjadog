@@ -1,20 +1,20 @@
 ====
-ppug
+ninjadog
 ====
 
 
-.. image:: https://img.shields.io/pypi/v/ppug.svg
-        :target: https://pypi.python.org/pypi/ppug
+.. image:: https://img.shields.io/pypi/v/ninjadog.svg
+        :target: https://pypi.python.org/pypi/ninjadog
 
-.. image:: https://img.shields.io/travis/knowsuchagency/ppug.svg
-        :target: https://travis-ci.org/knowsuchagency/ppug
+.. image:: https://img.shields.io/travis/knowsuchagency/ninjadog.svg
+        :target: https://travis-ci.org/knowsuchagency/ninjadog
 
-.. image:: https://readthedocs.org/projects/ppug/badge/?version=latest
-        :target: https://ppug.readthedocs.io/en/latest/?badge=latest
+.. image:: https://readthedocs.org/projects/ninjadog/badge/?version=latest
+        :target: https://ninjadog.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-.. image:: https://pyup.io/repos/github/knowsuchagency/ppug/shield.svg
-     :target: https://pyup.io/repos/github/knowsuchagency/ppug/
+.. image:: https://pyup.io/repos/github/knowsuchagency/ninjadog/shield.svg
+     :target: https://pyup.io/repos/github/knowsuchagency/ninjadog/
      :alt: Updates
 
 
@@ -22,7 +22,7 @@ ppug
 
 
 * Free software: MIT license
-* Documentation: https://ppug.readthedocs.io.
+* Documentation: https://ninjadog.readthedocs.io.
 
 
 
@@ -33,7 +33,7 @@ Installation
 
     brew install npm
     npm install -g pug-cli
-    pip install ppug
+    pip install ninjadog
 
 
 For use with Pyramid, just add it to the configuration
@@ -41,18 +41,18 @@ For use with Pyramid, just add it to the configuration
 .. code-block:: python
 
     config.include('pyramid_jinja2')
-    config.include('ppug.ext.pyramid')
+    config.include('ninjadog.ext.pyramid')
 
 
 What?
 -----
 
-ppug lets you render pug templates and combine them with jinja2
+ninjadog lets you render pug templates and combine them with jinja2
 syntax.
 
 .. code-block:: python
 
-    from ppug import jinja2_renderer
+    from ninjadog import jinja2_renderer
 
     def stop_believing():
         return False
@@ -106,7 +106,7 @@ lend themselves to fixes by mere-mortals like myself.
 It made more sense to me to use the existing nodejs implementation,
 and find a way to have it play nicely with Python.
 
-ppug does this by spawning the pug cli as a subprocess and communicating
+ninjadog does this by spawning the pug cli as a subprocess and communicating
 with it that way. Furthermore, if you want to use jinja2 template
 syntax with your pug templates, any pug template that extends from another
 will need to have that template rendered through jinja2 first, and since we
@@ -114,7 +114,7 @@ can't overwrite the original template, that means creating a temporary directory
 and copies of all the relevant templates in that directory to be rendered prior
 to passing it to the pug cli process.
 
-All of that is to say that ppug is rather slow, but I'm willing
+All of that is to say that ninjadog is rather slow, but I'm willing
 to accept pull-requests to make it faster or convenient caching
 mechanisms.
 

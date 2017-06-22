@@ -1,4 +1,4 @@
-* ppug version:
+* ninjadog version:
 * Python version:
 * Operating System:
 

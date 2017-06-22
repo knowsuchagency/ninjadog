@@ -1,4 +1,4 @@
-ppug: python + pug + jinj2 == ❤️
+ninjadog: pug + jinj2 == ❤️
 ================================
 
 .. include:: ../README.rst

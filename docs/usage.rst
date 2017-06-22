@@ -2,6 +2,6 @@
 Usage
 =====
 
-To use ppug in a project::
+To use ninjadog in a project::
 
-    import ppug
+    import ninjadog

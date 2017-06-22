@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-"""Unit test package for ppug."""
+"""Unit test package for ninjadog."""

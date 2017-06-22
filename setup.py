@@ -20,19 +20,19 @@ test_requirements = [
 ]
 
 setup(
-    name='ppug',
+    name='ninjadog',
     version='0.4.5',
     description="Pug template support in Python",
     long_description=readme,
     author="Stephan Fitzpatrick",
     author_email='knowsuchagency@gmail.com',
-    url='https://github.com/knowsuchagency/ppug',
-    packages=find_packages(include=['ppug']),
+    url='https://github.com/knowsuchagency/ninjadog',
+    packages=find_packages(include=['ninjadog']),
     include_package_data=True,
     install_requires=requirements,
     license="MIT license",
     zip_safe=False,
-    keywords='ppug',
+    keywords='ninjadog',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',

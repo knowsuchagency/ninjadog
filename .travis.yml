@@ -19,7 +19,7 @@ deploy:
       Mkd0V2ptNWV4ZnJCdTdTRTczVG9aS2JWUXZrT2liNUhKZFp0UWxicUxNVnliMXo5R2hrcExaUUE9
   true:
     python: 3.6
-    repo: knowsuchagency/ppug
+    repo: knowsuchagency/ninjadog
     tags: true
 install:
   - . $HOME/.nvm/nvm.sh
