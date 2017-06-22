@@ -66,6 +66,16 @@ coverage: ## check code coverage quickly with the default Python
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/ninjadog.rst
 	rm -f docs/modules.rst
+	echo "Deleting old publication"
+	rm -rf public
+	mkdir public
+	git worktree prune
+	rm -rf .git/worktrees/public/
+	echo "Checking out gh-pages branch into public"
+	git worktree add -B gh-pages public ninjadog/gh-pages
+	echo "Removing existing files"
+	rm -rf public/*
+	echo "Generating site"
 	sphinx-apidoc -o docs/ ninjadog
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
@@ -76,8 +86,13 @@ servedocs: docs ## compile the docs watching for changes
 	$(BROWSER) public/index.html
 
 publish-docs: docs ## compile docs and publish to github pages
+	cd public
+	git add .
+	git commit -m "Automatic commit"
+	cd ..
+	echo "Publishing to github pages"
 	git push ninjadog gh-pages
-	$(BROWSER) journalpanic.com/ninjadog
+	open http://journalpanic.com/ninjadog
 
 release: clean ## package and upload a release
 	python setup.py sdist upload
