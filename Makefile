@@ -69,7 +69,7 @@ docs: ## generate Sphinx HTML documentation, including API docs
 	sphinx-apidoc -o docs/ ninjadog
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
-	rm -rf public/*
+	rm -rf public
 	cp -R docs/_build/html/ public/
 	$(BROWSER) public/index.html
 
