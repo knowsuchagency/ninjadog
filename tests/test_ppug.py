@@ -5,15 +5,29 @@
 
 import pytest
 
+# make sure we're in temporary directory
+# so that we're sure to import ppug from
+# site-packages
+import os
+from tempfile import gettempdir
+os.chdir(gettempdir())
+os.environ['PWD'] = gettempdir()
+
 import ppug
 
-
-def test_node_installed():
+def test_npm_installed():
     from subprocess import run
-    assert run(('which', 'node')).returncode == 0, 'Node must be installed'
+    assert run(('which', 'npm')).returncode == 0, 'npm must be installed'
+
+
+
+def test_pug_cli_exists():
+    from ppug.constants import PUG_CLI_PATH
+    assert PUG_CLI_PATH.exists()
 
 
 def test_hello_world():
+    import ppug
     assert ppug.render('h1 hello world') == '<h1>hello world</h1>'
 
 

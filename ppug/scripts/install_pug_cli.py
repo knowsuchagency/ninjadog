@@ -3,10 +3,22 @@ import sys
 from functools import partial
 from pathlib import Path
 
+# make sure we're in temporary directory
+# so that we're sure to import ppug from
+# site-packages
+import os
+from tempfile import gettempdir
+os.chdir(gettempdir())
+
+import pkg_resources
+
+import ppug
+
 
 def main():
     """Use npm to install the pug-cli"""
-    package_basedir = Path(__file__).parent.parent
+    package_basedir = Path(ppug.__path__[0])
+
     print('installing node_modules in', package_basedir)
 
     run = partial(sp.Popen,
@@ -15,10 +27,8 @@ def main():
                   cwd=package_basedir,
                   )
 
-    if not Path(package_basedir, 'package.json').exists():
-        with run(('calmjs', 'npm', '--init', 'ppug')):
-            print('No package.json found. Creating it now.')
-
-    with run('npm install', shell=True):
+    # install pug-cli
+    with run('npm install -f', shell=True):
         print('beginning installation\n')
     print('\nfinished installing pug-cli')
+

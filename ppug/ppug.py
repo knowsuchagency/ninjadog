@@ -7,8 +7,8 @@ import typing as T
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
-from .constants import PUG_CLI_PATH
-from .utils import jsonify
+from ppug.constants import PUG_CLI_PATH
+from ppug.utils import jsonify
 
 
 def render(string: str = '',
