@@ -1,7 +1,6 @@
 ppug: python + pug + jinj2 == ❤️
 ================================
 
-.. include:: /.readme.rst
 
 .. toctree::
    :maxdepth: 2
@@ -10,7 +9,6 @@ ppug: python + pug + jinj2 == ❤️
    installation
    usage
    modules
-   contributing
    authors
 
 Indices and tables
