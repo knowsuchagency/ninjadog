@@ -91,21 +91,22 @@ This will render
 How?
 ----
 
-Jinja2 basically behaves as a preprocessor to the pug template
-engine and any data passed via the context argument that are able to be serialized
-into json will then be passed to the pug template engine for rendering as well.
+`Jinja2`_ basically behaves as a preprocessor to the pug template
+engine. All data passed as the context will be processed by `jinja2`_.
+Only that which can be serialized to json will be passed to the
+pug template engine.
 
 
 Why?
 ----
 
-I think pug templates are a very elegant and expressive way to write
+`Pug`_ templates are a very elegant and expressive way to write
 html. It makes something akin to an exercise in corporal mortification
 almost pleasant.
 
 There exists a project, `pyjade`_ and a less-popular fork, `pypugjs`_,
 that are pure-python implementations of the pug template engine,
-but they haven't been very well-maintained and and the bugs don't
+but they haven't been maintained as well as one might like and and the bugs don't
 lend themselves to fixes by mere-mortals like myself.
 
 It made more sense to me to use the existing nodejs implementation,
