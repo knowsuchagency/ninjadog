@@ -70,10 +70,14 @@ docs: ## generate Sphinx HTML documentation, including API docs
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	cp -R docs/_build/html/ public/
-	$(BROWSER) public/index.html
 
 servedocs: docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
+	$(BROWSER) public/index.html
+
+publish-docs: docs ## compile docs and publish to github pages
+	git push ninjadog gh-pages
+	$(BROWSER) journalpanic.com/ninjadog
 
 release: clean ## package and upload a release
 	python setup.py sdist upload
