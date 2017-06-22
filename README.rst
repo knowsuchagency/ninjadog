@@ -18,127 +18,108 @@ ppug
      :alt: Updates
 
 
-Pug template support in Python
+`Pug`_ template (formerly `jade`_) support in Python
 
 
 * Free software: MIT license
 * Documentation: https://ppug.readthedocs.io.
 
 
-Features
---------
-
-* Render `.pug templates <https://pugjs.org/api/getting-started.html>`_ (formerly `jade <https://naltatis.github.io/jade-syntax-docs/>`_)
-
-Usage
------
-
-You can use the render function to simply render a block of pug-formatted text to html
-
-.. code-block:: python
-
-    from ppug import render
-
-    string = 'h1 hello, world'
-
-    print(render(string)) # -> <h1>hello, world</h1>
-
-    # or if you have a template on the filesystem
-
-    render(filename='mytemplate.pug') # -> whatever is in your template
-
-    # if you have data that you want rendered within the template, pass it
-    # as the context
-
-    render('h1= title', context={'title': 'hello, pug'}) # -> <h1>hello, pug</h1>
-
-
-You can also have jinja2 and pug template syntax in the same template.
-
-They say a picture is worth a thousand words, so while the following isn't a picture
-it's a hopefully illuminating example taken straight from the test suite.
-
-Essentially, jinja2 will behave as a pre-processor the the pug template engine.
-Only those parts of the context that are json-serializable will be passed to it.
-
-Thus, in the following example, ``person.name`` works in the pug template because Python was able to serialize it into
-json and pass it to the pug template engine as a json object.
-
-Similarly, you could also have ``#{ person.name }``
-in the template, but not ``#{ Bob.age }``
-because it is not able to be serialized automatially into json
-and will never be passed to the pug template engine.
-
-.. code-block:: python
-
-    def test_jinja2_syntax_and_jade_syntax():
-        from textwrap import dedent
-
-        from ppug import jinja2_renderer
-
-        string = dedent("""
-        if person.name == "Bob"
-            h1 Hello Bob
-            h1 Bob's age is {{ Bob.age }}
-        else
-            h1 My name is #{ person.name }
-
-        p The persons's uppercase name is {{ person.get('name').upper() }}
-        p The person's name is #{ person.name }
-
-        if animal
-            h1 This should not output
-        else
-            p animal value is false
-        """).strip()
-
-        class Bob:
-            """This class is not itself json-serializable"""
-            age = 23
-
-        context = {'person': {'name': 'Bob'}, 'animal': None, 'Bob': Bob}
-
-        expected_output = dedent("""
-        <h1>Hello Bob</h1>
-        <h1>Bob's age is 23</h1>
-        <p>The persons's uppercase name is BOB</p>
-        <p>The person's name is Bob</p>
-        <p>animal value is false</p>
-        """).strip()
-
-        actual_output = jinja2_renderer(string, context=context, pretty=True).strip()
-
-        assert expected_output == actual_output
-
-To use pug templates with Pyramid, simply include them with your configuration
-after ``pyramid-jinja2``.
-
-This will allow you to use jinja2 template syntax within pug templates.
-
-.. code-block:: python
-
-    config = Configurator()
-    config.include('pyramid_jinja2')
-    config.include('ppug.ext.pyramid')
-
 
 Installation
 ------------
 
-Please note that npm must be installed for this package to work.
+::
 
     brew install npm
-
     npm install -g pug-cli
-
     pip install ppug
 
 
-Credits
----------
+For use with Pyramid, just add it to the configuration
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+.. code-block:: python
 
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+    config.include('pyramid_jinja2')
+    config.include('ppug.ext.pyramid')
 
+
+What?
+-----
+
+ppug lets you render pug templates and combine them with jinja2
+syntax.
+
+.. code-block:: python
+
+    from ppug import jinja2_renderer
+
+    def stop_believing():
+        return False
+
+    context = {
+        'stop_believing': stop_believing,
+        'happy': {
+            'birthday': 'today',
+        }
+    }
+
+    template_string = """
+    h1 hello, world
+    if happy.birthday == today
+        p it's time to celebrate!
+        p {{ 'never' if not stop_believing() }} stop believing
+    """
+
+    print(jinja2_renderer(template_string,
+                          context=context,
+                          pretty=True))
+
+This will render
+
+.. code-block:: html
+
+    <h1>hello, world</h1>
+    <p>it's time to celebrate!</p>
+    <p>never stop believing</p>
+
+How?
+----
+
+Jinja2 basically behaves as a preprocessor to the pug template
+engine and any data passed via the context argument that are able to be serialized
+into json will then be passed to the pug template engine for rendering as well.
+
+
+Why?
+----
+
+I think pug templates are a very elegant and expressive way to write
+html. It makes something akin to an exercise in corporal mortification
+almost pleasant.
+
+There exists a project, `pyjade`_ and a less-popular fork, `pypugjs`_,
+that are pure-python implementations of the pug template engine,
+but they haven't been very well-maintained and and the bugs don't
+lend themselves to fixes by mere-mortals like myself.
+
+It made more sense to me to use the existing nodejs implementation,
+and find a way to have it play nicely with Python.
+
+ppug does this by spawning the pug cli as a subprocess and communicating
+with it that way. Furthermore, if you want to use jinja2 template
+syntax with your pug templates, any pug template that extends from another
+will need to have that template rendered through jinja2 first, and since we
+can't overwrite the original template, that means creating a temporary directory
+and copies of all the relevant templates in that directory to be rendered prior
+to passing it to the pug cli process.
+
+All of that is to say that ppug is rather slow, but I'm willing
+to accept pull-requests to make it faster or convenient caching
+mechanisms.
+
+
+.. _pug: https://pugjs.org/api/getting-started.html
+.. _jade: https://naltatis.github.io/jade-syntax-docs/
+.. _pyjade: https://github.com/syrusakbary/pyjade
+.. _pypugjs: https://github.com/matannoam/pypugjs

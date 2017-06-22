@@ -1,18 +1,17 @@
 ppug: python + pug + jinj2 == ❤️
 ================================
 
+.. include:: ../README.rst
 
-.. toctree::
-   :maxdepth: 2
+API documentation
+-----------------
 
-   readme
-   installation
-   usage
-   modules
-   authors
+.. include:: modules.rst
+    :start-line: 2
+
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
