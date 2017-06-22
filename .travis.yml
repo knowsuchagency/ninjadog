@@ -21,9 +21,13 @@ deploy:
     python: 3.6
     repo: knowsuchagency/ppug
     tags: true
-install:
-  - pip install -U tox-travis, pytest
+before_install:
   - sudo apt-get install -y npm
+  - sudo npm cache clean -f
+  - sudo npm install -g n
+  - sudo n stable
+install:
+  - pip install -U pytest
   - npm install -g pug-cli
   - pip install .
 language: python
