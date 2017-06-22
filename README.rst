@@ -9,10 +9,6 @@ ninjadog
 .. image:: https://img.shields.io/travis/knowsuchagency/ninjadog.svg
         :target: https://travis-ci.org/knowsuchagency/ninjadog
 
-.. image:: https://readthedocs.org/projects/ninjadog/badge/?version=latest
-        :target: https://ninjadog.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
-
 .. image:: https://pyup.io/repos/github/knowsuchagency/ninjadog/shield.svg
      :target: https://pyup.io/repos/github/knowsuchagency/ninjadog/
      :alt: Updates
