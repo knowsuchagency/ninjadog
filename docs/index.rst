@@ -1,7 +1,7 @@
-Welcome to ppug's documentation!
-======================================
+ppug: python + pug + jinj2 == ❤️
+================================
 
-Contents:
+.. include:: /.readme.rst
 
 .. toctree::
    :maxdepth: 2
@@ -12,7 +12,6 @@ Contents:
    modules
    contributing
    authors
-   history
 
 Indices and tables
 ==================

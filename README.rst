@@ -128,7 +128,9 @@ Installation
 Please note that npm must be installed for this package to work.
 
     brew install npm
+
     npm install -g pug-cli
+
     pip install ppug
 
 
