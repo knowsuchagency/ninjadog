@@ -21,9 +21,11 @@ deploy:
     python: 3.6
     repo: knowsuchagency/ppug
     tags: true
-before_install:
-  - npm install -g npm@latest
 install:
+  - . $HOME/.nvm/nvm.sh
+  - nvm install stable
+  - nvm use stable
+  - npm install
   - pip install -U pytest
   - npm install -g pug-cli
   - python setup.py install
