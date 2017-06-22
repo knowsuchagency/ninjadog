@@ -1,6 +1,6 @@
-====
+========
 ninjadog
-====
+========
 
 
 .. image:: https://img.shields.io/pypi/v/ninjadog.svg
