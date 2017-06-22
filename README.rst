@@ -29,6 +29,8 @@ ninjadog
 Installation
 ------------
 
+ninjadog requires Python 3.6, node-js, npm, and the pug-cli library
+
 ::
 
     brew install npm
@@ -107,16 +109,9 @@ It made more sense to me to use the existing nodejs implementation,
 and find a way to have it play nicely with Python.
 
 ninjadog does this by spawning the pug cli as a subprocess and communicating
-with it that way. Furthermore, if you want to use jinja2 template
-syntax with your pug templates, any pug template that extends from another
-will need to have that template rendered through jinja2 first, and since we
-can't overwrite the original template, that means creating a temporary directory
-and copies of all the relevant templates in that directory to be rendered prior
-to passing it to the pug cli process.
-
-All of that is to say that ninjadog is rather slow, but I'm willing
-to accept pull-requests to make it faster or convenient caching
-mechanisms.
+with it that way. This means that it can't be as fast as a native template
+engine like `pyjade`_, but it will be more reliable as it's leveraging
+the popular and well-maintained nodejs implementation.
 
 
 .. _pug: https://pugjs.org/api/getting-started.html
