@@ -1,0 +1,157 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ninjadog.ext.pyramid package &#8212; ninjadog 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="ninjadog.ext package" href="ninjadog.ext.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ninjadog-ext-pyramid-package">
+<h1>ninjadog.ext.pyramid package<a class="headerlink" href="#ninjadog-ext-pyramid-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-ninjadog.ext.pyramid">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ninjadog.ext.pyramid" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="ninjadog.ext.pyramid.PugRendererFactory">
+<em class="property">class </em><code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">PugRendererFactory</code><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#PugRendererFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.PugRendererFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Renderer factory conforms to
+<a class="reference external" href="http://docs.pylonsproject.org/projects/pyramid/en/latest/api/interfaces.html#pyramid.interfaces.IRendererFactory">IRendererFactory</a>
+interface.</p>
+<dl class="attribute">
+<dt id="ninjadog.ext.pyramid.PugRendererFactory.environment">
+<code class="descname">environment</code><em class="property"> = None</em><a class="headerlink" href="#ninjadog.ext.pyramid.PugRendererFactory.environment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ninjadog.ext.pyramid.PugTemplateRenderer">
+<em class="property">class </em><code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">PugTemplateRenderer</code><span class="sig-paren">(</span><em>template_loader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#PugTemplateRenderer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.PugTemplateRenderer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pyramid_jinja2.Jinja2TemplateRenderer</span></code></p>
+<p>Renders templates that have both pug and jinja2
+syntax.</p>
+<p>Conforms to <a class="reference external" href="http://docs.pylonsproject.org/projects/pyramid/en/latest/api/interfaces.html#pyramid.interfaces.IRenderer">IRenderer</a>
+interface.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ninjadog.ext.pyramid.add_pug_renderer">
+<code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">add_pug_renderer</code><span class="sig-paren">(</span><em>config</em>, <em>name</em>, <em>settings_prefix=’jinja2.’</em>, <em>package=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#add_pug_renderer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.add_pug_renderer" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is added as a method of a <span class="xref std std-term">Configurator</span>, and
+should not be called directly.  Instead it should be called like so after
+<code class="docutils literal"><span class="pre">pyramid_jinja2</span></code> has been passed to <code class="docutils literal"><span class="pre">config.include</span></code>:
+.. code-block:: python</p>
+<blockquote>
+<div>config.add_jinja2_renderer(‘.html’, settings_prefix=’jinja2.’)</div></blockquote>
+<p>It will register a new renderer, loaded from settings at the specified
+<code class="docutils literal"><span class="pre">settings_prefix</span></code> prefix. This renderer will be active for files using
+the specified extension <code class="docutils literal"><span class="pre">name</span></code>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ninjadog.ext.pyramid.includeme">
+<code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">includeme</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#includeme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.includeme" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ninjadog.ext.pyramid package</a><ul>
+<li><a class="reference internal" href="#module-ninjadog.ext.pyramid">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="ninjadog.html">ninjadog package</a><ul>
+  <li><a href="ninjadog.ext.html">ninjadog.ext package</a><ul>
+      <li>Previous: <a href="ninjadog.ext.html" title="previous chapter">ninjadog.ext package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ninjadog.ext.pyramid.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Stephan Fitzpatrick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/ninjadog.ext.pyramid.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

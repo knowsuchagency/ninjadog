@@ -1,0 +1,185 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ninjadog.ext.pyramid &#8212; ninjadog 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ninjadog.ext.pyramid</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span> <span class="nn">pyramid_jinja2</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="kn">from</span> <span class="nn">ninjadog.ext.jinja2</span> <span class="k">import</span> <span class="n">jinja2_renderer</span>
+
+
+<div class="viewcode-block" id="PugTemplateRenderer"><a class="viewcode-back" href="../../../ninjadog.ext.pyramid.html#ninjadog.ext.pyramid.PugTemplateRenderer">[docs]</a><span class="k">class</span> <span class="nc">PugTemplateRenderer</span><span class="p">(</span><span class="n">Jinja2TemplateRenderer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Renders templates that have both pug and jinja2</span>
+<span class="sd">    syntax.</span>
+<span class="sd">    </span>
+<span class="sd">    Conforms to `IRenderer &lt;http://docs.pylonsproject.org/projects/pyramid/en/latest/api/interfaces.html#pyramid.interfaces.IRenderer&gt;`_</span>
+<span class="sd">    interface.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">system</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;renderer was passed non-dictionary &#39;</span>
+                             <span class="s1">&#39;as value: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_loader</span><span class="p">()</span>
+        <span class="n">jinja2_string</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">jinja2_renderer</span><span class="p">(</span><span class="n">jinja2_string</span><span class="p">,</span>
+                               <span class="n">filepath</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">filename</span><span class="p">),</span>
+                               <span class="n">context</span><span class="o">=</span><span class="n">system</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PugRendererFactory"><a class="viewcode-back" href="../../../ninjadog.ext.pyramid.html#ninjadog.ext.pyramid.PugRendererFactory">[docs]</a><span class="k">class</span> <span class="nc">PugRendererFactory</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Renderer factory conforms to</span>
+<span class="sd">    `IRendererFactory &lt;http://docs.pylonsproject.org/projects/pyramid/en/latest/api/interfaces.html#pyramid.interfaces.IRendererFactory&gt;`_</span>
+<span class="sd">    interface.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">environment</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
+        <span class="n">name</span><span class="p">,</span> <span class="n">package</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">package</span>
+
+        <span class="k">def</span> <span class="nf">template_loader</span><span class="p">():</span>
+            <span class="c1"># attempt to turn the name into a caller-relative asset spec</span>
+            <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name</span> <span class="ow">and</span> <span class="n">package</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">name_with_package</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">:</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">package</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">name_with_package</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">TemplateNotFound</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">PugTemplateRenderer</span><span class="p">(</span><span class="n">template_loader</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="add_pug_renderer"><a class="viewcode-back" href="../../../ninjadog.ext.pyramid.html#ninjadog.ext.pyramid.add_pug_renderer">[docs]</a><span class="k">def</span> <span class="nf">add_pug_renderer</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">settings_prefix</span><span class="o">=</span><span class="s1">&#39;jinja2.&#39;</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function is added as a method of a :term:`Configurator`, and</span>
+<span class="sd">    should not be called directly.  Instead it should be called like so after</span>
+<span class="sd">    ``pyramid_jinja2`` has been passed to ``config.include``:</span>
+<span class="sd">    .. code-block:: python</span>
+<span class="sd">       config.add_jinja2_renderer(&#39;.html&#39;, settings_prefix=&#39;jinja2.&#39;)</span>
+<span class="sd">    It will register a new renderer, loaded from settings at the specified</span>
+<span class="sd">    ``settings_prefix`` prefix. This renderer will be active for files using</span>
+<span class="sd">    the specified extension ``name``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">renderer_factory</span> <span class="o">=</span> <span class="n">PugRendererFactory</span><span class="p">()</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">add_renderer</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">renderer_factory</span><span class="p">)</span>
+
+    <span class="n">package</span> <span class="o">=</span> <span class="n">package</span> <span class="ow">or</span> <span class="n">config</span><span class="o">.</span><span class="n">package</span>
+    <span class="n">resolver</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">(</span><span class="n">package</span><span class="o">=</span><span class="n">package</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">register</span><span class="p">():</span>
+        <span class="n">registry</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">registry</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get_settings</span><span class="p">()</span>
+
+        <span class="n">loader_opts</span> <span class="o">=</span> <span class="n">parse_loader_options_from_settings</span><span class="p">(</span>
+            <span class="n">settings</span><span class="p">,</span>
+            <span class="n">settings_prefix</span><span class="p">,</span>
+            <span class="n">resolver</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">,</span>
+            <span class="n">package</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">env_opts</span> <span class="o">=</span> <span class="n">parse_env_options_from_settings</span><span class="p">(</span>
+            <span class="n">settings</span><span class="p">,</span>
+            <span class="n">settings_prefix</span><span class="p">,</span>
+            <span class="n">resolver</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">,</span>
+            <span class="n">package</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="n">create_environment_from_options</span><span class="p">(</span><span class="n">env_opts</span><span class="p">,</span> <span class="n">loader_opts</span><span class="p">)</span>
+        <span class="n">renderer_factory</span><span class="o">.</span><span class="n">environment</span> <span class="o">=</span> <span class="n">env</span>
+
+        <span class="n">registry</span><span class="o">.</span><span class="n">registerUtility</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">IJinja2Environment</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="n">config</span><span class="o">.</span><span class="n">action</span><span class="p">(</span>
+        <span class="p">(</span><span class="s1">&#39;pug-renderer&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">register</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">ENV_CONFIG_PHASE</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="includeme"><a class="viewcode-back" href="../../../ninjadog.ext.pyramid.html#ninjadog.ext.pyramid.includeme">[docs]</a><span class="k">def</span> <span class="nf">includeme</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span><span class="s1">&#39;add_pug_renderer&#39;</span><span class="p">,</span> <span class="n">add_pug_renderer</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">add_pug_renderer</span><span class="p">(</span><span class="s1">&#39;.pug&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Stephan Fitzpatrick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

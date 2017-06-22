@@ -1,0 +1,172 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ninjadog package &#8212; ninjadog 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ninjadog.ext package" href="ninjadog.ext.html" />
+    <link rel="prev" title="ninjadog: pug + jinj2 == ❤️" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ninjadog-package">
+<h1>ninjadog package<a class="headerlink" href="#ninjadog-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ninjadog.ext.html">ninjadog.ext package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ninjadog.ext.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ninjadog.ext.pyramid.html">ninjadog.ext.pyramid package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ninjadog.ext.pyramid.html#module-ninjadog.ext.pyramid">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ninjadog.ext.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ninjadog.ext.html#module-ninjadog.ext.jinja2">ninjadog.ext.jinja2 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ninjadog.ext.html#module-ninjadog.ext">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-ninjadog.constants">
+<span id="ninjadog-constants-module"></span><h2>ninjadog.constants module<a class="headerlink" href="#module-ninjadog.constants" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-ninjadog.ninjadog">
+<span id="ninjadog-ninjadog-module"></span><h2>ninjadog.ninjadog module<a class="headerlink" href="#module-ninjadog.ninjadog" title="Permalink to this headline">¶</a></h2>
+<p>Main module.</p>
+<dl class="function">
+<dt id="ninjadog.ninjadog.render">
+<code class="descclassname">ninjadog.ninjadog.</code><code class="descname">render</code><span class="sig-paren">(</span><em>string: str = ”</em>, <em>filepath: typing.Union[pathlib.Path</em>, <em>str] = None</em>, <em>context: typing.Any = None</em>, <em>pretty: bool = False</em>, <em>pug_cli_path: typing.Union[pathlib.Path</em>, <em>str] = PosixPath(‘/usr/local/bin/pug’)</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/ninjadog/ninjadog.html#render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ninjadog.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render a pug template through the pug cli.
+:param string: a string in pug syntax to be rendered
+:param filepath: the path to a pug template
+:param context: the data to be passed to the template
+:param pretty: pretty html output
+:param pug_cli_path: path to the pug cli</p>
+<p>Returns: rendered html</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ninjadog.utils">
+<span id="ninjadog-utils-module"></span><h2>ninjadog.utils module<a class="headerlink" href="#module-ninjadog.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="ninjadog.utils.get_extensions">
+<code class="descclassname">ninjadog.utils.</code><code class="descname">get_extensions</code><span class="sig-paren">(</span><em>file: typing.Union[str, pathlib.Path]</em><span class="sig-paren">)</span> &#x2192; typing.Sequence[pathlib.Path]<a class="reference internal" href="_modules/ninjadog/utils.html#get_extensions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.utils.get_extensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yield successive filepaths of templates that the argument
+either includes or extends from.
+:param file: template file</p>
+<p>Returns: iterator of paths</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ninjadog">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ninjadog" title="Permalink to this headline">¶</a></h2>
+<p>Top-level package for ninjadog.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ninjadog package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-ninjadog.constants">ninjadog.constants module</a></li>
+<li><a class="reference internal" href="#module-ninjadog.ninjadog">ninjadog.ninjadog module</a></li>
+<li><a class="reference internal" href="#module-ninjadog.utils">ninjadog.utils module</a></li>
+<li><a class="reference internal" href="#module-ninjadog">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">ninjadog: pug + jinj2 == ❤️</a></li>
+      <li>Next: <a href="ninjadog.ext.html" title="next chapter">ninjadog.ext package</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ninjadog.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Stephan Fitzpatrick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/ninjadog.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

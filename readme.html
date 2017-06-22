@@ -1,0 +1,197 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>readme &#8212; ninjadog 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="readme">
+<h1>readme<a class="headerlink" href="#readme" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ninjadog">
+<h2>ninjadog<a class="headerlink" href="#ninjadog" title="Permalink to this headline">¶</a></h2>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/ninjadog"><img alt="https://img.shields.io/pypi/v/ninjadog.svg" src="https://img.shields.io/pypi/v/ninjadog.svg" /></a>
+<a class="reference external image-reference" href="https://travis-ci.org/knowsuchagency/ninjadog"><img alt="https://img.shields.io/travis/knowsuchagency/ninjadog.svg" src="https://img.shields.io/travis/knowsuchagency/ninjadog.svg" /></a>
+<a class="reference external image-reference" href="https://ninjadog.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/ninjadog/badge/?version=latest" /></a>
+<a class="reference external image-reference" href="https://pyup.io/repos/github/knowsuchagency/ninjadog/"><img alt="Updates" src="https://pyup.io/repos/github/knowsuchagency/ninjadog/shield.svg" /></a>
+<p><a class="reference external" href="https://pugjs.org/api/getting-started.html">Pug</a> template (formerly <a class="reference external" href="https://naltatis.github.io/jade-syntax-docs/">jade</a>) support in Python</p>
+<ul class="simple">
+<li>Free software: MIT license</li>
+<li>Documentation: <a class="reference external" href="https://ninjadog.readthedocs.io">https://ninjadog.readthedocs.io</a>.</li>
+</ul>
+<div class="section" id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
+<p>ninjadog requires Python 3.6, node-js, npm, and the pug-cli library</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">npm</span>
+<span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">pug</span><span class="o">-</span><span class="n">cli</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">ninjadog</span>
+</pre></div>
+</div>
+<p>For use with Pyramid, just add it to the configuration</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;pyramid_jinja2&#39;</span><span class="p">)</span>
+<span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;ninjadog.ext.pyramid&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="what">
+<h3>What?<a class="headerlink" href="#what" title="Permalink to this headline">¶</a></h3>
+<p>ninjadog leverages the <a class="reference external" href="https://www.npmjs.com/package/pug-cli">pug-cli</a> library, written in nodejs, to render
+<a class="reference external" href="https://pugjs.org/api/getting-started.html">pug</a> templates in Python. In addition, you can utilize <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a> syntax
+within pug templates for even greater power!</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ninjadog</span> <span class="kn">import</span> <span class="n">jinja2_renderer</span>
+
+
+<span class="k">def</span> <span class="nf">stop_believing</span><span class="p">():</span>
+    <span class="k">return</span> <span class="bp">False</span>
+
+
+<span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;stop_believing&#39;</span><span class="p">:</span> <span class="n">stop_believing</span><span class="p">,</span>
+    <span class="s1">&#39;happy&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;birthday&#39;</span><span class="p">:</span> <span class="s1">&#39;today&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">template_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">h1 hello, world</span>
+<span class="s2">if happy.birthday == &#39;today&#39;</span>
+<span class="s2">    p it&#39;s time to celebrate!</span>
+<span class="s2">    p {{ &quot;Don&#39;t&quot; if not stop_believing() }} stop believing</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">jinja2_renderer</span><span class="p">(</span><span class="n">template_string</span><span class="p">,</span>
+                      <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+                      <span class="n">pretty</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>This will render</p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>hello, world<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>it&#39;s time to celebrate!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Don&#39;t stop believing<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how">
+<h3>How?<a class="headerlink" href="#how" title="Permalink to this headline">¶</a></h3>
+<p>Jinja2 basically behaves as a preprocessor to the pug template
+engine and any data passed via the context argument that are able to be serialized
+into json will then be passed to the pug template engine for rendering as well.</p>
+</div>
+<div class="section" id="why">
+<h3>Why?<a class="headerlink" href="#why" title="Permalink to this headline">¶</a></h3>
+<p>I think pug templates are a very elegant and expressive way to write
+html. It makes something akin to an exercise in corporal mortification
+almost pleasant.</p>
+<p>There exists a project, <a class="reference external" href="https://github.com/syrusakbary/pyjade">pyjade</a> and a less-popular fork, <a class="reference external" href="https://github.com/matannoam/pypugjs">pypugjs</a>,
+that are pure-python implementations of the pug template engine,
+but they haven’t been very well-maintained and and the bugs don’t
+lend themselves to fixes by mere-mortals like myself.</p>
+<p>It made more sense to me to use the existing nodejs implementation,
+and find a way to have it play nicely with Python.</p>
+<p>ninjadog does this by spawning the <a class="reference external" href="https://www.npmjs.com/package/pug-cli">pug cli</a> as a subprocess.
+This means that it can’t be as fast as a native template engine
+like <a class="reference external" href="https://github.com/syrusakbary/pyjade">pyjade</a>, but it will be more reliable as it’s leveraging
+the popular and well-maintained nodejs implementation.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">readme</a><ul>
+<li><a class="reference internal" href="#ninjadog">ninjadog</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#what">What?</a></li>
+<li><a class="reference internal" href="#how">How?</a></li>
+<li><a class="reference internal" href="#why">Why?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/readme.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Stephan Fitzpatrick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/readme.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
