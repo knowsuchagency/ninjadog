@@ -192,3 +192,6 @@ fabric.properties
 
 # the public folder is where documentation will be rendered to
 public
+
+# mypy
+.mypy_cache

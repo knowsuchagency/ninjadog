@@ -15,7 +15,7 @@ def render(string: str = '',
            filepath: T.Union[Path, str] = None,
            context: T.Any = None,
            pretty: bool = False,
-           pug_cli_path: T.Union[Path, str] = PUG_CLI_PATH) -> str:
+           pug_cli_path: T.Union[Path, str] = None) -> str:
     """
     Render a pug template through the pug cli.
     Args:
@@ -28,6 +28,14 @@ def render(string: str = '',
     Returns: rendered html
 
     """
+
+    if pug_cli_path is None and PUG_CLI_PATH is None:
+        msg = "the pug command was not found. Did you install it?\n" \
+              "brew install npm\n" \
+              "npm install -g pug-cli"
+        raise ValueError(msg)
+    elif pug_cli_path is None:
+        pug_cli_path = PUG_CLI_PATH
 
     # create Path object if filepath argument is given
     # Path() is idempotent so this shouldn't make any difference
@@ -44,7 +52,7 @@ def render(string: str = '',
         fp.write(string)
         fp.seek(0)
 
-        cmd = str(Path(pug_cli_path).absolute())
+        cmd = shlex.quote(str((Path(pug_cli_path).absolute())))
         path = f'-p {shlex.quote(str(filepath))}' if filepath else ''
         pretty_print = '-P' if pretty else ''
 

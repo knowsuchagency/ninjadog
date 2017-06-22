@@ -3,6 +3,8 @@
 
 """Tests for `ninjadog` package."""
 
+# TODO: test raises ValueError when pug cli can't be found and not passed explicitly to renderer
+
 import pytest
 
 import ninjadog

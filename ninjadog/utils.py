@@ -8,7 +8,7 @@ from .constants import EXTENSION_PATT
 jsonify = partial(dumps, skipkeys=True, default=lambda _: '', ensure_ascii=False)
 
 
-def get_extensions(file: T.Union[str, Path]) -> T.Sequence[Path]:
+def get_extensions(file: T.Union[str, Path]) -> T.Iterator[Path]:
     """
     Yield successive filepaths of templates that the argument
     either includes or extends from.
