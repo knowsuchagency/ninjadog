@@ -88,7 +88,7 @@ publish-docs: docs ## compile docs and publish to github pages
 	git commit -m "Automatic commit"
 	cd ..
 	git push ninjadog gh-pages
-	open http://journalpanic.com/ninjadog
+	echo "Successfully published to github pages"
 
 release: clean ## package and upload a release
 	python setup.py sdist upload
