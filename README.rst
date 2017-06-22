@@ -22,7 +22,7 @@ ninjadog
 
 
 * Free software: MIT license
-* Documentation: https://ninjadog.readthedocs.io.
+* Documentation: http://journalpanic.com/ninjadog
 
 
 
@@ -94,7 +94,7 @@ How?
 `Jinja2`_ basically behaves as a preprocessor to the pug template
 engine. All data passed as the context will be processed by `jinja2`_.
 Only that which can be serialized to json will be passed to the
-pug template engine.
+`pug cli`_.
 
 
 Why?
@@ -106,8 +106,7 @@ almost pleasant.
 
 There exists a project, `pyjade`_ and a less-popular fork, `pypugjs`_,
 that are pure-python implementations of the pug template engine,
-but they haven't been maintained as well as one might like and and the bugs don't
-lend themselves to fixes by mere-mortals like myself.
+but they have some bugs and the maintenance is a bit lacking IMO.
 
 It made more sense to me to use the existing nodejs implementation,
 and find a way to have it play nicely with Python.
