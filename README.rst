@@ -49,8 +49,9 @@ For use with Pyramid, just add it to the configuration
 What?
 -----
 
-ninjadog lets you render pug templates and combine them with jinja2
-syntax.
+ninjadog leverages the `pug-cli`_ library, written in nodejs, to render
+`pug`_ templates in Python. In addition, you can utilize `jinja2`_ syntax
+within pug templates for even greater power!
 
 .. code-block:: python
 
@@ -118,3 +119,5 @@ the popular and well-maintained nodejs implementation.
 .. _jade: https://naltatis.github.io/jade-syntax-docs/
 .. _pyjade: https://github.com/syrusakbary/pyjade
 .. _pypugjs: https://github.com/matannoam/pypugjs
+.. _pug-cli: https://www.npmjs.com/package/pug-cli
+.. _jinja2: http://jinja.pocoo.org/
