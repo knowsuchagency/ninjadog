@@ -3,6 +3,8 @@
 
 """Tests for `ppug` package."""
 
+# TODO: fix tests so that they import from site-packages
+
 import pytest
 
 # make sure we're in temporary directory
