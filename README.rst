@@ -57,8 +57,10 @@ within pug templates for even greater power!
 
     from ninjadog import jinja2_renderer
 
+
     def stop_believing():
         return False
+
 
     context = {
         'stop_believing': stop_believing,
@@ -69,9 +71,9 @@ within pug templates for even greater power!
 
     template_string = """
     h1 hello, world
-    if happy.birthday == today
+    if happy.birthday == 'today'
         p it's time to celebrate!
-        p {{ 'never' if not stop_believing() }} stop believing
+        p {{ "Don't" if not stop_believing() }} stop believing
     """
 
     print(jinja2_renderer(template_string,
@@ -84,7 +86,7 @@ This will render
 
     <h1>hello, world</h1>
     <p>it's time to celebrate!</p>
-    <p>never stop believing</p>
+    <p>Don't stop believing</p>
 
 How?
 ----
@@ -109,9 +111,9 @@ lend themselves to fixes by mere-mortals like myself.
 It made more sense to me to use the existing nodejs implementation,
 and find a way to have it play nicely with Python.
 
-ninjadog does this by spawning the pug cli as a subprocess and communicating
-with it that way. This means that it can't be as fast as a native template
-engine like `pyjade`_, but it will be more reliable as it's leveraging
+ninjadog does this by spawning the `pug cli`_ as a subprocess.
+This means that it can't be as fast as a native template engine
+like `pyjade`_, but it will be more reliable as it's leveraging
 the popular and well-maintained nodejs implementation.
 
 
@@ -120,4 +122,5 @@ the popular and well-maintained nodejs implementation.
 .. _pyjade: https://github.com/syrusakbary/pyjade
 .. _pypugjs: https://github.com/matannoam/pypugjs
 .. _pug-cli: https://www.npmjs.com/package/pug-cli
+.. _pug cli: https://www.npmjs.com/package/pug-cli
 .. _jinja2: http://jinja.pocoo.org/
