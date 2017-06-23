@@ -95,6 +95,8 @@ publish-docs: ## compile docs and publish to github pages
 	cd public
 	git add --all
 	git commit -m "Publishing to gh-pages (Makefile)"
+	git push ninjadog gh-pages
+
 
 release: clean publish-docs ## package and upload a release
 	python setup.py sdist upload
