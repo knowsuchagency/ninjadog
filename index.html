@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog: pug + jinj2 == ❤️ &#8212; ninjadog 0.1.2 documentation</title>
+    <title>ninjadog: pug + jinj2 == ❤️ &#8212; ninjadog 0.1.3 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2',
+        VERSION:     '0.1.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -75,6 +75,63 @@
 <p>ninjadog leverages the <a class="reference external" href="https://www.npmjs.com/package/pug-cli">pug-cli</a> library, written in nodejs, to render
 <a class="reference external" href="https://pugjs.org/api/getting-started.html">pug</a> templates in Python. In addition, you can utilize <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a> syntax
 within pug templates for even greater power!</p>
+<p>It allows you to take something like this</p>
+<div class="highlight-pug"><div class="highlight"><pre><span></span>html
+    head
+        title my jade template
+    body
+        #content
+            h1 Hello #{name}
+            .block
+                input#bar.foo1.foo2
+                input(type=&quot;text&quot;, placeholder=&quot;your name&quot;)
+                if name == &quot;Bob&quot;
+                    h2 Hello Bob
+                ul
+                    for book in books
+                        li= book
+                    else
+                        li sorry, no books
+</pre></div>
+</div>
+<p>Sprinkle some Python over it</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ninjadog</span> <span class="kn">import</span> <span class="n">render</span>
+
+<span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob&#39;</span><span class="p">,</span>
+<span class="s1">&#39;books&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;coloring book&#39;</span><span class="p">,</span> <span class="s1">&#39;audio book&#39;</span><span class="p">,</span> <span class="s2">&quot;O&#39;Reilly book&quot;</span><span class="p">],</span>
+<span class="nb">type</span><span class="p">:</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">render</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="nb">file</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>to render this</p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>my jade template<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;content&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hello Bob<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;block&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;foo1 foo2&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;bar&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;your name&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Hello Bob<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>coloring book<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>audio book<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>O&#39;Reilly book<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>You can even combine jinja2 and pug syntax for unparalleled
+template-rendering power.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ninjadog</span> <span class="kn">import</span> <span class="n">jinja2_renderer</span>
 
 
@@ -101,7 +158,6 @@ within pug templates for even greater power!</p>
                       <span class="n">pretty</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>This will render</p>
 <div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>hello, world<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>it&#39;s time to celebrate!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Don&#39;t stop believing<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
@@ -117,9 +173,8 @@ Only that which can be serialized to json will be passed to the
 </div>
 <div class="section" id="why">
 <h3>Why?<a class="headerlink" href="#why" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://pugjs.org/api/getting-started.html">Pug</a> templates are a very elegant and expressive way to write
-html. It makes something akin to an exercise in corporal mortification
-almost pleasant.</p>
+<p><a class="reference external" href="https://pugjs.org/api/getting-started.html">Pug</a> templates are a super elegant and expressive way to write
+html, IMO.</p>
 <p>There exists a project, <a class="reference external" href="https://github.com/syrusakbary/pyjade">pyjade</a> and a less-popular fork, <a class="reference external" href="https://github.com/matannoam/pypugjs">pypugjs</a>,
 that are pure-python implementations of the pug template engine,
 but they have some bugs and the maintenance is a bit lacking IMO.</p>
