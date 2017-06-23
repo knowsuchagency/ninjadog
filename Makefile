@@ -94,7 +94,7 @@ publish-docs: ## compile docs and publish to github pages
 	git push ninjadog gh-pages
 
 
-release: clean publish-docs ## package and upload a release
+release: test clean publish-docs ## package and upload a release
 	python setup.py sdist upload
 	python setup.py bdist_wheel upload
 
