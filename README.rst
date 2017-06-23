@@ -35,7 +35,7 @@ ninjadog requires Python 3.6, node-js, npm, and the pug-cli library
     pip install ninjadog
 
 
-For use with Pyramid, just add it to the configuration
+For use with Pyramid, just add it to the configuration (after pyramid_jinja2)
 
 .. code-block:: python
 
@@ -72,7 +72,7 @@ It allows you to take something like this
                             li sorry, no books
 
 
-Sprinkle some Python over it
+and sprinkle some Python over it
 
 .. code-block:: python
 
@@ -113,7 +113,7 @@ to render this
     </html>
 
 
-You can even combine jinja2 and pug syntax for unparalleled
+You can even combine jinja2 syntax for unparalleled
 template-rendering power.
 
 .. code-block:: python
