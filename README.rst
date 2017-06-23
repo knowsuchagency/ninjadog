@@ -47,8 +47,7 @@ What?
 -----
 
 ninjadog leverages the `pug-cli`_ library, written in nodejs, to render
-`pug`_ templates in Python. In addition, you can utilize `jinja2`_ syntax
-within pug templates for even greater power!
+`pug`_ templates in Python.
 
 It allows you to take something like this
 
