@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog.ext package &#8212; ninjadog 0.1.0 documentation</title>
+    <title>ninjadog.ext package &#8212; ninjadog 0.1.2 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.0',
+        VERSION:     '0.1.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -95,7 +95,7 @@
 
 <dl class="function">
 <dt id="ninjadog.ext.jinja2.jinja2_renderer">
-<code class="descclassname">ninjadog.ext.jinja2.</code><code class="descname">jinja2_renderer</code><span class="sig-paren">(</span><em>string: str = ”</em>, <em>filepath: pathlib.Path = None</em>, <em>context: dict = None</em>, <em>pretty: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/ext/jinja2.html#jinja2_renderer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.jinja2.jinja2_renderer" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ninjadog.ext.jinja2.</code><code class="descname">jinja2_renderer</code><span class="sig-paren">(</span><em>string: str = ”</em>, <em>filepath: pathlib.Path = None</em>, <em>context: dict = None</em>, <em>pretty: bool = False</em>, <em>pug_cli_path: typing.Union[pathlib.Path</em>, <em>str] = None</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/ninjadog/ext/jinja2.html#jinja2_renderer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.jinja2.jinja2_renderer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renders pug and jinja2 syntax formatted string to html.</p>
 <p>Jinja2 will be rendered first and can accept any Python
 object as its context.</p>
@@ -110,6 +110,7 @@ data, however.</p>
 <li><strong>filepath</strong> – the path to the template to be rendered</li>
 <li><strong>context</strong> – the data to be passed to the template engines</li>
 <li><strong>pretty</strong> – pretty html output</li>
+<li><strong>pug_cli_path</strong> – Path to the pug cli</li>
 </ul>
 </td>
 </tr>

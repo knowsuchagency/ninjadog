@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog package &#8212; ninjadog 0.1.0 documentation</title>
+    <title>ninjadog package &#8212; ninjadog 0.1.2 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.0',
+        VERSION:     '0.1.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -76,7 +76,7 @@
 <p>Main module.</p>
 <dl class="function">
 <dt id="ninjadog.ninjadog.render">
-<code class="descclassname">ninjadog.ninjadog.</code><code class="descname">render</code><span class="sig-paren">(</span><em>string: str = ”</em>, <em>filepath: typing.Union[pathlib.Path</em>, <em>str] = None</em>, <em>context: typing.Any = None</em>, <em>pretty: bool = False</em>, <em>pug_cli_path: typing.Union[pathlib.Path</em>, <em>str] = PosixPath(‘/usr/local/bin/pug’)</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/ninjadog/ninjadog.html#render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ninjadog.render" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ninjadog.ninjadog.</code><code class="descname">render</code><span class="sig-paren">(</span><em>string: str = ”</em>, <em>filepath: typing.Union[pathlib.Path</em>, <em>str] = None</em>, <em>context: typing.Any = None</em>, <em>pretty: bool = False</em>, <em>pug_cli_path: typing.Union[pathlib.Path</em>, <em>str] = None</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/ninjadog/ninjadog.html#render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ninjadog.render" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render a pug template through the pug cli.
 :param string: a string in pug syntax to be rendered
 :param filepath: the path to a pug template
@@ -91,7 +91,7 @@
 <span id="ninjadog-utils-module"></span><h2>ninjadog.utils module<a class="headerlink" href="#module-ninjadog.utils" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="ninjadog.utils.get_extensions">
-<code class="descclassname">ninjadog.utils.</code><code class="descname">get_extensions</code><span class="sig-paren">(</span><em>file: typing.Union[str, pathlib.Path]</em><span class="sig-paren">)</span> &#x2192; typing.Sequence[pathlib.Path]<a class="reference internal" href="_modules/ninjadog/utils.html#get_extensions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.utils.get_extensions" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ninjadog.utils.</code><code class="descname">get_extensions</code><span class="sig-paren">(</span><em>file: typing.Union[str, pathlib.Path]</em><span class="sig-paren">)</span> &#x2192; typing.Iterator[pathlib.Path]<a class="reference internal" href="_modules/ninjadog/utils.html#get_extensions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.utils.get_extensions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Yield successive filepaths of templates that the argument
 either includes or extends from.
 :param file: template file</p>

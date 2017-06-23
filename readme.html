@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>readme &#8212; ninjadog 0.1.0 documentation</title>
+    <title>readme &#8212; ninjadog 0.1.2 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.0',
+        VERSION:     '0.1.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -47,12 +47,12 @@
 <h2>ninjadog<a class="headerlink" href="#ninjadog" title="Permalink to this headline">¶</a></h2>
 <a class="reference external image-reference" href="https://pypi.python.org/pypi/ninjadog"><img alt="https://img.shields.io/pypi/v/ninjadog.svg" src="https://img.shields.io/pypi/v/ninjadog.svg" /></a>
 <a class="reference external image-reference" href="https://travis-ci.org/knowsuchagency/ninjadog"><img alt="https://img.shields.io/travis/knowsuchagency/ninjadog.svg" src="https://img.shields.io/travis/knowsuchagency/ninjadog.svg" /></a>
-<a class="reference external image-reference" href="https://ninjadog.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/ninjadog/badge/?version=latest" /></a>
 <a class="reference external image-reference" href="https://pyup.io/repos/github/knowsuchagency/ninjadog/"><img alt="Updates" src="https://pyup.io/repos/github/knowsuchagency/ninjadog/shield.svg" /></a>
 <p><a class="reference external" href="https://pugjs.org/api/getting-started.html">Pug</a> template (formerly <a class="reference external" href="https://naltatis.github.io/jade-syntax-docs/">jade</a>) support in Python</p>
 <ul class="simple">
 <li>Free software: MIT license</li>
-<li>Documentation: <a class="reference external" href="https://ninjadog.readthedocs.io">https://ninjadog.readthedocs.io</a>.</li>
+<li>Documentation: <a class="reference external" href="http://journalpanic.com/ninjadog">http://journalpanic.com/ninjadog</a></li>
+<li>GitHub: <a class="reference external" href="https://github.com/knowsuchagency/ninjadog">https://github.com/knowsuchagency/ninjadog</a></li>
 </ul>
 <div class="section" id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
@@ -108,19 +108,19 @@ within pug templates for even greater power!</p>
 </div>
 <div class="section" id="how">
 <h3>How?<a class="headerlink" href="#how" title="Permalink to this headline">¶</a></h3>
-<p>Jinja2 basically behaves as a preprocessor to the pug template
-engine and any data passed via the context argument that are able to be serialized
-into json will then be passed to the pug template engine for rendering as well.</p>
+<p><a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a> basically behaves as a preprocessor to the pug template
+engine. All data passed as the context will be processed by <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a>.
+Only that which can be serialized to json will be passed to the
+<a class="reference external" href="https://www.npmjs.com/package/pug-cli">pug cli</a>.</p>
 </div>
 <div class="section" id="why">
 <h3>Why?<a class="headerlink" href="#why" title="Permalink to this headline">¶</a></h3>
-<p>I think pug templates are a very elegant and expressive way to write
+<p><a class="reference external" href="https://pugjs.org/api/getting-started.html">Pug</a> templates are a very elegant and expressive way to write
 html. It makes something akin to an exercise in corporal mortification
 almost pleasant.</p>
 <p>There exists a project, <a class="reference external" href="https://github.com/syrusakbary/pyjade">pyjade</a> and a less-popular fork, <a class="reference external" href="https://github.com/matannoam/pypugjs">pypugjs</a>,
 that are pure-python implementations of the pug template engine,
-but they haven’t been very well-maintained and and the bugs don’t
-lend themselves to fixes by mere-mortals like myself.</p>
+but they have some bugs and the maintenance is a bit lacking IMO.</p>
 <p>It made more sense to me to use the existing nodejs implementation,
 and find a way to have it play nicely with Python.</p>
 <p>ninjadog does this by spawning the <a class="reference external" href="https://www.npmjs.com/package/pug-cli">pug cli</a> as a subprocess.
