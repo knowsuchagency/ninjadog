@@ -75,7 +75,7 @@
 <p>It allows you to take something like this</p>
 <div class="highlight-pug"><div class="highlight"><pre><span></span>html
     head
-        title my jade template
+        title my pug template
     body
         #content
             h1 Hello #{name}
@@ -97,7 +97,7 @@
 <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
 <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob&#39;</span><span class="p">,</span>
 <span class="s1">&#39;books&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;coloring book&#39;</span><span class="p">,</span> <span class="s1">&#39;audio book&#39;</span><span class="p">,</span> <span class="s2">&quot;O&#39;Reilly book&quot;</span><span class="p">],</span>
-<span class="nb">type</span><span class="p">:</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
+<span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">render</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="nb">file</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
@@ -107,7 +107,7 @@
 <div class="highlight-html"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>my jade template<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>my pug template<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
   <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;content&quot;</span><span class="p">&gt;</span>
