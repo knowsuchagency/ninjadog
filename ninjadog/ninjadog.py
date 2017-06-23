@@ -18,6 +18,7 @@ def render(string: str = '',
            pug_cli_path: T.Union[Path, str] = None) -> str:
     """
     Render a pug template through the pug cli.
+    
     Args:
         string: a string in pug syntax to be rendered
         filepath: the path to a pug template
