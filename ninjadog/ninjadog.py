@@ -46,7 +46,11 @@ def render(string: str = '',
     # return render of string
     if filepath and not string:
         with open(filepath) as fp:
-            return render(fp.read(), filepath)
+            return render(fp.read(),
+                          filepath,
+                          context=context,
+                          pretty=pretty,
+                          pug_cli_path=pug_cli_path)
 
     with NamedTemporaryFile('w') as fp:
         fp.write(string)

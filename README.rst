@@ -50,7 +50,74 @@ ninjadog leverages the `pug-cli`_ library, written in nodejs, to render
 `pug`_ templates in Python. In addition, you can utilize `jinja2`_ syntax
 within pug templates for even greater power!
 
+It allows you to take something like this
+
+.. code-block:: pug
+
+    html
+        head
+            title my jade template
+        body
+            #content
+                h1 Hello #{name}
+                .block
+                    input#bar.foo1.foo2
+                    input(type="text", placeholder="your name")
+                    if name == "Bob"
+                        h2 Hello Bob
+                    ul
+                        for book in books
+                            li= book
+                        else
+                            li sorry, no books
+
+
+Sprinkle some Python over it
+
 .. code-block:: python
+
+    from ninjadog import render
+
+    context = {
+    'name': 'Bob',
+    'books': ['coloring book', 'audio book', "O'Reilly book"],
+    type: 'text',
+    }
+
+    print(render(filepath=file, context=context, pretty=True))
+
+to render this
+
+.. code-block:: html
+
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>my jade template</title>
+      </head>
+      <body>
+        <div id="content">
+          <h1>Hello Bob</h1>
+          <div class="block">
+            <input class="foo1 foo2" id="bar">
+            <input type="text" placeholder="your name">
+            <h2>Hello Bob</h2>
+            <ul>
+              <li>coloring book</li>
+              <li>audio book</li>
+              <li>O'Reilly book</li>
+            </ul>
+          </div>
+        </div>
+      </body>
+    </html>
+
+
+You can even combine jinja2 and pug syntax for unparalleled
+template-rendering power.
+
+.. code-block:: python
+
 
     from ninjadog import jinja2_renderer
 
@@ -77,7 +144,6 @@ within pug templates for even greater power!
                           context=context,
                           pretty=True))
 
-This will render
 
 .. code-block:: html
 
@@ -97,9 +163,8 @@ Only that which can be serialized to json will be passed to the
 Why?
 ----
 
-`Pug`_ templates are a very elegant and expressive way to write
-html. It makes something akin to an exercise in corporal mortification
-almost pleasant.
+`Pug`_ templates are a super elegant and expressive way to write
+html, IMO.
 
 There exists a project, `pyjade`_ and a less-popular fork, `pypugjs`_,
 that are pure-python implementations of the pug template engine,
