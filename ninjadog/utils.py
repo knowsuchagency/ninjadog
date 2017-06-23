@@ -12,6 +12,7 @@ def get_extensions(file: T.Union[str, Path]) -> T.Iterator[Path]:
     """
     Yield successive filepaths of templates that the argument
     either includes or extends from.
+    
     Args:
         file: template file
 
