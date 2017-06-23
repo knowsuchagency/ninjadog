@@ -64,7 +64,7 @@
 <span class="n">pip</span> <span class="n">install</span> <span class="n">ninjadog</span>
 </pre></div>
 </div>
-<p>For use with Pyramid, just add it to the configuration</p>
+<p>For use with Pyramid, just add it to the configuration (after pyramid_jinja2)</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;pyramid_jinja2&#39;</span><span class="p">)</span>
 <span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;ninjadog.ext.pyramid&#39;</span><span class="p">)</span>
 </pre></div>
@@ -130,7 +130,7 @@ within pug templates for even greater power!</p>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<p>You can even combine jinja2 and pug syntax for unparalleled
+<p>You can even combine jinja2 syntax for unparalleled
 template-rendering power.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ninjadog</span> <span class="kn">import</span> <span class="n">jinja2_renderer</span>
 
