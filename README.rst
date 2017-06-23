@@ -78,9 +78,9 @@ and sprinkle some Python over it
     from ninjadog import render
 
     context = {
-    'name': 'Bob',
-    'books': ['coloring book', 'audio book', "O'Reilly book"],
-    'type': 'text',
+        'name': 'Bob',
+        'books': ['coloring book', 'audio book', "O'Reilly book"],
+        'type': 'text',
     }
 
     print(render(filepath=file, context=context, pretty=True))
