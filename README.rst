@@ -167,7 +167,7 @@ html, IMO.
 
 There exists a project, `pyjade`_ and a less-popular fork, `pypugjs`_,
 that are pure-python implementations of the pug template engine,
-but they have some bugs and the maintenance is a bit lacking IMO.
+but they have some bugs and the maintenance is a bit lacking.
 
 It made more sense to me to use the existing nodejs implementation,
 and find a way to have it play nicely with Python.
