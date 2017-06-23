@@ -12,3 +12,4 @@ watchdog==0.8.3
 recommonmark==0.4.0
 sphinx-autodoc-typehints==1.2.0
 mypy==0.511
+wheel==0.29.0

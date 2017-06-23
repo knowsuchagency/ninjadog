@@ -90,7 +90,7 @@ publish-docs: docs ## compile docs and publish to github pages
 	git push ninjadog gh-pages
 	echo "Successfully published to github pages"
 
-release: clean ## package and upload a release
+release: clean publish-docs ## package and upload a release
 	python setup.py sdist upload
 	python setup.py bdist_wheel upload
 
