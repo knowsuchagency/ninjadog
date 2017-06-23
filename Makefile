@@ -82,16 +82,12 @@ publish-docs: ## compile docs and publish to github pages
 	mkdir public
 	git worktree prune
 	rm -rf .git/worktrees/public/
-
 	echo "Checking out gh-pages branch into public"
 	git worktree add -B gh-pages public ninjadog/gh-pages
-
 	echo "Removing existing files"
 	rm -rf public/*
-
 	echo "Generating documentation"
 	$(MAKE) docs
-
 	cd public
 	git add --all
 	git commit -m "Publishing to gh-pages (Makefile)"
