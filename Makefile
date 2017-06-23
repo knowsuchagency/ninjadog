@@ -77,6 +77,8 @@ servedocs: docs ## compile the docs watching for changes
 	$(BROWSER) public/index.html
 
 publish-docs: ## compile docs and publish to github pages
+	git status -s && echo "The working directory is dirty. Please commit any pending changes."; exit 1
+
 	# "Deleting old publication"
 	rm -rf public
 	mkdir public
