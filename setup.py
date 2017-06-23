@@ -21,7 +21,7 @@ test_requirements = [
 
 setup(
     name='ninjadog',
-    version='0.1.2',
+    version='0.1.3',
     description="Pug template support in Python",
     long_description=readme,
     author="Stephan Fitzpatrick",
