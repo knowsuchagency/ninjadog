@@ -88,9 +88,7 @@ publish-docs: ## compile docs and publish to github pages
 	rm -rf public/*
 	echo "Generating documentation"
 	$(MAKE) docs
-	cd public
-	git add --all
-	git commit -m "Publishing to gh-pages (Makefile)"
+	cd public; git add --all; git commit -m "Publishing to gh-pages (Makefile)"
 	git push ninjadog gh-pages
 
 
