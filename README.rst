@@ -55,7 +55,7 @@ It allows you to take something like this
 
     html
         head
-            title my jade template
+            title my pug template
         body
             #content
                 h1 Hello #{name}
@@ -80,7 +80,7 @@ and sprinkle some Python over it
     context = {
     'name': 'Bob',
     'books': ['coloring book', 'audio book', "O'Reilly book"],
-    type: 'text',
+    'type': 'text',
     }
 
     print(render(filepath=file, context=context, pretty=True))
@@ -92,7 +92,7 @@ to render this
     <!DOCTYPE html>
     <html>
       <head>
-        <title>my jade template</title>
+        <title>my pug template</title>
       </head>
       <body>
         <div id="content">
