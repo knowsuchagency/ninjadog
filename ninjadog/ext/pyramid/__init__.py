@@ -5,6 +5,9 @@ from pyramid_jinja2 import *
 from ninjadog.ext.jinja2 import jinja2_renderer
 
 
+# TODO: See if it might not make more to just render all pug templates in the static directory first, then render them in jinja2 as normal as a configuration option
+
+
 class PugTemplateRenderer(Jinja2TemplateRenderer):
     """
     Renders templates that have both pug and jinja2
