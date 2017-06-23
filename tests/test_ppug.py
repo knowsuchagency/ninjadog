@@ -7,8 +7,6 @@
 
 import pytest
 
-import ninjadog
-
 
 def test_npm_installed():
     from subprocess import run
@@ -26,10 +24,12 @@ def test_hello_world():
 
 
 def test_jinja2_template_syntax():
+    import ninjadog
     assert ninjadog.render('h1 hello {{ name }}!') == '<h1>hello {{ name }}!</h1>'
 
 
 def test_context():
+    import ninjadog
     context = {'name': 'Derp'}
     assert ninjadog.render('h1 hello #{ name }', context=context) == '<h1>hello Derp</h1>'
     assert ninjadog.render("h1= name", context=context) == '<h1>Derp</h1>'
@@ -37,6 +37,7 @@ def test_context():
 
 def test_conditional():
     from textwrap import dedent
+    import ninjadog
     string = dedent("""
     if name == 'sam'
         h1 hello #{ name }
@@ -57,6 +58,7 @@ def test_jinja2_renderer():
 
 def test_render_no_string_argument():
     from tempfile import NamedTemporaryFile
+    import ninjadog
     string = 'h1 hello'
     with NamedTemporaryFile('w+') as tempfile:
         tempfile.write(string)
@@ -66,6 +68,7 @@ def test_render_no_string_argument():
 
 def test_jinja2_render_no_string_argument():
     from tempfile import NamedTemporaryFile
+    import ninjadog
     string = 'h1 hello {{ name }}'
     context = {'name': 'ash'}
     with NamedTemporaryFile('w+') as tempfile:
