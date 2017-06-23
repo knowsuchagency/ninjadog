@@ -35,7 +35,7 @@ ninjadog requires Python 3.6, node-js, npm, and the pug-cli library
     pip install ninjadog
 
 
-For use with Pyramid, just add it to the configuration (after pyramid_jinja2)
+For use with `Pyramid`_, just add it to the configuration (after pyramid_jinja2)
 
 .. code-block:: python
 
@@ -185,3 +185,4 @@ the popular and well-maintained nodejs implementation.
 .. _pug-cli: https://www.npmjs.com/package/pug-cli
 .. _pug cli: https://www.npmjs.com/package/pug-cli
 .. _jinja2: http://jinja.pocoo.org/
+.. _pyramid: https://trypyramid.com/
