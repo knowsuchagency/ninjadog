@@ -1,3 +1,4 @@
+import typing as T
 from functools import partial
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -34,7 +35,8 @@ def jinja2_renderer(string: str = '',
                     filepath: Path = None,
                     context: dict = None,
                     pretty: bool = False,
-                    ):
+                    pug_cli_path: T.Union[Path, str] = None,
+                    ) -> str:
     """
     Renders pug and jinja2 syntax formatted string to html.
     
@@ -49,12 +51,13 @@ def jinja2_renderer(string: str = '',
         filepath: the path to the template to be rendered
         context: the data to be passed to the template engines
         pretty: pretty html output
+        pug_cli_path: Path to the pug cli
 
     Returns: html string
 
     """
-    # lock pretty-print argument
-    render = partial(_render, pretty=pretty)
+    # lock arguments
+    render = partial(_render, pretty=pretty, pug_cli_path=pug_cli_path)
 
     # initialize jinja2 environment
     env = Environment()
