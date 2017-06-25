@@ -167,7 +167,7 @@ def release():
     publish_docs()
 
     local('python setup.py sdist upload')
-    local('python stup.py bdist_wheel upload')
+    local('python setup.py bdist_wheel upload')
 
 
 @task
