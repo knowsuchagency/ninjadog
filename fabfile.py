@@ -1,5 +1,6 @@
 from fabric.api import *
 from functools import singledispatch
+# TODO: add mypy testing
 
 
 @singledispatch
