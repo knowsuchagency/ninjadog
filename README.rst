@@ -153,8 +153,8 @@ template-rendering power.
 How?
 ----
 
-`Jinja2`_ basically behaves as a preprocessor to the pug template
-engine. All data passed as the context will be processed by `jinja2`_.
+`Pug`_ basically behaves as a preprocessor to the `Jinja 2`_ template
+engine. All data passed as the context will be processed by `Jinja 2`_.
 Only that which can be serialized to json will be passed to the
 `pug cli`_.
 
@@ -185,4 +185,5 @@ the popular and well-maintained nodejs implementation.
 .. _pug-cli: https://www.npmjs.com/package/pug-cli
 .. _pug cli: https://www.npmjs.com/package/pug-cli
 .. _jinja2: http://jinja.pocoo.org/
+.. _jinja 2: http://jinja.pocoo.org/
 .. _pyramid: https://trypyramid.com/
