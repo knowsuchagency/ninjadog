@@ -37,11 +37,10 @@ def jinja2_renderer(string: str = '',
     """
     Renders pug and jinja2 syntax formatted string to html.
     
-    Jinja2 will be rendered first and can accept any Python
-    object as its context. 
+    Pug will be rendered first and can accept will only receive 
+    json-serializable data as its context. 
     
-    The pug-template engine will only receive json-serializable
-    data, however.
+    Jinja2 will then render any Python object in the context.
     
     Args:
         string: the string to be rendered
