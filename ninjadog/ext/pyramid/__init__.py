@@ -2,7 +2,7 @@ from pathlib import Path
 
 from pyramid_jinja2 import *
 
-from ninjadog.ext.jinja2 import jinja2_renderer
+from ninjadog import jinja2_renderer, render
 
 
 # TODO: See if it might not make more to just render all pug templates in the static directory first, then render them in jinja2 as normal as a configuration option
@@ -24,9 +24,8 @@ class PugTemplateRenderer(Jinja2TemplateRenderer):
                              'as value: %s' % str(ex))
         template = self.template_loader()
         jinja2_string = template.render(system)
-        return jinja2_renderer(jinja2_string,
-                               filepath=Path(template.filename),
-                               context=system)
+        with_pug = render(jinja2_string, filepath=template.filename, context=system)
+        return with_pug
 
 
 class PugRendererFactory(object):
