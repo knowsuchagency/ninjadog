@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog.ext.jinja2 &#8212; ninjadog 0.1.4 documentation</title>
+    <title>ninjadog.ext.jinja2 &#8212; ninjadog 0.2.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.1.4',
+        VERSION:     '0.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -45,14 +45,11 @@
 <span></span><span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="nn">T</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">TemporaryDirectory</span>
 
 <span class="kn">from</span> <span class="nn">jinja2</span> <span class="k">import</span> <span class="n">Environment</span>
 <span class="kn">from</span> <span class="nn">jinja2.ext</span> <span class="k">import</span> <span class="n">Extension</span>
 
 <span class="kn">from</span> <span class="nn">ninjadog</span> <span class="k">import</span> <span class="n">render</span> <span class="k">as</span> <span class="n">_render</span>
-<span class="kn">from</span> <span class="nn">ninjadog.constants</span> <span class="k">import</span> <span class="n">EXTENSION_PATT</span>
-<span class="kn">from</span> <span class="nn">ninjadog.utils</span> <span class="k">import</span> <span class="n">get_extensions</span>
 
 
 <div class="viewcode-block" id="PugPreprocessor"><a class="viewcode-back" href="../../../ninjadog.ext.html#ninjadog.ext.jinja2.PugPreprocessor">[docs]</a><span class="k">class</span> <span class="nc">PugPreprocessor</span><span class="p">(</span><span class="n">Extension</span><span class="p">):</span>
@@ -101,36 +98,17 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># lock arguments</span>
-    <span class="n">render</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">_render</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="n">pretty</span><span class="p">,</span> <span class="n">pug_cli_path</span><span class="o">=</span><span class="n">pug_cli_path</span><span class="p">)</span>
+    <span class="n">pug_renderer</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">_render</span><span class="p">,</span>
+                           <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+                           <span class="n">filepath</span><span class="o">=</span><span class="n">filepath</span><span class="p">,</span>
+                           <span class="n">pretty</span><span class="o">=</span><span class="n">pretty</span><span class="p">,</span>
+                           <span class="n">pug_cli_path</span><span class="o">=</span><span class="n">pug_cli_path</span><span class="p">)</span>
 
     <span class="c1"># initialize jinja2 environment</span>
     <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">()</span>
     <span class="n">env</span><span class="o">.</span><span class="n">globals</span> <span class="o">=</span> <span class="n">context</span> <span class="k">if</span> <span class="n">context</span> <span class="k">else</span> <span class="p">{}</span>
 
-    <span class="c1"># early return - template does not extend</span>
-    <span class="n">extends</span> <span class="o">=</span> <span class="n">EXTENSION_PATT</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">extends</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">env</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">render</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">context</span><span class="p">))</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="ow">not</span> <span class="n">filepath</span><span class="p">:</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;You must pass the path to the template being rendered since it extends from other templates&#39;</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-
-    <span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tempdir</span><span class="p">:</span>
-
-        <span class="c1"># first, render all the extensions in jinja2</span>
-        <span class="c1"># and write them to the temporary directory</span>
-        <span class="n">extensions</span> <span class="o">=</span> <span class="n">get_extensions</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">extension</span> <span class="ow">in</span> <span class="n">extensions</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">extension</span><span class="p">)</span> <span class="k">as</span> <span class="n">jinja2_template</span><span class="p">:</span>
-                <span class="n">rendered_jinja</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">jinja2_template</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
-                <span class="n">new_template_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempdir</span><span class="p">,</span> <span class="n">extension</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">new_template_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">newfile</span><span class="p">:</span>
-                    <span class="n">newfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">rendered_jinja</span><span class="p">)</span>
-
-        <span class="c1"># create a copy of the original template in the temporary</span>
-        <span class="c1"># directory relative to the now-rendered pug templates</span>
-        <span class="n">extended_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempdir</span><span class="p">,</span> <span class="n">filepath</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">extended_path</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">env</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">pug_renderer</span><span class="p">(</span><span class="n">string</span><span class="p">))</span><span class="o">.</span><span class="n">render</span><span class="p">()</span></div>
 </pre></div>
 
           </div>
