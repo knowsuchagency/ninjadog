@@ -14,3 +14,4 @@ sphinx-autodoc-typehints==1.2.0
 mypy==0.511
 wheel==0.29.0
 fabric3==1.13.1.post1
+tox-pyenv==1.0.3

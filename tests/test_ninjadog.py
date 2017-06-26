@@ -148,7 +148,7 @@ def test_jinja2_renderer_raises_pending_deprecation():
     import warnings
     from ninjadog import jinja2_renderer
     warnings.simplefilter('error')
-    with pytest.raises(PendingDeprecationWarning):
+    with pytest.raises(DeprecationWarning):
         jinja2_renderer('h1 foo')
 
 
