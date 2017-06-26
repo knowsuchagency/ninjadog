@@ -57,33 +57,31 @@ def render(string: str = '',
                           pretty=pretty,
                           pug_cli_path=pug_cli_path)
 
-    with NamedTemporaryFile('w') as fp:
-        fp.write(string)
-        fp.seek(0)
 
-        cmd = shlex.quote(str((Path(pug_cli_path).absolute())))
-        path = f'-p {shlex.quote(str(filepath))}' if filepath else ''
-        pretty_print = '-P' if pretty else ''
+    cmd = shlex.quote(str((Path(pug_cli_path).absolute())))
+    path = f'-p {shlex.quote(str(filepath))}' if filepath else ''
+    pretty_print = '-P' if pretty else ''
 
-        if context is None:
-            context_arg = ''
-        elif isinstance(context, str):
-            context_arg = f'-O {shlex.quote(context)}'
-        else:
-            context_arg = f'-O {shlex.quote(jsonify(context))}'
+    if context is None:
+        context_arg = ''
+    elif isinstance(context, str):
+        context_arg = f'-O {shlex.quote(context)}'
+    else:
+        context_arg = f'-O {shlex.quote(jsonify(context))}'
 
-        input_file = shlex.quote(fp.name)
+    pug_cli = sp.Popen(shlex.split(f'{cmd} {context_arg} {path} {pretty_print}'),
+                  stdin=sp.PIPE,
+                  stdout=sp.PIPE,
+                  cwd=filepath.parent if filepath else None,
+                  )
+    pug_cli.stdin.write(string.encode('utf8'))
+    pug_cli.stdin.close()
+    pug_string = pug_cli.stdout.read().decode('utf8')
 
-        pug_string = sp.run(f'{cmd} {context_arg} {path} {pretty_print} < {input_file}',
-                      shell=True,
-                      stdout=sp.PIPE,
-                      cwd=filepath.parent if filepath else None,
-                      ).stdout.decode('utf8')
+    if with_jinja:
+        env = Environment()
+        env.globals = context if context else {}
 
-        if with_jinja:
-            env = Environment()
-            env.globals = context if context else {}
+        return env.from_string(pug_string).render()
 
-            return env.from_string(pug_string).render()
-
-        return pug_string
+    return pug_string
