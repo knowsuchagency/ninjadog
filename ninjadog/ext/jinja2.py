@@ -36,7 +36,7 @@ def jinja2_renderer(string: str = '',
                     pug_cli_path: T.Union[Path, str] = None,
                     ) -> str:
     """
-    Renders pug and jinja2 syntax formatted string to html.
+    Renders pug and jinja2 syntax formatted string to html. This function will be deprecated in v0.3.x
     
     Pug will be rendered first and can accept will only receive 
     json-serializable data as its context. 
