@@ -1,3 +1,4 @@
+import warnings
 import typing as T
 from functools import partial
 from pathlib import Path
@@ -52,6 +53,8 @@ def jinja2_renderer(string: str = '',
     Returns: html string
 
     """
+    warnings.warn("\nThis function will be deprecated in the upcoming minor version " \
+                  "use ninjadog.render(... with_jinja=True) instead", PendingDeprecationWarning, stacklevel=2)
     # lock arguments
     pug_renderer = partial(_render,
                            context=context,

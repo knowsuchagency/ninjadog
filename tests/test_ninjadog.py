@@ -80,6 +80,7 @@ def test_jinja2_render_no_string_argument():
 
 
 def test_jinja2_syntax_with_pug_syntax():
+    # TODO: get rid of this test
     from textwrap import dedent
     from ninjadog import jinja2_renderer
     string = dedent("""
@@ -109,3 +110,66 @@ def test_jinja2_syntax_with_pug_syntax():
     actual_output = jinja2_renderer(string, context=context, pretty=True).strip()
 
     assert expected_output == actual_output
+
+
+def test_with_jinja2():
+    from textwrap import dedent
+    from ninjadog import render
+    string = dedent("""
+    if person.name == "Bob"
+        h1 Hello Bob
+    else
+        h1 My name is #{ person.name }
+
+    p The persons's uppercase name is {{ person.get('name').upper() }}
+    p The person's name is #{ person.name }
+
+    if animal
+        h1 This should not output
+    else
+        p animal value is false
+    """).strip()
+
+    context = {'person': {'name': 'Bob'}, 'animal': None}
+
+    expected_output = dedent("""
+    <h1>Hello Bob</h1>
+    <p>The persons's uppercase name is BOB</p>
+    <p>The person's name is Bob</p>
+    <p>animal value is false</p>
+    """).strip()
+
+    actual_output = render(string, context=context, pretty=True, with_jinja=True).strip()
+
+    assert expected_output == actual_output
+
+
+def test_jinja2_renderer_raises_pending_deprecation():
+    import warnings
+    from ninjadog import jinja2_renderer
+    warnings.simplefilter('error')
+    with pytest.raises(PendingDeprecationWarning):
+        jinja2_renderer('h1 foo')
+
+
+def test_jinja2_renderer_not_yet_deprecated():
+    from configparser import ConfigParser
+    from pathlib import Path
+
+    config = ConfigParser()
+    with Path(__file__).parent.parent.joinpath('setup.cfg').open() as fp:
+        config.read_string(fp.read())
+
+
+    version = config.get('bumpversion', 'current_version')
+    _, minor, _ = (int(e) for e in version.split('.'))
+
+    jinja2_exists = False
+
+    try:
+        from ninjadog.ext.jinja2 import jinja2_renderer
+        jinja2_exists = True
+    except ImportError:
+        pass
+
+    assert jinja2_exists and minor < 3, 'Time to deprecate jinja2_renderer'

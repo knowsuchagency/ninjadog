@@ -10,12 +10,15 @@ from tempfile import NamedTemporaryFile
 from ninjadog.constants import PUG_CLI_PATH
 from ninjadog.utils import jsonify
 
+from jinja2 import Environment
+
 
 def render(string: str = '',
            filepath: T.Union[Path, str] = None,
            context: T.Any = None,
            pretty: bool = False,
-           pug_cli_path: T.Union[Path, str] = None) -> str:
+           pug_cli_path: T.Union[Path, str] = None,
+           with_jinja: bool = False) -> str:
     """
     Render a pug template through the pug cli.
     
@@ -25,6 +28,7 @@ def render(string: str = '',
         context: the data to be passed to the template
         pretty: pretty html output
         pug_cli_path: path to the pug cli
+        with_jinja: render jinja2 template syntax as well
 
     Returns: rendered html
 
@@ -70,8 +74,16 @@ def render(string: str = '',
 
         input_file = shlex.quote(fp.name)
 
-        return sp.run(f'{cmd} {context_arg} {path} {pretty_print} < {input_file}',
+        pug_string = sp.run(f'{cmd} {context_arg} {path} {pretty_print} < {input_file}',
                       shell=True,
                       stdout=sp.PIPE,
                       cwd=filepath.parent if filepath else None,
                       ).stdout.decode('utf8')
+
+        if with_jinja:
+            env = Environment()
+            env.globals = context if context else {}
+
+            return env.from_string(pug_string).render()
+
+        return pug_string

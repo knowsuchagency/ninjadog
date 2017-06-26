@@ -118,7 +118,7 @@ template-rendering power.
 .. code-block:: python
 
 
-    from ninjadog import jinja2_renderer
+    from ninjadog import render
 
 
     def stop_believing():
@@ -139,9 +139,11 @@ template-rendering power.
         p {{ "Don't" if not stop_believing() }} stop believing
     """
 
-    print(jinja2_renderer(template_string,
-                          context=context,
-                          pretty=True))
+    print(render(template_string,
+                 context=context,
+                 pretty=True,
+                 with_jinja=True))
+
 
 
 .. code-block:: html

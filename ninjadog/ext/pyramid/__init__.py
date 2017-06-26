@@ -1,11 +1,6 @@
-from pathlib import Path
-
 from pyramid_jinja2 import *
 
-from ninjadog import jinja2_renderer, render
-
-
-# TODO: See if it might not make more to just render all pug templates in the static directory first, then render them in jinja2 as normal as a configuration option
+from ninjadog import render
 
 
 class PugTemplateRenderer(Jinja2TemplateRenderer):
@@ -16,6 +11,7 @@ class PugTemplateRenderer(Jinja2TemplateRenderer):
     Conforms to `IRenderer <http://docs.pylonsproject.org/projects/pyramid/en/latest/api/interfaces.html#pyramid.interfaces.IRenderer>`_
     interface.
     """
+
     def __call__(self, value, system):
         try:
             system.update(value)
