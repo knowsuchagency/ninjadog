@@ -162,7 +162,7 @@ def dist():
 @task
 def release():
     """Package and upload a release."""
-    test()
+    test_all()
     clean()
     publish_docs()
 
