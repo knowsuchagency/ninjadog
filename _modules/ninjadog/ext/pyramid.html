@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog.ext.pyramid &#8212; ninjadog 0.2.0 documentation</title>
+    <title>ninjadog.ext.pyramid &#8212; ninjadog 0.2.1 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.2.0',
+        VERSION:     '0.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -42,14 +42,9 @@
           <div class="body" role="main">
             
   <h1>Source code for ninjadog.ext.pyramid</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span></span><span class="kn">from</span> <span class="nn">pyramid_jinja2</span> <span class="k">import</span> <span class="o">*</span>
 
-<span class="kn">from</span> <span class="nn">pyramid_jinja2</span> <span class="k">import</span> <span class="o">*</span>
-
-<span class="kn">from</span> <span class="nn">ninjadog</span> <span class="k">import</span> <span class="n">jinja2_renderer</span><span class="p">,</span> <span class="n">render</span>
-
-
-<span class="c1"># TODO: See if it might not make more to just render all pug templates in the static directory first, then render them in jinja2 as normal as a configuration option</span>
+<span class="kn">from</span> <span class="nn">ninjadog</span> <span class="k">import</span> <span class="n">render</span>
 
 
 <div class="viewcode-block" id="PugTemplateRenderer"><a class="viewcode-back" href="../../../ninjadog.ext.pyramid.html#ninjadog.ext.pyramid.PugTemplateRenderer">[docs]</a><span class="k">class</span> <span class="nc">PugTemplateRenderer</span><span class="p">(</span><span class="n">Jinja2TemplateRenderer</span><span class="p">):</span>
@@ -60,6 +55,7 @@
 <span class="sd">    Conforms to `IRenderer &lt;http://docs.pylonsproject.org/projects/pyramid/en/latest/api/interfaces.html#pyramid.interfaces.IRenderer&gt;`_</span>
 <span class="sd">    interface.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">system</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog.ninjadog &#8212; ninjadog 0.2.0 documentation</title>
+    <title>ninjadog.ninjadog &#8212; ninjadog 0.2.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.2.0',
+        VERSION:     '0.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -54,12 +54,15 @@
 <span class="kn">from</span> <span class="nn">ninjadog.constants</span> <span class="k">import</span> <span class="n">PUG_CLI_PATH</span>
 <span class="kn">from</span> <span class="nn">ninjadog.utils</span> <span class="k">import</span> <span class="n">jsonify</span>
 
+<span class="kn">from</span> <span class="nn">jinja2</span> <span class="k">import</span> <span class="n">Environment</span>
+
 
 <div class="viewcode-block" id="render"><a class="viewcode-back" href="../../ninjadog.html#ninjadog.ninjadog.render">[docs]</a><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
            <span class="n">filepath</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
            <span class="n">context</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
            <span class="n">pretty</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-           <span class="n">pug_cli_path</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+           <span class="n">pug_cli_path</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+           <span class="n">with_jinja</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Render a pug template through the pug cli.</span>
 <span class="sd">    </span>
@@ -69,6 +72,7 @@
 <span class="sd">        context: the data to be passed to the template</span>
 <span class="sd">        pretty: pretty html output</span>
 <span class="sd">        pug_cli_path: path to the pug cli</span>
+<span class="sd">        with_jinja: render jinja2 template syntax as well</span>
 
 <span class="sd">    Returns: rendered html</span>
 
@@ -114,11 +118,19 @@
 
         <span class="n">input_file</span> <span class="o">=</span> <span class="n">shlex</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{cmd}</span><span class="s1"> </span><span class="si">{context_arg}</span><span class="s1"> </span><span class="si">{path}</span><span class="s1"> </span><span class="si">{pretty_print}</span><span class="s1"> &lt; </span><span class="si">{input_file}</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="n">pug_string</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{cmd}</span><span class="s1"> </span><span class="si">{context_arg}</span><span class="s1"> </span><span class="si">{path}</span><span class="s1"> </span><span class="si">{pretty_print}</span><span class="s1"> &lt; </span><span class="si">{input_file}</span><span class="s1">&#39;</span><span class="p">,</span>
                       <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                       <span class="n">stdout</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
                       <span class="n">cwd</span><span class="o">=</span><span class="n">filepath</span><span class="o">.</span><span class="n">parent</span> <span class="k">if</span> <span class="n">filepath</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-                      <span class="p">)</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span></div>
+                      <span class="p">)</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">with_jinja</span><span class="p">:</span>
+            <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">()</span>
+            <span class="n">env</span><span class="o">.</span><span class="n">globals</span> <span class="o">=</span> <span class="n">context</span> <span class="k">if</span> <span class="n">context</span> <span class="k">else</span> <span class="p">{}</span>
+
+            <span class="k">return</span> <span class="n">env</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">pug_string</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">pug_string</span></div>
 </pre></div>
 
           </div>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog package &#8212; ninjadog 0.2.0 documentation</title>
+    <title>ninjadog package &#8212; ninjadog 0.2.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2.0',
+        VERSION:     '0.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -76,7 +76,7 @@
 <p>Main module.</p>
 <dl class="function">
 <dt id="ninjadog.ninjadog.render">
-<code class="descclassname">ninjadog.ninjadog.</code><code class="descname">render</code><span class="sig-paren">(</span><em>string: str = ”</em>, <em>filepath: typing.Union[pathlib.Path</em>, <em>str] = None</em>, <em>context: typing.Any = None</em>, <em>pretty: bool = False</em>, <em>pug_cli_path: typing.Union[pathlib.Path</em>, <em>str] = None</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/ninjadog/ninjadog.html#render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ninjadog.render" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ninjadog.ninjadog.</code><code class="descname">render</code><span class="sig-paren">(</span><em>string: str = ”</em>, <em>filepath: typing.Union[pathlib.Path</em>, <em>str] = None</em>, <em>context: typing.Any = None</em>, <em>pretty: bool = False</em>, <em>pug_cli_path: typing.Union[pathlib.Path</em>, <em>str] = None</em>, <em>with_jinja: bool = False</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/ninjadog/ninjadog.html#render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ninjadog.render" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render a pug template through the pug cli.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -88,6 +88,7 @@
 <li><strong>context</strong> – the data to be passed to the template</li>
 <li><strong>pretty</strong> – pretty html output</li>
 <li><strong>pug_cli_path</strong> – path to the pug cli</li>
+<li><strong>with_jinja</strong> – render jinja2 template syntax as well</li>
 </ul>
 </td>
 </tr>

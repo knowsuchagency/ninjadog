@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog.ext.jinja2 &#8212; ninjadog 0.2.0 documentation</title>
+    <title>ninjadog.ext.jinja2 &#8212; ninjadog 0.2.1 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.2.0',
+        VERSION:     '0.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -42,7 +42,8 @@
           <div class="body" role="main">
             
   <h1>Source code for ninjadog.ext.jinja2</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="nn">T</span>
+<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="nn">T</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
 
@@ -81,11 +82,10 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Renders pug and jinja2 syntax formatted string to html.</span>
 <span class="sd">    </span>
-<span class="sd">    Jinja2 will be rendered first and can accept any Python</span>
-<span class="sd">    object as its context. </span>
+<span class="sd">    Pug will be rendered first and can accept will only receive </span>
+<span class="sd">    json-serializable data as its context. </span>
 <span class="sd">    </span>
-<span class="sd">    The pug-template engine will only receive json-serializable</span>
-<span class="sd">    data, however.</span>
+<span class="sd">    Jinja2 will then render any Python object in the context.</span>
 <span class="sd">    </span>
 <span class="sd">    Args:</span>
 <span class="sd">        string: the string to be rendered</span>
@@ -97,6 +97,8 @@
 <span class="sd">    Returns: html string</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">This function will be deprecated in the upcoming minor version &quot;</span> \
+                  <span class="s2">&quot;use ninjadog.render(... with_jinja=True) instead&quot;</span><span class="p">,</span> <span class="ne">PendingDeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="c1"># lock arguments</span>
     <span class="n">pug_renderer</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">_render</span><span class="p">,</span>
                            <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
