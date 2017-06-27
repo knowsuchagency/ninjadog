@@ -116,6 +116,36 @@ def test_cli_file():
     context = jsonify({'title': 'hello, world'})
 
     with NamedTemporaryFile('w+') as file:
-        file.write('h1= title'); file.seek(0)
+        file.write('h1= title');
+        file.seek(0)
         assert main(('file', file.name, '-c', context)) == '<h1>hello, world</h1>'
 
+
+def test_extends():
+    from tempfile import gettempdir
+    from textwrap import dedent
+    from pathlib import Path
+    from ninjadog import render
+
+    parent_string = dedent("""
+    h1 Title
+    block content
+    """)
+
+    child_string = dedent("""
+    extends parent
+    block content
+        h2 Subtitle
+    """)
+
+    parent_path = Path(gettempdir(), 'parent.pug')
+    child_path = Path(gettempdir(), 'child.pug')
+
+    with parent_path.open('w+') as parent, child_path.open('w+') as child:
+        parent.write(parent_string)
+        parent.seek(0)
+        child.write(child_string)
+        child.seek(0)
+
+        assert render(file=child_path) == '<h1>Title</h1><h2>Subtitle</h2>'
+        assert render(file=str(child_path)) == '<h1>Title</h1><h2>Subtitle</h2>'

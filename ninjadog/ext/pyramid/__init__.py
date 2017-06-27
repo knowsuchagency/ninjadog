@@ -1,4 +1,7 @@
+from pprint import pprint
+
 from pyramid_jinja2 import *
+from jinja2.ext import Extension
 
 from ninjadog import render
 
@@ -19,9 +22,12 @@ class PugTemplateRenderer(Jinja2TemplateRenderer):
             raise ValueError('renderer was passed non-dictionary '
                              'as value: %s' % str(ex))
         template = self.template_loader()
-        jinja2_string = template.render(system)
-        with_pug = render(jinja2_string, file=template.filename, context=system)
-        return with_pug
+
+        return render(template.render(system),
+                      file=template.filename,
+                      context=system,
+                      with_jinja=True
+                      )
 
 
 class PugRendererFactory(object):

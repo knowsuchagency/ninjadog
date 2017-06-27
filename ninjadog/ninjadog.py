@@ -9,7 +9,7 @@ from pathlib import Path
 from ninjadog.constants import PUG_CLI_PATH
 from ninjadog.utils import jsonify
 
-from jinja2 import Environment
+from jinja2 import Template
 
 
 def render(string: str = '',
@@ -75,11 +75,5 @@ def render(string: str = '',
                        )
     html, _ = pug_cli.communicate(string)
 
+    return Template(html).render(context) if with_jinja else html
 
-    if with_jinja:
-        env = Environment()
-        env.globals = context if context else {}
-
-        return env.from_string(html).render()
-
-    return html
