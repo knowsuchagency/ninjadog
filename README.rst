@@ -43,7 +43,7 @@ For use with `Pyramid`_, just add it to the configuration (after pyramid_jinja2)
     config.include('ninjadog.ext.pyramid')
 
 
-What?
+Usage
 -----
 
 ninjadog leverages the `pug-cli`_ library, written in nodejs, to render
@@ -178,14 +178,6 @@ Command Line Interface
     Render pug templates to html.
 
     Use "-" to read from stdin i.e. echo "h1 hello" | ninjadog -
-
-How?
-----
-
-`Pug`_ basically behaves as a preprocessor to the `Jinja 2`_ template
-engine. All data passed as the context will be processed by `Jinja 2`_.
-Only that which can be serialized to json will be passed to the
-`pug cli`_.
 
 
 Why?

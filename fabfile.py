@@ -110,6 +110,7 @@ def docs(open_browser=True):
     """
     local('rm -f docs/ninjadog.rst')
     local('rm -f docs/modules.rst')
+    local('rm -f docs/ninjadog*')
     local('sphinx-apidoc -o docs/ ninjadog')
 
     with lcd('docs'):

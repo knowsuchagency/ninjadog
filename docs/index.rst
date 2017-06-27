@@ -1,11 +1,11 @@
 ninjadog: pug + jinj2 == ❤️
-================================
+===========================
 
 .. image:: yodawg.jpg
 
 .. include:: ../README.rst
 
-API documentation
+API Documentation
 -----------------
 
 .. include:: modules.rst
