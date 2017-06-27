@@ -20,7 +20,7 @@ class PugTemplateRenderer(Jinja2TemplateRenderer):
                              'as value: %s' % str(ex))
         template = self.template_loader()
         jinja2_string = template.render(system)
-        with_pug = render(jinja2_string, filepath=template.filename, context=system)
+        with_pug = render(jinja2_string, file=template.filename, context=system)
         return with_pug
 
 
