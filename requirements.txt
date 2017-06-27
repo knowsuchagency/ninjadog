@@ -2,7 +2,7 @@ hupper==1.0
 Jinja2==2.9.6
 MarkupSafe==1.0
 PasteDeploy==1.5.2
-pyramid==1.8.4
+pyramid==1.9
 pyramid-jinja2==2.7
 repoze.lru==0.6
 translationstring==1.3
