@@ -28,9 +28,9 @@ import sys
 from ninjadog import render
 
 
-def main():
+def main(argv=None):
     """Render pug template to stdout."""
-    args = docopt(__doc__, argv=None, version='0.3.1')
+    args = docopt(__doc__, argv=argv, version='0.3.1')
 
     if args['--file'] and args['<file>']:
         raise ValueError("Cannot combine --file and <file> arguments")
@@ -47,7 +47,7 @@ def main():
     if verbose:
         print(args, file=sys.stderr, end='\n\n')
 
-    print(output)
+    return output
 
 
 if __name__ == "__main__":

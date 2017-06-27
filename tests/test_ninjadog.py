@@ -5,7 +5,6 @@
 
 # TODO: test raises ValueError when pug cli can't be found and not passed explicitly to renderer
 # TODO: add mypy testing
-# TODO: test cli
 # TODO: test pyramid extension
 
 import pytest
@@ -100,3 +99,23 @@ def test_with_pug_with_jinja2():
     actual_output = render(string, context=context, pretty=True, with_jinja=True).strip()
 
     assert expected_output == actual_output
+
+
+def test_cli_string():
+    from ninjadog.cli import main
+    from ninjadog.utils import jsonify
+    context = jsonify({'title': 'hello, world'})
+    assert main(('string', 'h1= title', '-c', context)) == '<h1>hello, world</h1>'
+
+
+def test_cli_file():
+    from ninjadog.cli import main
+    from ninjadog.utils import jsonify
+    from tempfile import NamedTemporaryFile
+
+    context = jsonify({'title': 'hello, world'})
+
+    with NamedTemporaryFile('w+') as file:
+        file.write('h1= title'); file.seek(0)
+        assert main(('file', file.name, '-c', context)) == '<h1>hello, world</h1>'
+
