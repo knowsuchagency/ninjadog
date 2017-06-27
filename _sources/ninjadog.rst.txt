@@ -11,6 +11,14 @@ Subpackages
 Submodules
 ----------
 
+ninjadog\.cli module
+--------------------
+
+.. automodule:: ninjadog.cli
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 ninjadog\.constants module
 --------------------------
 

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog.ninjadog &#8212; ninjadog 0.2.2 documentation</title>
+    <title>ninjadog.ninjadog &#8212; ninjadog 0.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.2.2',
+        VERSION:     '0.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -49,7 +49,6 @@
 <span class="kn">import</span> <span class="nn">subprocess</span> <span class="k">as</span> <span class="nn">sp</span>
 <span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="nn">T</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">NamedTemporaryFile</span>
 
 <span class="kn">from</span> <span class="nn">ninjadog.constants</span> <span class="k">import</span> <span class="n">PUG_CLI_PATH</span>
 <span class="kn">from</span> <span class="nn">ninjadog.utils</span> <span class="k">import</span> <span class="n">jsonify</span>
@@ -58,17 +57,17 @@
 
 
 <div class="viewcode-block" id="render"><a class="viewcode-back" href="../../ninjadog.html#ninjadog.ninjadog.render">[docs]</a><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-           <span class="n">filepath</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+           <span class="n">file</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
            <span class="n">context</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
            <span class="n">pretty</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-           <span class="n">pug_cli_path</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+           <span class="n">pug_cli_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
            <span class="n">with_jinja</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Render a pug template through the pug cli.</span>
 <span class="sd">    </span>
 <span class="sd">    Args:</span>
 <span class="sd">        string: a string in pug syntax to be rendered</span>
-<span class="sd">        filepath: the path to a pug template</span>
+<span class="sd">        file: the path to a pug template</span>
 <span class="sd">        context: the data to be passed to the template</span>
 <span class="sd">        pretty: pretty html output</span>
 <span class="sd">        pug_cli_path: path to the pug cli</span>
@@ -86,51 +85,48 @@
     <span class="k">elif</span> <span class="n">pug_cli_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">pug_cli_path</span> <span class="o">=</span> <span class="n">PUG_CLI_PATH</span>
 
-    <span class="c1"># create Path object if filepath argument is given</span>
+    <span class="c1"># create Path object if file argument is given</span>
     <span class="c1"># Path() is idempotent so this shouldn&#39;t make any difference</span>
-    <span class="c1"># if the filepath argument is of type Path</span>
-    <span class="n">filepath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span> <span class="k">if</span> <span class="n">filepath</span> <span class="k">else</span> <span class="n">filepath</span>
+    <span class="c1"># if the file argument is of type Path</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">file</span><span class="p">))</span> <span class="k">if</span> <span class="n">file</span> <span class="k">else</span> <span class="n">file</span>
 
     <span class="c1"># if filepath is given instead of a string argument,</span>
     <span class="c1"># return render of string</span>
     <span class="k">if</span> <span class="n">filepath</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">string</span><span class="p">:</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">filepath</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span>
                           <span class="n">filepath</span><span class="p">,</span>
                           <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
                           <span class="n">pretty</span><span class="o">=</span><span class="n">pretty</span><span class="p">,</span>
                           <span class="n">pug_cli_path</span><span class="o">=</span><span class="n">pug_cli_path</span><span class="p">)</span>
 
-    <span class="k">with</span> <span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
-        <span class="n">fp</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">shlex</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">pug_cli_path</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;-p </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filepath</span><span class="p">)))</span> <span class="k">if</span> <span class="n">filepath</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">pretty_print</span> <span class="o">=</span> <span class="s1">&#39;-P&#39;</span> <span class="k">if</span> <span class="n">pretty</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
 
-        <span class="n">cmd</span> <span class="o">=</span> <span class="n">shlex</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="nb">str</span><span class="p">((</span><span class="n">Path</span><span class="p">(</span><span class="n">pug_cli_path</span><span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">())))</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;-p {shlex.quote(str(filepath))}&#39;</span> <span class="k">if</span> <span class="n">filepath</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
-        <span class="n">pretty_print</span> <span class="o">=</span> <span class="s1">&#39;-P&#39;</span> <span class="k">if</span> <span class="n">pretty</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">context_arg</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">context_arg</span> <span class="o">=</span> <span class="s1">&#39;-O </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">context</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">context_arg</span> <span class="o">=</span> <span class="s1">&#39;-O </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">jsonify</span><span class="p">(</span><span class="n">context</span><span class="p">)))</span>
 
-        <span class="k">if</span> <span class="n">context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">context_arg</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">context_arg</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;-O {shlex.quote(context)}&#39;</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">context_arg</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;-O {shlex.quote(jsonify(context))}&#39;</span>
+    <span class="n">pug_cli</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">context_arg</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">pretty_print</span><span class="p">)),</span>
+                       <span class="n">stdin</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                       <span class="n">stdout</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                       <span class="n">cwd</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">filepath</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span> <span class="k">if</span> <span class="n">filepath</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="p">)</span>
+    <span class="n">html</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pug_cli</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
 
-        <span class="n">input_file</span> <span class="o">=</span> <span class="n">shlex</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
-        <span class="n">pug_string</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{cmd}</span><span class="s1"> </span><span class="si">{context_arg}</span><span class="s1"> </span><span class="si">{path}</span><span class="s1"> </span><span class="si">{pretty_print}</span><span class="s1"> &lt; </span><span class="si">{input_file}</span><span class="s1">&#39;</span><span class="p">,</span>
-                      <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                      <span class="n">stdout</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
-                      <span class="n">cwd</span><span class="o">=</span><span class="n">filepath</span><span class="o">.</span><span class="n">parent</span> <span class="k">if</span> <span class="n">filepath</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-                      <span class="p">)</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">with_jinja</span><span class="p">:</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">()</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">globals</span> <span class="o">=</span> <span class="n">context</span> <span class="k">if</span> <span class="n">context</span> <span class="k">else</span> <span class="p">{}</span>
 
-        <span class="k">if</span> <span class="n">with_jinja</span><span class="p">:</span>
-            <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">()</span>
-            <span class="n">env</span><span class="o">.</span><span class="n">globals</span> <span class="o">=</span> <span class="n">context</span> <span class="k">if</span> <span class="n">context</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="k">return</span> <span class="n">env</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">html</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
 
-            <span class="k">return</span> <span class="n">env</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">pug_string</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
-
-        <span class="k">return</span> <span class="n">pug_string</span></div>
+    <span class="k">return</span> <span class="n">html</span></div>
 </pre></div>
 
           </div>
