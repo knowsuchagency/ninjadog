@@ -8,18 +8,6 @@ Subpackages
 
     ninjadog.ext.pyramid
 
-Submodules
-----------
-
-ninjadog\.ext\.jinja2 module
-----------------------------
-
-.. automodule:: ninjadog.ext.jinja2
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
 Module contents
 ---------------
 

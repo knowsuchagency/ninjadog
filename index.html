@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog: pug + jinj2 == ❤️ &#8212; ninjadog 0.3.1 documentation</title>
+    <title>ninjadog: pug + jinj2 == ❤️ &#8212; ninjadog 0.3.2 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.3.1',
+        VERSION:     '0.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -70,8 +70,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="what">
-<h3>What?<a class="headerlink" href="#what" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
 <p>ninjadog leverages the <a class="reference external" href="https://www.npmjs.com/package/pug-cli">pug-cli</a> library, written in nodejs, to render
 <a class="reference external" href="https://pugjs.org/api/getting-started.html">pug</a> templates in Python.</p>
 <p>It allows you to take something like this</p>
@@ -190,13 +190,6 @@ template-rendering power.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="how">
-<h3>How?<a class="headerlink" href="#how" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://pugjs.org/api/getting-started.html">Pug</a> basically behaves as a preprocessor to the <a class="reference external" href="http://jinja.pocoo.org/">Jinja 2</a> template
-engine. All data passed as the context will be processed by <a class="reference external" href="http://jinja.pocoo.org/">Jinja 2</a>.
-Only that which can be serialized to json will be passed to the
-<a class="reference external" href="https://www.npmjs.com/package/pug-cli">pug cli</a>.</p>
-</div>
 <div class="section" id="why">
 <h3>Why?<a class="headerlink" href="#why" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://pugjs.org/api/getting-started.html">Pug</a> templates are a super elegant and expressive way to write
@@ -212,15 +205,13 @@ like <a class="reference external" href="https://github.com/syrusakbary/pyjade">
 the popular and well-maintained nodejs implementation.</p>
 </div>
 <div class="section" id="api-documentation">
-<h3>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h3>
+<h3>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h3>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ninjadog.html">ninjadog package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ninjadog.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ninjadog.ext.html">ninjadog.ext package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ninjadog.ext.html#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ninjadog.ext.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ninjadog.ext.html#ninjadog-ext-jinja2-module">ninjadog.ext.jinja2 module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ninjadog.ext.html#module-ninjadog.ext">Module contents</a></li>
 </ul>
 </li>
@@ -259,11 +250,10 @@ the popular and well-maintained nodejs implementation.</p>
 <li><a class="reference internal" href="#">ninjadog: pug + jinj2 == ❤️</a><ul>
 <li><a class="reference internal" href="#ninjadog">ninjadog</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#what">What?</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
 <li><a class="reference internal" href="#command-line-interface">Command Line Interface</a></li>
-<li><a class="reference internal" href="#how">How?</a></li>
 <li><a class="reference internal" href="#why">Why?</a></li>
-<li><a class="reference internal" href="#api-documentation">API documentation</a></li>
+<li><a class="reference internal" href="#api-documentation">API Documentation</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 </li>
