@@ -5,7 +5,7 @@ Usage:
     ninjadog file [options] <file>
     ninjadog - [options] 
     ninjadog -h | --help
-    ninjadog --version
+    ninjadog -V | --version
 
 
 Options:
