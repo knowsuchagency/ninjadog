@@ -34,8 +34,7 @@ setup(
     zip_safe=False,
     keywords='ninjadog pug jinja2 html templating',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers',
+        'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Programming Language :: Python :: 3.4',

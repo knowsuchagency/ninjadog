@@ -4,7 +4,7 @@ ninjadog
 
 
 .. image:: https://img.shields.io/pypi/v/ninjadog.svg
-        :target: https://pypi.python.org/pypi/ninjadog
+        :target: https://pypi.org/project/ninjadog/
 
 .. image:: https://img.shields.io/travis/knowsuchagency/ninjadog.svg
         :target: https://travis-ci.org/knowsuchagency/ninjadog
@@ -151,6 +151,33 @@ template-rendering power.
     <h1>hello, world</h1>
     <p>it's time to celebrate!</p>
     <p>Don't stop believing</p>
+
+
+Command Line Interface
+----------------------
+::
+
+    Usage:
+        ninjadog string [options] <string>
+        ninjadog file [options] <file>
+        ninjadog - [options]
+        ninjadog -h | --help
+        ninjadog --version
+
+
+    Options:
+        -h --help                 show help and exit
+        -V --version              show version and exit
+        -f --file <file>          the filepath to the template
+        -p --pretty               pretty print output
+        -c --context <context>    json string to be passed as context
+        -j --with-jinja           render jinja2 syntax as well as pug
+        -v --verbose              verbose output
+
+
+    Render pug templates to html.
+
+    Use "-" to read from stdin i.e. echo "h1 hello" | ninjadog -
 
 How?
 ----
