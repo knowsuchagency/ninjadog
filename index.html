@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog: pug + jinj2 == ❤️ &#8212; ninjadog 0.3.0 documentation</title>
+    <title>ninjadog: pug + jinj2 == ❤️ &#8212; ninjadog 0.3.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.3.0',
+        VERSION:     '0.3.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -47,7 +47,7 @@
 <img alt="_images/yodawg.jpg" src="_images/yodawg.jpg" />
 <div class="section" id="ninjadog">
 <h2>ninjadog<a class="headerlink" href="#ninjadog" title="Permalink to this headline">¶</a></h2>
-<a class="reference external image-reference" href="https://pypi.python.org/pypi/ninjadog"><img alt="https://img.shields.io/pypi/v/ninjadog.svg" src="https://img.shields.io/pypi/v/ninjadog.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.org/project/ninjadog/"><img alt="https://img.shields.io/pypi/v/ninjadog.svg" src="https://img.shields.io/pypi/v/ninjadog.svg" /></a>
 <a class="reference external image-reference" href="https://travis-ci.org/knowsuchagency/ninjadog"><img alt="https://img.shields.io/travis/knowsuchagency/ninjadog.svg" src="https://img.shields.io/travis/knowsuchagency/ninjadog.svg" /></a>
 <a class="reference external image-reference" href="https://pyup.io/repos/github/knowsuchagency/ninjadog/"><img alt="Updates" src="https://pyup.io/repos/github/knowsuchagency/ninjadog/shield.svg" /></a>
 <p><a class="reference external" href="https://pugjs.org/api/getting-started.html">Pug</a> template (formerly <a class="reference external" href="https://naltatis.github.io/jade-syntax-docs/">jade</a>) support in Python</p>
@@ -164,6 +164,32 @@ template-rendering power.</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="command-line-interface">
+<h3>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
+    <span class="n">ninjadog</span> <span class="n">string</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span>
+    <span class="n">ninjadog</span> <span class="n">file</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span>
+    <span class="n">ninjadog</span> <span class="o">-</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span>
+    <span class="n">ninjadog</span> <span class="o">-</span><span class="n">h</span> <span class="o">|</span> <span class="o">--</span><span class="n">help</span>
+    <span class="n">ninjadog</span> <span class="o">--</span><span class="n">version</span>
+
+
+<span class="n">Options</span><span class="p">:</span>
+    <span class="o">-</span><span class="n">h</span> <span class="o">--</span><span class="n">help</span>                 <span class="n">show</span> <span class="n">help</span> <span class="ow">and</span> <span class="n">exit</span>
+    <span class="o">-</span><span class="n">V</span> <span class="o">--</span><span class="n">version</span>              <span class="n">show</span> <span class="n">version</span> <span class="ow">and</span> <span class="n">exit</span>
+    <span class="o">-</span><span class="n">f</span> <span class="o">--</span><span class="n">file</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span>          <span class="n">the</span> <span class="n">filepath</span> <span class="n">to</span> <span class="n">the</span> <span class="n">template</span>
+    <span class="o">-</span><span class="n">p</span> <span class="o">--</span><span class="n">pretty</span>               <span class="n">pretty</span> <span class="nb">print</span> <span class="n">output</span>
+    <span class="o">-</span><span class="n">c</span> <span class="o">--</span><span class="n">context</span> <span class="o">&lt;</span><span class="n">context</span><span class="o">&gt;</span>    <span class="n">json</span> <span class="n">string</span> <span class="n">to</span> <span class="n">be</span> <span class="n">passed</span> <span class="k">as</span> <span class="n">context</span>
+    <span class="o">-</span><span class="n">j</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">jinja</span>           <span class="n">render</span> <span class="n">jinja2</span> <span class="n">syntax</span> <span class="k">as</span> <span class="n">well</span> <span class="k">as</span> <span class="n">pug</span>
+    <span class="o">-</span><span class="n">v</span> <span class="o">--</span><span class="n">verbose</span>              <span class="n">verbose</span> <span class="n">output</span>
+
+
+<span class="n">Render</span> <span class="n">pug</span> <span class="n">templates</span> <span class="n">to</span> <span class="n">html</span><span class="o">.</span>
+
+<span class="n">Use</span> <span class="s2">&quot;-&quot;</span> <span class="n">to</span> <span class="n">read</span> <span class="kn">from</span> <span class="nn">stdin</span> <span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span> <span class="n">echo</span> <span class="s2">&quot;h1 hello&quot;</span> <span class="o">|</span> <span class="n">ninjadog</span> <span class="o">-</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="how">
 <h3>How?<a class="headerlink" href="#how" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://pugjs.org/api/getting-started.html">Pug</a> basically behaves as a preprocessor to the <a class="reference external" href="http://jinja.pocoo.org/">Jinja 2</a> template
@@ -234,6 +260,7 @@ the popular and well-maintained nodejs implementation.</p>
 <li><a class="reference internal" href="#ninjadog">ninjadog</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#what">What?</a></li>
+<li><a class="reference internal" href="#command-line-interface">Command Line Interface</a></li>
 <li><a class="reference internal" href="#how">How?</a></li>
 <li><a class="reference internal" href="#why">Why?</a></li>
 <li><a class="reference internal" href="#api-documentation">API documentation</a></li>
