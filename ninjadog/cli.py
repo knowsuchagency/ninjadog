@@ -1,4 +1,4 @@
-"""ninjadog v0.3.2
+"""ninjadog v0.3.3
 
 Usage:
     ninjadog string [options] <string>
@@ -30,7 +30,7 @@ from ninjadog import render
 
 def main(argv=None):
     """Render pug template to stdout."""
-    args = docopt(__doc__, argv=argv, version='0.3.2')
+    args = docopt(__doc__, argv=argv, version='0.3.3')
 
     if args['--file'] and args['<file>']:
         raise ValueError("Cannot combine --file and <file> arguments")
