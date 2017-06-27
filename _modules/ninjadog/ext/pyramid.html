@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog.ext.pyramid &#8212; ninjadog 0.3.2 documentation</title>
+    <title>ninjadog.ext.pyramid &#8212; ninjadog 0.3.3 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.3.2',
+        VERSION:     '0.3.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -42,7 +42,10 @@
           <div class="body" role="main">
             
   <h1>Source code for ninjadog.ext.pyramid</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">pyramid_jinja2</span> <span class="k">import</span> <span class="o">*</span>
+<span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
+
+<span class="kn">from</span> <span class="nn">pyramid_jinja2</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">jinja2.ext</span> <span class="k">import</span> <span class="n">Extension</span>
 
 <span class="kn">from</span> <span class="nn">ninjadog</span> <span class="k">import</span> <span class="n">render</span>
 
@@ -63,9 +66,12 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;renderer was passed non-dictionary &#39;</span>
                              <span class="s1">&#39;as value: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span>
         <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_loader</span><span class="p">()</span>
-        <span class="n">jinja2_string</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
-        <span class="n">with_pug</span> <span class="o">=</span> <span class="n">render</span><span class="p">(</span><span class="n">jinja2_string</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">template</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">system</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">with_pug</span></div>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">system</span><span class="p">),</span>
+                      <span class="n">file</span><span class="o">=</span><span class="n">template</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span>
+                      <span class="n">context</span><span class="o">=</span><span class="n">system</span><span class="p">,</span>
+                      <span class="n">with_jinja</span><span class="o">=</span><span class="kc">True</span>
+                      <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="PugRendererFactory"><a class="viewcode-back" href="../../../ninjadog.ext.pyramid.html#ninjadog.ext.pyramid.PugRendererFactory">[docs]</a><span class="k">class</span> <span class="nc">PugRendererFactory</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
