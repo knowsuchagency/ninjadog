@@ -40,7 +40,7 @@ For use with `Pyramid`_, just add it to the configuration (after pyramid_jinja2)
 .. code-block:: python
 
     config.include('pyramid_jinja2')
-    config.include('ninjadog.ext.pyramid')
+    config.include('ninjadog')
 
 
 Usage

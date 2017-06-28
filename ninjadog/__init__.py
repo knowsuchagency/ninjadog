@@ -7,3 +7,4 @@ __email__ = 'knowsuchagency@gmail.com'
 __version__ = '0.3.5'
 
 from ninjadog.ninjadog import render
+from ninjadog.ext.pyramid import includeme
