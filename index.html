@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog: pug + jinj2 == ❤️ &#8212; ninjadog 0.3.5 documentation</title>
+    <title>ninjadog: pug + jinj2 == ❤️ &#8212; ninjadog 0.3.6 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.3.5',
+        VERSION:     '0.3.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -58,15 +58,14 @@
 </ul>
 <div class="section" id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
-<p>ninjadog requires Python 3, node-js, npm, and the pug-cli library</p>
+<p>ninjadog requires Python 3, node-js, npm, and the <a class="reference external" href="https://www.npmjs.com/package/pug-cli">pug-cli</a> library</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">npm</span>
 <span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">pug</span><span class="o">-</span><span class="n">cli</span>
 <span class="n">pip</span> <span class="n">install</span> <span class="n">ninjadog</span>
 </pre></div>
 </div>
-<p>For use with <a class="reference external" href="https://trypyramid.com/">Pyramid</a>, just add it to the configuration (after pyramid_jinja2)</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;pyramid_jinja2&#39;</span><span class="p">)</span>
-<span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;ninjadog.ext.pyramid&#39;</span><span class="p">)</span>
+<p>For use with <a class="reference external" href="https://trypyramid.com/">Pyramid</a>, just add it to the configuration</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;ninjadog&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -129,7 +128,7 @@
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<p>You can even combine jinja2 syntax for unparalleled
+<p>You can even combine <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a> syntax for unparalleled
 template-rendering power.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ninjadog</span> <span class="kn">import</span> <span class="n">render</span>
 
@@ -180,7 +179,7 @@ the popular and well-maintained nodejs implementation.</p>
 </div>
 <div class="section" id="command-line-interface">
 <h3>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>ninjadog v0.3.5
+<div class="highlight-default"><div class="highlight"><pre><span></span>ninjadog v0.3.6
 
 Render pug templates to html.
 
@@ -222,7 +221,8 @@ outputs
 <li class="toctree-l1"><a class="reference internal" href="ninjadog.html">ninjadog package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ninjadog.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ninjadog.ext.html">ninjadog.ext package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ninjadog.ext.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ninjadog.ext.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ninjadog.ext.html#module-ninjadog.ext.pyramid">ninjadog.ext.pyramid module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ninjadog.ext.html#module-ninjadog.ext">Module contents</a></li>
 </ul>
 </li>
