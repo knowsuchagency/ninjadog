@@ -5,12 +5,19 @@ ninjadog: pug + jinj2 == ❤️
 
 .. include:: ../README.rst
 
+Command Line Interface
+----------------------
+
+.. include:: ../ninjadog/cli.py
+    :start-after: """
+    :end-before: """
+    :literal:
+
 API Documentation
 -----------------
 
 .. include:: modules.rst
     :start-line: 2
-
 
 Indices and tables
 ------------------

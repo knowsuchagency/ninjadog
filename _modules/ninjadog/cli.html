@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog.cli &#8212; ninjadog 0.3.3 documentation</title>
+    <title>ninjadog.cli &#8212; ninjadog 0.3.4 documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.3.3',
+        VERSION:     '0.3.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -42,12 +42,14 @@
           <div class="body" role="main">
             
   <h1>Source code for ninjadog.cli</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;ninjadog v0.3.3</span>
+<span></span><span class="sd">&quot;&quot;&quot;ninjadog v0.3.4</span>
+
+<span class="sd">Render pug templates to html.</span>
 
 <span class="sd">Usage:</span>
 <span class="sd">    ninjadog string [options] &lt;string&gt;</span>
 <span class="sd">    ninjadog file [options] &lt;file&gt;</span>
-<span class="sd">    ninjadog - [options] </span>
+<span class="sd">    ninjadog - [options]</span>
 <span class="sd">    ninjadog -h | --help</span>
 <span class="sd">    ninjadog -V | --version</span>
 
@@ -62,9 +64,16 @@
 <span class="sd">    -v --verbose              verbose output</span>
 
 
-<span class="sd">Render pug templates to html. </span>
+<span class="sd">Strings may be passed via pipe using `-` argument.</span>
 
-<span class="sd">Use &quot;-&quot; to read from stdin i.e. echo &quot;h1 hello&quot; | ninjadog -</span>
+<span class="sd">i.e. </span>
+
+<span class="sd">echo &#39;h1 hello {{ name }}&#39; | ninjadog - -j -c &#39;{&quot;name&quot;: &quot;Sam&quot;}&#39;</span>
+
+<span class="sd">outputs</span>
+
+<span class="sd">&lt;h1&gt;hello Sam&lt;/h1&gt;</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">docopt</span> <span class="k">import</span> <span class="n">docopt</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -74,7 +83,7 @@
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../ninjadog.html#ninjadog.cli.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Render pug template to stdout.&quot;&quot;&quot;</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="n">docopt</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="n">argv</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.3.3&#39;</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">docopt</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="n">argv</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.3.4&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;--file&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;&lt;file&gt;&#39;</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot combine --file and &lt;file&gt; arguments&quot;</span><span class="p">)</span>

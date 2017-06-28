@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog package &#8212; ninjadog 0.3.3 documentation</title>
+    <title>ninjadog package &#8212; ninjadog 0.3.4 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.3.3',
+        VERSION:     '0.3.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -68,7 +68,8 @@
 </div>
 <div class="section" id="module-ninjadog.cli">
 <span id="ninjadog-cli-module"></span><h2>ninjadog.cli module<a class="headerlink" href="#module-ninjadog.cli" title="Permalink to this headline">¶</a></h2>
-<p>ninjadog v0.3.3</p>
+<p>ninjadog v0.3.4</p>
+<p>Render pug templates to html.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
 <dd>ninjadog string [options] &lt;string&gt;
@@ -85,8 +86,11 @@ ninjadog -V | –version</dd>
 -j –with-jinja           render jinja2 syntax as well as pug
 -v –verbose              verbose output</dd>
 </dl>
-<p>Render pug templates to html.</p>
-<p>Use “-” to read from stdin i.e. echo “h1 hello” | ninjadog -</p>
+<p>Strings may be passed via pipe using <cite>-</cite> argument.</p>
+<p>i.e.</p>
+<p>echo ‘h1 hello {{ name }}’ | ninjadog - -j -c ‘{“name”: “Sam”}’</p>
+<p>outputs</p>
+<p>&lt;h1&gt;hello Sam&lt;/h1&gt;</p>
 <dl class="function">
 <dt id="ninjadog.cli.main">
 <code class="descclassname">ninjadog.cli.</code><code class="descname">main</code><span class="sig-paren">(</span><em>argv=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/cli.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.cli.main" title="Permalink to this definition">¶</a></dt>
