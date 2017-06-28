@@ -1,4 +1,4 @@
-"""ninjadog v0.3.4
+"""ninjadog v0.3.5
 
 Render pug templates to html.
 
@@ -39,7 +39,7 @@ from ninjadog import render
 
 def main(argv=None):
     """Render pug template to stdout."""
-    args = docopt(__doc__, argv=argv, version='0.3.4')
+    args = docopt(__doc__, argv=argv, version='0.3.5')
 
     if args['--file'] and args['<file>']:
         raise ValueError("Cannot combine --file and <file> arguments")
