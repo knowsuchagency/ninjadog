@@ -1,9 +1,11 @@
 """ninjadog v0.3.3
 
+Render pug templates to html.
+
 Usage:
     ninjadog string [options] <string>
     ninjadog file [options] <file>
-    ninjadog - [options] 
+    ninjadog - [options]
     ninjadog -h | --help
     ninjadog -V | --version
 
@@ -18,9 +20,16 @@ Options:
     -v --verbose              verbose output
 
 
-Render pug templates to html. 
+Strings may be passed via pipe using `-` argument.
 
-Use "-" to read from stdin i.e. echo "h1 hello" | ninjadog -
+i.e. 
+
+echo 'h1 hello {{ name }}' | ninjadog - -j -c '{"name": "Sam"}'
+
+outputs
+
+<h1>hello Sam</h1>
+
 """
 from docopt import docopt
 import sys

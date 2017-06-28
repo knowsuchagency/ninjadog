@@ -123,7 +123,8 @@ def dist():
 def release():
     """Package and upload a release."""
     test_all()
-    clean()
+    clean_build()
+    clean_pyc()
     publish_docs()
 
     local('python setup.py sdist upload')

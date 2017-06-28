@@ -2,6 +2,7 @@
 
 """Main module."""
 import shlex
+import json
 import subprocess as sp
 import typing as T
 from pathlib import Path
@@ -75,5 +76,10 @@ def render(string: str = '',
                        )
     html, _ = pug_cli.communicate(string)
 
-    return Template(html).render(context) if with_jinja else html
+    if with_jinja:
+        if isinstance(context, str):
+            context = json.loads(context)
+        return Template(html).render(context)
+
+    return html
 
