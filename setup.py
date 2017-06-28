@@ -34,7 +34,7 @@ extras = {
 
 setup(
     name='ninjadog',
-    version='0.3.8',
+    version='0.3.9',
     description="Pug template support in Python",
     long_description=readme,
     author="Stephan Fitzpatrick",
