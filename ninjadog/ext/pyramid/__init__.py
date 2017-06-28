@@ -1,7 +1,13 @@
-from pprint import pprint
-
-from pyramid_jinja2 import *
-from jinja2.ext import Extension
+from pyramid_jinja2 import (
+    Jinja2TemplateRenderer,
+    TemplateNotFound,
+    DottedNameResolver,
+    parse_loader_options_from_settings,
+    parse_env_options_from_settings,
+    create_environment_from_options,
+    IJinja2Environment,
+    ENV_CONFIG_PHASE,
+)
 
 from ninjadog import render
 
@@ -22,15 +28,15 @@ class PugTemplateRenderer(Jinja2TemplateRenderer):
             raise ValueError('renderer was passed non-dictionary '
                              'as value: %s' % str(ex))
         template = self.template_loader()
+        return render(
+            template.render(system),
+            file=template.filename,
+            context=system,
+            with_jinja=True
+        )
 
-        return render(template.render(system),
-                      file=template.filename,
-                      context=system,
-                      with_jinja=True
-                      )
 
-
-class PugRendererFactory(object):
+class PugRendererFactory:
     """
     Renderer factory conforms to
     `IRendererFactory <http://docs.pylonsproject.org/projects/pyramid/en/latest/api/interfaces.html#pyramid.interfaces.IRendererFactory>`_
