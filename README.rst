@@ -35,11 +35,10 @@ ninjadog requires Python 3, node-js, npm, and the pug-cli library
     pip install ninjadog
 
 
-For use with `Pyramid`_, just add it to the configuration (after pyramid_jinja2)
+For use with `Pyramid`_, just add it to the configuration
 
 .. code-block:: python
 
-    config.include('pyramid_jinja2')
     config.include('ninjadog')
 
 

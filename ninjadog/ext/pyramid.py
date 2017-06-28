@@ -104,5 +104,6 @@ def add_pug_renderer(config, name, settings_prefix='jinja2.', package=None):
 
 
 def includeme(config):
+    config.include('pyramid_jinja2')
     config.add_directive('add_pug_renderer', add_pug_renderer)
     config.add_pug_renderer('.pug')
