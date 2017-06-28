@@ -3,11 +3,8 @@
 
 """Tests for `ninjadog` package."""
 
-# TODO: test raises ValueError when pug cli can't be found and not passed explicitly to renderer
-# TODO: add mypy testing
-# TODO: test pyramid extension
 
-import pytest
+# TODO: test raises ValueError when pug cli can't be found and not passed explicitly to renderer
 
 
 def test_npm_installed():

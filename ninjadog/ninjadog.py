@@ -45,7 +45,7 @@ def render(string: str = '',
     # create Path object if file argument is given
     # Path() is idempotent so this shouldn't make any difference
     # if the file argument is of type Path
-    filepath = Path(str(file)) if file else file
+    filepath = Path(str(file)) if file is not None else file
 
     # if filepath is given instead of a string argument,
     # return render of string

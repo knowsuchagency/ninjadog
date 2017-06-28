@@ -20,6 +20,7 @@ setup_requirements = [
 
 test_requirements = [
     'pytest',
+    'WebTest',
 ]
 
 entry_points = {
@@ -27,7 +28,7 @@ entry_points = {
 }
 
 extras = {
-    'tests': test_requirements,
+    'testing': test_requirements,
     'dev': dev_requirements,
 }
 
