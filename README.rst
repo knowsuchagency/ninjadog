@@ -26,7 +26,7 @@ ninjadog
 Installation
 ------------
 
-ninjadog requires Python 3, node-js, npm, and the pug-cli library
+ninjadog requires Python 3, node-js, npm, and the `pug-cli`_ library
 
 ::
 
@@ -111,7 +111,7 @@ to render this
     </html>
 
 
-You can even combine jinja2 syntax for unparalleled
+You can even combine `jinja2`_ syntax for unparalleled
 template-rendering power.
 
 .. code-block:: python
