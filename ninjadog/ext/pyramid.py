@@ -9,7 +9,7 @@ from pyramid_jinja2 import (
     ENV_CONFIG_PHASE,
 )
 
-from ninjadog import render
+from ninjadog.ninjadog import render
 
 
 class PugTemplateRenderer(Jinja2TemplateRenderer):

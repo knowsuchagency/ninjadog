@@ -31,13 +31,15 @@ outputs
 <h1>hello Sam</h1>
 
 """
-from docopt import docopt
 import sys
+import typing as T
+
+from docopt import docopt
 
 from ninjadog import render
 
 
-def main(argv=None):
+def main(argv: T.Optional[T.Iterable] = None):
     """Render pug template to stdout."""
     args = docopt(__doc__, argv=argv, version='0.3.7')
 

@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
 """Main module."""
-import shlex
 import json
+import shlex
 import subprocess as sp
 import typing as T
 from pathlib import Path
 
+from jinja2 import Template
+
 from ninjadog.constants import PUG_CLI_PATH
 from ninjadog.utils import jsonify
-
-from jinja2 import Template
 
 
 def render(string: str = '',

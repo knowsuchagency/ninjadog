@@ -1,6 +1,5 @@
 import re
 import subprocess as sp
-import typing as T
 from pathlib import Path
 
 
