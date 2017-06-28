@@ -82,7 +82,7 @@ and sprinkle some Python over it
         'type': 'text',
     }
 
-    print(render(filepath=file, context=context, pretty=True))
+    print(render(file=filepath, context=context, pretty=True))
 
 to render this
 
