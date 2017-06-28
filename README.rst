@@ -26,7 +26,7 @@ ninjadog
 Installation
 ------------
 
-ninjadog requires Python 3.6, node-js, npm, and the pug-cli library
+ninjadog requires Python 3, node-js, npm, and the pug-cli library
 
 ::
 
