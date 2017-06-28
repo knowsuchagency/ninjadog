@@ -11,6 +11,9 @@ with open('README.rst') as readme_file:
 with open('requirements.txt') as requirements_file:
     requirements = requirements_file.readlines()
 
+with open('requirements_dev.txt') as dev_requirements_file:
+    dev_requirements = dev_requirements_file.readlines()
+
 setup_requirements = [
     'pytest-runner',
 ]
@@ -18,6 +21,15 @@ setup_requirements = [
 test_requirements = [
     'pytest',
 ]
+
+entry_points = {
+    'console_scripts': ['ninjadog=ninjadog.cli:main'],
+}
+
+extras = {
+    'tests': test_requirements,
+    'dev': dev_requirements,
+}
 
 setup(
     name='ninjadog',
@@ -37,14 +49,12 @@ setup(
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
     test_suite='tests',
     tests_require=test_requirements,
     setup_requires=setup_requirements,
-    entry_points = {
-        'console_scripts': ['ninjadog=ninjadog.cli:main']
-    }
+    entry_points=entry_points,
+    extras_require=extras,
 )

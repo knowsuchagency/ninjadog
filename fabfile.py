@@ -87,7 +87,7 @@ def publish_docs():
     """
     Compile docs and publish to GitHub Pages.
     
-    Logic borrowed from https://gohugo.io/tutorials/github-pages-blog/
+    Logic borrowed from `hugo <https://gohugo.io/tutorials/github-pages-blog/>`
     """
     with settings(warn_only=True):
         if local('git diff-index --quiet HEAD --').failed:
@@ -114,7 +114,6 @@ def publish_docs():
 def dist():
     """Build source and wheel package."""
     clean()
-
     local('python setup.py sdist')
     local('python setup.py bdist_wheel')
 
@@ -122,30 +121,11 @@ def dist():
 @task
 def release():
     """Package and upload a release."""
+    clean()
     test_all()
-    clean_build()
-    clean_pyc()
     publish_docs()
-
     local('python setup.py sdist upload')
     local('python setup.py bdist_wheel upload')
-
-
-@task
-def install(development_mode=True):
-    """
-    Install package.
-    
-    Args:
-        development_mode: Install locally as opposed to site-packages
-    """
-    clean()
-
-    if development_mode:
-        local('pip install -e .')
-    else:
-        local('pip install .')
-    local('pip install -r requirements_dev.txt')
 
 
 @singledispatch
