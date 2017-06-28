@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog.ninjadog &#8212; ninjadog 0.3.7 documentation</title>
+    <title>ninjadog.ninjadog &#8212; ninjadog 0.3.8 documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.3.7',
+        VERSION:     '0.3.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -45,16 +45,16 @@
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="sd">&quot;&quot;&quot;Main module.&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">shlex</span>
 <span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">shlex</span>
 <span class="kn">import</span> <span class="nn">subprocess</span> <span class="k">as</span> <span class="nn">sp</span>
 <span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="nn">T</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
 
+<span class="kn">from</span> <span class="nn">jinja2</span> <span class="k">import</span> <span class="n">Template</span>
+
 <span class="kn">from</span> <span class="nn">ninjadog.constants</span> <span class="k">import</span> <span class="n">PUG_CLI_PATH</span>
 <span class="kn">from</span> <span class="nn">ninjadog.utils</span> <span class="k">import</span> <span class="n">jsonify</span>
-
-<span class="kn">from</span> <span class="nn">jinja2</span> <span class="k">import</span> <span class="n">Template</span>
 
 
 <div class="viewcode-block" id="render"><a class="viewcode-back" href="../../ninjadog.html#ninjadog.ninjadog.render">[docs]</a><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
@@ -89,7 +89,7 @@
     <span class="c1"># create Path object if file argument is given</span>
     <span class="c1"># Path() is idempotent so this shouldn&#39;t make any difference</span>
     <span class="c1"># if the file argument is of type Path</span>
-    <span class="n">filepath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">file</span><span class="p">))</span> <span class="k">if</span> <span class="n">file</span> <span class="k">else</span> <span class="n">file</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">file</span><span class="p">))</span> <span class="k">if</span> <span class="n">file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">file</span>
 
     <span class="c1"># if filepath is given instead of a string argument,</span>
     <span class="c1"># return render of string</span>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog.ext package &#8212; ninjadog 0.3.7 documentation</title>
+    <title>ninjadog.ext package &#8212; ninjadog 0.3.8 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.3.7',
+        VERSION:     '0.3.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -26,6 +26,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ninjadog.ext.pyramid package" href="ninjadog.ext.pyramid.html" />
     <link rel="prev" title="ninjadog package" href="ninjadog.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -44,54 +45,16 @@
             
   <div class="section" id="ninjadog-ext-package">
 <h1>ninjadog.ext package<a class="headerlink" href="#ninjadog-ext-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ninjadog.ext.pyramid.html">ninjadog.ext.pyramid package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ninjadog.ext.pyramid.html#module-ninjadog.ext.pyramid">Module contents</a></li>
+</ul>
+</li>
+</ul>
 </div>
-<div class="section" id="module-ninjadog.ext.pyramid">
-<span id="ninjadog-ext-pyramid-module"></span><h2>ninjadog.ext.pyramid module<a class="headerlink" href="#module-ninjadog.ext.pyramid" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="ninjadog.ext.pyramid.PugRendererFactory">
-<em class="property">class </em><code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">PugRendererFactory</code><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#PugRendererFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.PugRendererFactory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Renderer factory conforms to
-<a class="reference external" href="http://docs.pylonsproject.org/projects/pyramid/en/latest/api/interfaces.html#pyramid.interfaces.IRendererFactory">IRendererFactory</a>
-interface.</p>
-<dl class="attribute">
-<dt id="ninjadog.ext.pyramid.PugRendererFactory.environment">
-<code class="descname">environment</code><em class="property"> = None</em><a class="headerlink" href="#ninjadog.ext.pyramid.PugRendererFactory.environment" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="ninjadog.ext.pyramid.PugTemplateRenderer">
-<em class="property">class </em><code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">PugTemplateRenderer</code><span class="sig-paren">(</span><em>template_loader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#PugTemplateRenderer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.PugTemplateRenderer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pyramid_jinja2.Jinja2TemplateRenderer</span></code></p>
-<p>Renders templates that have both pug and jinja2
-syntax.</p>
-<p>Conforms to <a class="reference external" href="http://docs.pylonsproject.org/projects/pyramid/en/latest/api/interfaces.html#pyramid.interfaces.IRenderer">IRenderer</a>
-interface.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="ninjadog.ext.pyramid.add_pug_renderer">
-<code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">add_pug_renderer</code><span class="sig-paren">(</span><em>config</em>, <em>name</em>, <em>settings_prefix=’jinja2.’</em>, <em>package=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#add_pug_renderer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.add_pug_renderer" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function is added as a method of a <span class="xref std std-term">Configurator</span>, and
-should not be called directly.  Instead it should be called like so after
-<code class="docutils literal"><span class="pre">pyramid_jinja2</span></code> has been passed to <code class="docutils literal"><span class="pre">config.include</span></code>:
-.. code-block:: python</p>
-<blockquote>
-<div>config.add_jinja2_renderer(‘.html’, settings_prefix=’jinja2.’)</div></blockquote>
-<p>It will register a new renderer, loaded from settings at the specified
-<code class="docutils literal"><span class="pre">settings_prefix</span></code> prefix. This renderer will be active for files using
-the specified extension <code class="docutils literal"><span class="pre">name</span></code>.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="ninjadog.ext.pyramid.includeme">
-<code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">includeme</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#includeme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.includeme" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="module-ninjadog.ext">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ninjadog.ext" title="Permalink to this headline">¶</a></h2>
@@ -107,8 +70,7 @@ the specified extension <code class="docutils literal"><span class="pre">name</s
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">ninjadog.ext package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-ninjadog.ext.pyramid">ninjadog.ext.pyramid module</a></li>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#module-ninjadog.ext">Module contents</a></li>
 </ul>
 </li>
@@ -119,6 +81,7 @@ the specified extension <code class="docutils literal"><span class="pre">name</s
   <li><a href="index.html">Documentation overview</a><ul>
   <li><a href="ninjadog.html">ninjadog package</a><ul>
       <li>Previous: <a href="ninjadog.html" title="previous chapter">ninjadog package</a></li>
+      <li>Next: <a href="ninjadog.ext.pyramid.html" title="next chapter">ninjadog.ext.pyramid package</a></li>
   </ul></li>
   </ul></li>
 </ul>

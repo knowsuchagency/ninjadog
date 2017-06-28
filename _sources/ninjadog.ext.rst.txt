@@ -1,17 +1,12 @@
 ninjadog\.ext package
 =====================
 
-Submodules
-----------
+Subpackages
+-----------
 
-ninjadog\.ext\.pyramid module
------------------------------
+.. toctree::
 
-.. automodule:: ninjadog.ext.pyramid
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+    ninjadog.ext.pyramid
 
 Module contents
 ---------------
