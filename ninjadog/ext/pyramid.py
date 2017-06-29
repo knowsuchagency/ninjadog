@@ -1,3 +1,7 @@
+from pprint import pprint
+from shutil import rmtree as delete_directory
+from pathlib import Path
+
 from pyramid_jinja2 import (
     Jinja2TemplateRenderer,
     TemplateNotFound,
@@ -10,6 +14,16 @@ from pyramid_jinja2 import (
 )
 
 from ninjadog.ninjadog import render
+from ninjadog.constants import TEMPDIR
+
+settings = {}
+
+
+def asbool(value):
+    if isinstance(value, bool):
+        return value
+    elif isinstance(value, str):
+        return value.lower().startswith('t')
 
 
 class PugTemplateRenderer(Jinja2TemplateRenderer):
@@ -28,6 +42,29 @@ class PugTemplateRenderer(Jinja2TemplateRenderer):
             raise ValueError('renderer was passed non-dictionary '
                              'as value: %s' % str(ex))
         template = self.template_loader()
+
+        # cheap hack to be able to alter rendering based on config settings
+        global settings
+        # doctor pug static only option
+        static_only = asbool(settings.get('pug.static_only'))
+        reload = any(settings.get(val) for val in ('reload_all', 'reload_templates'))
+
+        pprint(settings)
+
+        if static_only and not reload:
+            template_path = Path(TEMPDIR, Path(template.filename).name)
+            if not template_path.exists():
+                html = render(
+                    template.render(system),
+                    file=template.filename,
+                    context=system,
+                    with_jinja=True
+                )
+                template_path.write_text(html)
+                return html
+
+            return template_path.read_text()
+
         return render(
             template.render(system),
             file=template.filename,
@@ -61,7 +98,7 @@ class PugRendererFactory:
         return PugTemplateRenderer(template_loader)
 
 
-def add_pug_renderer(config, name, settings_prefix='jinja2.', package=None):
+def add_pug_renderer(config, name, settings_prefix='pug.', package=None):
     """
     This function is added as a method of a :term:`Configurator`, and
     should not be called directly.  Instead it should be called like so after
@@ -72,6 +109,11 @@ def add_pug_renderer(config, name, settings_prefix='jinja2.', package=None):
     ``settings_prefix`` prefix. This renderer will be active for files using
     the specified extension ``name``.
     """
+
+    # set global settings dictionary
+    global settings
+    settings = config.get_settings()
+
     renderer_factory = PugRendererFactory()
     config.add_renderer(name, renderer_factory)
 
@@ -106,3 +148,7 @@ def add_pug_renderer(config, name, settings_prefix='jinja2.', package=None):
 def includeme(config):
     config.add_directive('add_pug_renderer', add_pug_renderer)
     config.add_pug_renderer('.pug')
+
+    # start with fresh temporary directory
+    delete_directory(TEMPDIR, ignore_errors=True)
+    TEMPDIR.mkdir()

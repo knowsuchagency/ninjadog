@@ -38,9 +38,15 @@ def clean():
 
 
 @task
-def test():
-    """Run tests quickly with default Python."""
-    local('py.test')
+def test(capture=True):
+    """
+    Run tests quickly with default Python.
+    
+    Args:
+        capture: capture stdout [default: True]
+    """
+    disable_capturing = ' -s' if not true(capture) else ''
+    local('py.test' + disable_capturing)
 
 
 @task(alias='tox')
