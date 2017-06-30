@@ -22,7 +22,7 @@ def settings():
 @pytest.fixture
 def testapp(settings):
     from pyramid.config import Configurator
-    with Configurator(settings={'pug.static_only': True}) as config:
+    with Configurator(settings=settings) as config:
         config.include('ninjadog')
         config.add_route('home', '/')
         config.add_view(

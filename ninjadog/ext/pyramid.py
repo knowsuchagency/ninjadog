@@ -1,154 +1,123 @@
-from pprint import pprint
-from shutil import rmtree as delete_directory
+import typing as T
 from pathlib import Path
+from shutil import rmtree as rmdir
 
-from pyramid_jinja2 import (
-    Jinja2TemplateRenderer,
-    TemplateNotFound,
-    DottedNameResolver,
-    parse_loader_options_from_settings,
-    parse_env_options_from_settings,
-    create_environment_from_options,
-    IJinja2Environment,
-    ENV_CONFIG_PHASE,
-)
+from pyramid.path import AssetResolver
 
 from ninjadog.ninjadog import render
 from ninjadog.constants import TEMPDIR
 
-settings = {}
+
+def get_and_update(dictionary: dict, key: T.Any, value: T.Any) -> T.Any:
+    """
+    Get the previous value for the key and update with the new value.
+    
+    Args:
+        dictionary: dict
+        key: any
+        value: any
+
+    Returns: the previous value for that key or the value if the key didn't exist
+
+    """
+    previous = dictionary.setdefault(key, value)
+    dictionary.update({key: value})
+
+    return previous
 
 
-def asbool(value):
+def truth(value: T.Union[bool, str]) -> bool:
+    """
+    Return whether the value is True or not.
+
+    Args:
+        value: an element parsed from a settings dictionary
+
+    Returns: bool
+
+    """
     if isinstance(value, bool):
         return value
     elif isinstance(value, str):
         return value.lower().startswith('t')
 
 
-class PugTemplateRenderer(Jinja2TemplateRenderer):
+def resolve(path: str, caller=None) -> Path:
     """
-    Renders templates that have both pug and jinja2
-    syntax.
-    
-    Conforms to `IRenderer <http://docs.pylonsproject.org/projects/pyramid/en/latest/api/interfaces.html#pyramid.interfaces.IRenderer>`_
-    interface.
+    Return the path of the given string, given a path or asset spec.
+
+    Args:
+        path: absolute or relative path or asset spec
+        caller: the python module or package that called the function
+
+    Returns: Path to file
+
     """
+    if ':' in path:
+        return Path(AssetResolver().resolve(path).abspath())
+    elif Path(path).is_absolute():
+        return Path(path)
 
-    def __call__(self, value, system):
-        try:
-            system.update(value)
-        except (TypeError, ValueError) as ex:
-            raise ValueError('renderer was passed non-dictionary '
-                             'as value: %s' % str(ex))
-        template = self.template_loader()
+    return Path(Path(caller.__file__).parent, path).absolute()
 
-        # cheap hack to be able to alter rendering based on config settings
-        global settings
-        # doctor pug static only option
-        static_only = asbool(settings.get('pug.static_only'))
-        reload = any(settings.get(val) for val in ('reload_all', 'reload_templates'))
 
-        pprint(settings)
+def run_once():
+    """
+    Creates the temporary directory at runtime idempotently.
+    """
+    has_run = False
 
-        if static_only and not reload:
-            template_path = Path(TEMPDIR, Path(template.filename).name)
-            if not template_path.exists():
-                html = render(
-                    template.render(system),
-                    file=template.filename,
-                    context=system,
-                    with_jinja=True
-                )
-                template_path.write_text(html)
-                return html
+    def logic():
+        nonlocal has_run
+        if not has_run:
+            rmdir(TEMPDIR, ignore_errors=True)
+            TEMPDIR.mkdir(exist_ok=True)
+            has_run = True
 
-            return template_path.read_text()
+    return logic
 
-        return render(
-            template.render(system),
-            file=template.filename,
-            context=system,
-            with_jinja=True
-        )
+
+reset_tempdir = run_once()
 
 
 class PugRendererFactory:
-    """
-    Renderer factory conforms to
-    `IRendererFactory <http://docs.pylonsproject.org/projects/pyramid/en/latest/api/interfaces.html#pyramid.interfaces.IRendererFactory>`_
-    interface.
-    """
-    environment = None
+    def __init__(self, info):
+        self.reload = info.settings['reload_all'] or info.settings['reload_templates']
+        self.static_only = truth(info.settings.get('ninjadog.cache', False))
 
-    def __call__(self, info):
-        name, package = info.name, info.package
+        self.template_path = resolve(info.name,
+                                     info.package)
+        self.template_name = self.template_path.name
+        self.template_cache = {}
 
-        def template_loader():
-            # attempt to turn the name into a caller-relative asset spec
-            if ':' not in name and package is not None:
-                try:
-                    name_with_package = '%s:%s' % (package.__name__, name)
-                    return self.environment.get_template(name_with_package)
-                except TemplateNotFound:
-                    pass
+        if self.static_only:
+            reset_tempdir()
 
-            return self.environment.get_template(name)
+    def __call__(self, value, system):
+        if not isinstance(value, dict): raise ValueError('view must return dict')
 
-        return PugTemplateRenderer(template_loader)
+        context = system
+        context.update(value)
 
+        if self.static_only:
+            template_changed = False
+            if self.reload:
+                template_text = self.template_path.read_text()
+                template_changed = get_and_update(self.template_cache, self.template_name,
+                                                  template_text) != template_text
 
-def add_pug_renderer(config, name, settings_prefix='pug.', package=None):
-    """
-    This function is added as a method of a :term:`Configurator`, and
-    should not be called directly.  Instead it should be called like so after
-    ``pyramid_jinja2`` has been passed to ``config.include``:
-    .. code-block:: python
-       config.add_jinja2_renderer('.html', settings_prefix='jinja2.')
-    It will register a new renderer, loaded from settings at the specified
-    ``settings_prefix`` prefix. This renderer will be active for files using
-    the specified extension ``name``.
-    """
+            template_file = Path(TEMPDIR, self.template_name)
 
-    # set global settings dictionary
-    global settings
-    settings = config.get_settings()
+            if (not template_file.exists()) or (self.reload and template_changed):
+                html = render(file=self.template_path, context=context, with_jinja=True)
+                template_file.write_text(html)
 
-    renderer_factory = PugRendererFactory()
-    config.add_renderer(name, renderer_factory)
+                return html
 
-    package = package or config.package
-    resolver = DottedNameResolver(package=package)
+            return template_file.read_text()
 
-    def register():
-        registry = config.registry
-        settings = config.get_settings()
-
-        loader_opts = parse_loader_options_from_settings(
-            settings,
-            settings_prefix,
-            resolver.maybe_resolve,
-            package,
-        )
-        env_opts = parse_env_options_from_settings(
-            settings,
-            settings_prefix,
-            resolver.maybe_resolve,
-            package,
-        )
-        env = create_environment_from_options(env_opts, loader_opts)
-        renderer_factory.environment = env
-
-        registry.registerUtility(env, IJinja2Environment, name=name)
-
-    config.action(
-        ('pug-renderer', name), register, order=ENV_CONFIG_PHASE)
+        return render(file=self.template_path, context=context, with_jinja=True)
 
 
 def includeme(config):
-    config.add_directive('add_pug_renderer', add_pug_renderer)
-    config.add_pug_renderer('.pug')
-
-    # start with fresh temporary directory
-    delete_directory(TEMPDIR, ignore_errors=True)
-    TEMPDIR.mkdir()
+    config.add_renderer('.pug', PugRendererFactory)

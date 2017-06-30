@@ -7,7 +7,7 @@ import subprocess as sp
 import typing as T
 from pathlib import Path
 
-from jinja2 import Template
+from jinja2 import Environment
 
 from ninjadog.constants import PUG_CLI_PATH
 from ninjadog.utils import jsonify
@@ -55,7 +55,9 @@ def render(string: str = '',
                           filepath,
                           context=context,
                           pretty=pretty,
-                          pug_cli_path=pug_cli_path)
+                          pug_cli_path=pug_cli_path,
+                          with_jinja=with_jinja,
+                          )
 
     cmd = shlex.quote(pug_cli_path)
     path = '-p {}'.format(shlex.quote(str(filepath))) if filepath else ''
@@ -68,6 +70,14 @@ def render(string: str = '',
     else:
         context_arg = '-O {}'.format(shlex.quote(jsonify(context)))
 
+    # jinja templates require pre and post-processing
+    if with_jinja:
+        env = Environment()
+        env.globals = context
+        if isinstance(context, str):
+            context = json.loads(context)
+        string = env.from_string(string).render()
+
     pug_cli = sp.Popen(shlex.split('{} {} {} {}'.format(cmd, context_arg, path, pretty_print)),
                        stdin=sp.PIPE,
                        stdout=sp.PIPE,
@@ -76,10 +86,5 @@ def render(string: str = '',
                        )
     html, _ = pug_cli.communicate(string)
 
-    if with_jinja:
-        if isinstance(context, str):
-            context = json.loads(context)
-        return Template(html).render(context)
-
-    return html
+    return html if not with_jinja else env.from_string(html).render()
 
