@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from webtest import TestApp as _TestApp
 
 import pytest
@@ -19,6 +17,7 @@ def settings():
     config.read_string(config_ini)
     return dict(config.items('app:main'))
 
+
 @pytest.fixture
 def testapp(settings):
     from pyramid.config import Configurator
@@ -31,8 +30,6 @@ def testapp(settings):
             renderer='./templates/child.pug',
         )
         app = config.make_wsgi_app()
-
-        #pprint(config.registry.settings)
 
         yield _TestApp(app)
 
