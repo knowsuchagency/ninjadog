@@ -1,5 +1,5 @@
-ninjadog: pug + jinj2 == ❤️
-===========================
+ninjadog: pug + jinja2 == ❤️
+============================
 
 .. image:: yodawg.jpg
 
