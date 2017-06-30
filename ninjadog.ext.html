@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog.ext package &#8212; ninjadog 0.3.9 documentation</title>
+    <title>ninjadog.ext package &#8212; ninjadog 0.4.0 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.3.9',
+        VERSION:     '0.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -51,46 +51,79 @@
 <span id="ninjadog-ext-pyramid-module"></span><h2>ninjadog.ext.pyramid module<a class="headerlink" href="#module-ninjadog.ext.pyramid" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="ninjadog.ext.pyramid.PugRendererFactory">
-<em class="property">class </em><code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">PugRendererFactory</code><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#PugRendererFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.PugRendererFactory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">PugRendererFactory</code><span class="sig-paren">(</span><em>info</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#PugRendererFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.PugRendererFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Renderer factory conforms to
-<a class="reference external" href="http://docs.pylonsproject.org/projects/pyramid/en/latest/api/interfaces.html#pyramid.interfaces.IRendererFactory">IRendererFactory</a>
-interface.</p>
-<dl class="attribute">
-<dt id="ninjadog.ext.pyramid.PugRendererFactory.environment">
-<code class="descname">environment</code><em class="property"> = None</em><a class="headerlink" href="#ninjadog.ext.pyramid.PugRendererFactory.environment" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="ninjadog.ext.pyramid.PugTemplateRenderer">
-<em class="property">class </em><code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">PugTemplateRenderer</code><span class="sig-paren">(</span><em>template_loader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#PugTemplateRenderer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.PugTemplateRenderer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pyramid_jinja2.Jinja2TemplateRenderer</span></code></p>
-<p>Renders templates that have both pug and jinja2
-syntax.</p>
-<p>Conforms to <a class="reference external" href="http://docs.pylonsproject.org/projects/pyramid/en/latest/api/interfaces.html#pyramid.interfaces.IRenderer">IRenderer</a>
-interface.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="ninjadog.ext.pyramid.add_pug_renderer">
-<code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">add_pug_renderer</code><span class="sig-paren">(</span><em>config</em>, <em>name</em>, <em>settings_prefix=’jinja2.’</em>, <em>package=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#add_pug_renderer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.add_pug_renderer" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function is added as a method of a <span class="xref std std-term">Configurator</span>, and
-should not be called directly.  Instead it should be called like so after
-<code class="docutils literal"><span class="pre">pyramid_jinja2</span></code> has been passed to <code class="docutils literal"><span class="pre">config.include</span></code>:
-.. code-block:: python</p>
-<blockquote>
-<div>config.add_jinja2_renderer(‘.html’, settings_prefix=’jinja2.’)</div></blockquote>
-<p>It will register a new renderer, loaded from settings at the specified
-<code class="docutils literal"><span class="pre">settings_prefix</span></code> prefix. This renderer will be active for files using
-the specified extension <code class="docutils literal"><span class="pre">name</span></code>.</p>
+<dt id="ninjadog.ext.pyramid.get_and_update">
+<code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">get_and_update</code><span class="sig-paren">(</span><em>dictionary: dict</em>, <em>key: typing.Any</em>, <em>value: typing.Any</em><span class="sig-paren">)</span> &#x2192; typing.Any<a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#get_and_update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.get_and_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the previous value for the key and update with the new value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dictionary</strong> – dict</li>
+<li><strong>key</strong> – any</li>
+<li><strong>value</strong> – any</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: the previous value for that key or the value if the key didn’t exist</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="ninjadog.ext.pyramid.includeme">
 <code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">includeme</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#includeme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.includeme" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="function">
+<dt id="ninjadog.ext.pyramid.reset_tempdir">
+<code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">reset_tempdir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ninjadog.ext.pyramid.reset_tempdir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="ninjadog.ext.pyramid.resolve">
+<code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">resolve</code><span class="sig-paren">(</span><em>path: str</em>, <em>caller=None</em><span class="sig-paren">)</span> &#x2192; pathlib.Path<a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#resolve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.resolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the path of the given string, given a path or asset spec.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> – absolute or relative path or asset spec</li>
+<li><strong>caller</strong> – the python module or package that called the function</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: Path to file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ninjadog.ext.pyramid.run_once">
+<code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">run_once</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#run_once"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.run_once" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the temporary directory at runtime idempotently.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ninjadog.ext.pyramid.truth">
+<code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">truth</code><span class="sig-paren">(</span><em>value: typing.Union[bool, str]</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#truth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.truth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether the value is True or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> – an element parsed from a settings dictionary</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: bool</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-ninjadog.ext">

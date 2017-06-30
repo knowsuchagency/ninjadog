@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog: pug + jinj2 == ❤️ &#8212; ninjadog 0.3.9 documentation</title>
+    <title>ninjadog: pug + jinj2 == ❤️ &#8212; ninjadog 0.4.0 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.3.9',
+        VERSION:     '0.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -179,7 +179,7 @@ the popular and well-maintained nodejs implementation.</p>
 </div>
 <div class="section" id="command-line-interface">
 <h3>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>ninjadog v0.3.9
+<div class="highlight-default"><div class="highlight"><pre><span></span>ninjadog v0.4.0
 
 Render pug templates to html.
 
@@ -213,6 +213,27 @@ outputs
 
 </pre></div>
 </div>
+</div>
+<div class="section" id="id2">
+<h3>Pyramid<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>You can avoid having to render each template anew with every HTTP request.
+In your Pyramid configuration, you can have ninjadog cache templates by setting
+the <code class="docutils literal"><span class="pre">ninjadog.cache</span></code> option to true like so</p>
+<div class="highlight-ini"><div class="highlight"><pre><span></span><span class="k">[app:main]</span>
+<span class="na">ninjadog.cache</span> <span class="o">=</span> <span class="s">true</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">Configurator</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ninjadog.cache&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">})</span>
+<span class="c1"># ...</span>
+</pre></div>
+</div>
+<p>… however you like to configure your app.</p>
+<p>While this will make each page load much faster after the first visit,
+<strong>IT ALSO MEANS YOU CANNOT HAVE ANY MUTABLE STATE IN YOUR TEMPLATE</strong>
+as the template itself won’t render any differently after the first time it’s rendered.</p>
+<p>It may be best to prototype by using ninjadog as normal - mutable state, conditionals, mixins… whatever -
+but to set the aformentioned option to true and move any logic dealing with mutable state into
+javascript for production. The choice yours.</p>
 </div>
 <div class="section" id="api-documentation">
 <h3>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h3>
@@ -264,6 +285,7 @@ outputs
 <li><a class="reference internal" href="#usage">Usage</a></li>
 <li><a class="reference internal" href="#why">Why?</a></li>
 <li><a class="reference internal" href="#command-line-interface">Command Line Interface</a></li>
+<li><a class="reference internal" href="#id2">Pyramid</a></li>
 <li><a class="reference internal" href="#api-documentation">API Documentation</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
