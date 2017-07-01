@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog package &#8212; ninjadog 0.4.0 documentation</title>
+    <title>ninjadog package &#8212; ninjadog 0.4.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.0',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -63,12 +63,13 @@
 </div>
 <div class="section" id="module-ninjadog.cli">
 <span id="ninjadog-cli-module"></span><h2>ninjadog.cli module<a class="headerlink" href="#module-ninjadog.cli" title="Permalink to this headline">¶</a></h2>
-<p>ninjadog v0.4.0</p>
+<p>ninjadog v0.4.1</p>
 <p>Render pug templates to html.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
 <dd>ninjadog string [options] &lt;string&gt;
 ninjadog file [options] &lt;file&gt;
+ninjadog dir [options] &lt;source&gt; [&lt;destination&gt;]
 ninjadog - [options]
 ninjadog -h | –help
 ninjadog -V | –version</dd>
@@ -79,7 +80,9 @@ ninjadog -V | –version</dd>
 -p –pretty               pretty print output
 -c –context &lt;context&gt;    json string to be passed as context
 -j –with-jinja           render jinja2 syntax as well as pug
--v –verbose              verbose output</dd>
+-v –verbose              verbose output
+-n –dry-run              verbose output and exit without executing
+&lt;destination&gt;             destination directory to render pug files to</dd>
 </dl>
 <p>Strings may be passed via pipe using <cite>-</cite> argument.</p>
 <p>i.e.</p>
@@ -90,6 +93,26 @@ ninjadog -V | –version</dd>
 <dt id="ninjadog.cli.main">
 <code class="descclassname">ninjadog.cli.</code><code class="descname">main</code><span class="sig-paren">(</span><em>argv: typing.Union[typing.Iterable</em>, <em>NoneType] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/cli.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.cli.main" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render pug template to stdout.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ninjadog.cli.render_directory">
+<code class="descclassname">ninjadog.cli.</code><code class="descname">render_directory</code><span class="sig-paren">(</span><em>source: pathlib.Path</em>, <em>destination: pathlib.Path = None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/cli.html#render_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.cli.render_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render a directory of pug templates.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>source</strong> – the source directory</li>
+<li><strong>destination</strong> – the destination directory [default: source]</li>
+<li><strong>kwargs</strong> – arguments that will be passed to the ninjadog renderer</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: None</p>
 </dd></dl>
 
 </div>

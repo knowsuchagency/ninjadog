@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog.cli &#8212; ninjadog 0.4.0 documentation</title>
+    <title>ninjadog.cli &#8212; ninjadog 0.4.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.4.0',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -42,13 +42,14 @@
           <div class="body" role="main">
             
   <h1>Source code for ninjadog.cli</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;ninjadog v0.4.0</span>
+<span></span><span class="sd">&quot;&quot;&quot;ninjadog v0.4.1</span>
 
 <span class="sd">Render pug templates to html.</span>
 
 <span class="sd">Usage:</span>
 <span class="sd">    ninjadog string [options] &lt;string&gt;</span>
 <span class="sd">    ninjadog file [options] &lt;file&gt;</span>
+<span class="sd">    ninjadog dir [options] &lt;source&gt; [&lt;destination&gt;]</span>
 <span class="sd">    ninjadog - [options]</span>
 <span class="sd">    ninjadog -h | --help</span>
 <span class="sd">    ninjadog -V | --version</span>
@@ -62,11 +63,13 @@
 <span class="sd">    -c --context &lt;context&gt;    json string to be passed as context</span>
 <span class="sd">    -j --with-jinja           render jinja2 syntax as well as pug</span>
 <span class="sd">    -v --verbose              verbose output</span>
+<span class="sd">    -n --dry-run              verbose output and exit without executing</span>
+<span class="sd">    &lt;destination&gt;             destination directory to render pug files to</span>
 
 
 <span class="sd">Strings may be passed via pipe using `-` argument.</span>
 
-<span class="sd">i.e. </span>
+<span class="sd">i.e.</span>
 
 <span class="sd">echo &#39;h1 hello {{ name }}&#39; | ninjadog - -j -c &#39;{&quot;name&quot;: &quot;Sam&quot;}&#39;</span>
 
@@ -77,15 +80,40 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="nn">T</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
 
 <span class="kn">from</span> <span class="nn">docopt</span> <span class="k">import</span> <span class="n">docopt</span>
 
 <span class="kn">from</span> <span class="nn">ninjadog</span> <span class="k">import</span> <span class="n">render</span>
 
 
+<div class="viewcode-block" id="render_directory"><a class="viewcode-back" href="../../ninjadog.html#ninjadog.cli.render_directory">[docs]</a><span class="k">def</span> <span class="nf">render_directory</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="n">Path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Render a directory of pug templates.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        source: the source directory</span>
+<span class="sd">        destination: the destination directory [default: source]</span>
+<span class="sd">        kwargs: arguments that will be passed to the ninjadog renderer</span>
+
+<span class="sd">    Returns: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">destination</span> <span class="o">=</span> <span class="n">destination</span> <span class="ow">or</span> <span class="n">source</span>
+    <span class="n">destination</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">pug_templates</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">suffix</span><span class="o">==</span><span class="s1">&#39;.pug&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">iterdir</span><span class="p">())</span>
+
+    <span class="k">for</span> <span class="n">template</span> <span class="ow">in</span> <span class="n">pug_templates</span><span class="p">:</span>
+        <span class="n">rendered_template</span> <span class="o">=</span> <span class="n">render</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">template</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">new_template</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="n">template</span><span class="o">.</span><span class="n">stem</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">&#39;.html&#39;</span><span class="p">)</span>
+        <span class="n">new_template</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">rendered_template</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Rendered&#39;</span><span class="p">,</span> <span class="n">new_template</span><span class="o">.</span><span class="n">absolute</span><span class="p">())</span></div>
+
+
+
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../ninjadog.html#ninjadog.cli.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Iterable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Render pug template to stdout.&quot;&quot;&quot;</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="n">docopt</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="n">argv</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.4.0&#39;</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">docopt</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="n">argv</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.4.1&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;--file&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;&lt;file&gt;&#39;</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot combine --file and &lt;file&gt; arguments&quot;</span><span class="p">)</span>
@@ -96,11 +124,21 @@
     <span class="n">context</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;--context&#39;</span><span class="p">]</span>
     <span class="n">with_jinja</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;--with-jinja&#39;</span><span class="p">]</span>
     <span class="n">verbose</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;--verbose&#39;</span><span class="p">]</span>
+    <span class="n">dry_run</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;--dry-run&#39;</span><span class="p">]</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;&lt;source&gt;&#39;</span><span class="p">]</span>
+    <span class="n">destination</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;&lt;destination&gt;&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">dry_run</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dry_run</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dry run, no changes made&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="n">source</span><span class="p">:</span>
+        <span class="n">render_directory</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">source</span><span class="p">),</span> <span class="n">Path</span><span class="p">(</span><span class="n">destination</span><span class="p">),</span> <span class="n">pretty</span><span class="o">=</span><span class="n">pretty</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">with_jinja</span><span class="o">=</span><span class="n">with_jinja</span><span class="p">)</span>
+        <span class="k">return</span>
 
     <span class="n">output</span> <span class="o">=</span> <span class="n">render</span><span class="p">(</span><span class="n">string</span><span class="o">=</span><span class="n">string</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="n">pretty</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">with_jinja</span><span class="o">=</span><span class="n">with_jinja</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">output</span></div>
 

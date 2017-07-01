@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog: pug + jinja2 == ❤️ &#8212; ninjadog 0.4.0 documentation</title>
+    <title>ninjadog: pug + jinja2 == ❤️ &#8212; ninjadog 0.4.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.0',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -179,13 +179,14 @@ the popular and well-maintained nodejs implementation.</p>
 </div>
 <div class="section" id="command-line-interface">
 <h3>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>ninjadog v0.4.0
+<div class="highlight-default"><div class="highlight"><pre><span></span>ninjadog v0.4.1
 
 Render pug templates to html.
 
 Usage:
     ninjadog string [options] &lt;string&gt;
     ninjadog file [options] &lt;file&gt;
+    ninjadog dir [options] &lt;source&gt; [&lt;destination&gt;]
     ninjadog - [options]
     ninjadog -h | --help
     ninjadog -V | --version
@@ -199,11 +200,13 @@ Options:
     -c --context &lt;context&gt;    json string to be passed as context
     -j --with-jinja           render jinja2 syntax as well as pug
     -v --verbose              verbose output
+    -n --dry-run              verbose output and exit without executing
+    &lt;destination&gt;             destination directory to render pug files to
 
 
 Strings may be passed via pipe using `-` argument.
 
-i.e. 
+i.e.
 
 echo &#39;h1 hello {{ name }}&#39; | ninjadog - -j -c &#39;{&quot;name&quot;: &quot;Sam&quot;}&#39;
 
