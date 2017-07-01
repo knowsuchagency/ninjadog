@@ -105,19 +105,6 @@ def test_cli_string():
     assert main(('string', 'h1= title', '-c', context)) == '<h1>hello, world</h1>'
 
 
-def test_cli_file():
-    from ninjadog.cli import main
-    from ninjadog.utils import jsonify
-    from tempfile import NamedTemporaryFile
-
-    context = jsonify({'title': 'hello, world'})
-
-    with NamedTemporaryFile('w+') as file:
-        file.write('h1= title');
-        file.seek(0)
-        assert main(('file', file.name, '-c', context)) == '<h1>hello, world</h1>'
-
-
 def test_extends():
     from tempfile import gettempdir
     from textwrap import dedent
