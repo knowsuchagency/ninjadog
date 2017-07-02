@@ -171,6 +171,19 @@ like `pyjade`_, but it will be more reliable as it's leveraging
 the popular and well-maintained nodejs implementation.
 
 
+Gotchas
+-------
+
+Rendering with `jinja2`_ syntax currently processes content through `jinja2`_, then through the `pug-cli`_ subprocess,
+then through `jinja2`_ again. This is because templates may include or extend from other templates that have
+`jinja2`_ themselves. What this means is that if you want to escape `jinja2`_ syntax, you need to do it twice.
+
+For example, to have a literal ``{{ escaping inception }}`` rendered,
+you'll need to have ``{{ "{{ '{{ escaping inception }}' }}" }}`` in your template.
+
+对不起
+
+
 .. _pug: https://pugjs.org/api/getting-started.html
 .. _jade: https://naltatis.github.io/jade-syntax-docs/
 .. _pyjade: https://github.com/syrusakbary/pyjade

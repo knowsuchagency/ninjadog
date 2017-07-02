@@ -21,7 +21,7 @@ def render(string: str = '',
            with_jinja: bool = False) -> str:
     """
     Render a pug template through the pug cli.
-    
+
     Args:
         string: a string in pug syntax to be rendered
         file: the path to a pug template

@@ -46,6 +46,7 @@ but to set the aformentioned option to true and move any logic dealing with muta
 javascript for production. The choice yours.
 
 
+
 API Documentation
 -----------------
 
