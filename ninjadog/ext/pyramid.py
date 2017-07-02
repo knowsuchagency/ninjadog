@@ -77,12 +77,13 @@ def remove_file_if_exists(file: Path) -> True:
 
 
 class PugRendererFactory:
+    template_cache = {}
+
     def __init__(self, info):
         self.reload = info.settings['reload_all'] or info.settings['reload_templates']
         self.cached = truth(info.settings.get('ninjadog.cache', False))
 
         self.template_path = resolve(info.name, info.package)
-        self.template_cache = {}
 
     def __call__(self, value, system):
         if not isinstance(value, dict): raise ValueError('view must return dict')
@@ -97,9 +98,8 @@ class PugRendererFactory:
 
             if self.reload:
                 template_text = self.template_path.read_text()
-                template_changed = changed(self.template_cache, self.template_path, template_text)
-                if not template_changed:
-                    print(f"template {self.template_path} didn't change")
+                template_changed = changed(PugRendererFactory.template_cache,
+                                           self.template_path, template_text)
 
             if (not html_file.exists()) or (self.reload and template_changed):
                 html = render(file=self.template_path, context=context, with_jinja=True)
