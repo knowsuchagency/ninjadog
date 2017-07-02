@@ -27,6 +27,14 @@ ninjadog\.constants module
     :undoc-members:
     :show-inheritance:
 
+ninjadog\.decorators module
+---------------------------
+
+.. automodule:: ninjadog.decorators
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 ninjadog\.ninjadog module
 -------------------------
 

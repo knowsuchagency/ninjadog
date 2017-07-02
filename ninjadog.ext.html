@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ninjadog.ext package &#8212; ninjadog 0.4.1 documentation</title>
+    <title>ninjadog.ext package &#8212; ninjadog 0.5.0 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.1',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -53,12 +53,17 @@
 <dt id="ninjadog.ext.pyramid.PugRendererFactory">
 <em class="property">class </em><code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">PugRendererFactory</code><span class="sig-paren">(</span><em>info</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#PugRendererFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.PugRendererFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="ninjadog.ext.pyramid.PugRendererFactory.template_cache">
+<code class="descname">template_cache</code><em class="property"> = {}</em><a class="headerlink" href="#ninjadog.ext.pyramid.PugRendererFactory.template_cache" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="function">
-<dt id="ninjadog.ext.pyramid.get_and_update">
-<code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">get_and_update</code><span class="sig-paren">(</span><em>dictionary: dict</em>, <em>key: typing.Any</em>, <em>value: typing.Any</em><span class="sig-paren">)</span> &#x2192; typing.Any<a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#get_and_update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.get_and_update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the previous value for the key and update with the new value.</p>
+<dt id="ninjadog.ext.pyramid.changed">
+<code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">changed</code><span class="sig-paren">(</span><em>dictionary: dict</em>, <em>key: typing.Any</em>, <em>value: typing.Any</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#changed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.changed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if the value for the given key in the dictionary has changed.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -72,7 +77,7 @@
 </tr>
 </tbody>
 </table>
-<p>Returns: the previous value for that key or the value if the key didn’t exist</p>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="function">
@@ -81,9 +86,19 @@
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="ninjadog.ext.pyramid.reset_tempdir">
-<code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">reset_tempdir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ninjadog.ext.pyramid.reset_tempdir" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="ninjadog.ext.pyramid.remove_file_if_exists">
+<code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">remove_file_if_exists</code><span class="sig-paren">(</span><em>file: pathlib.Path</em><span class="sig-paren">)</span> &#x2192; True<a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#remove_file_if_exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.remove_file_if_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the file from the file system if it exists.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file</strong> – filepath</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: True</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="ninjadog.ext.pyramid.resolve">
@@ -102,12 +117,6 @@
 </tbody>
 </table>
 <p>Returns: Path to file</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="ninjadog.ext.pyramid.run_once">
-<code class="descclassname">ninjadog.ext.pyramid.</code><code class="descname">run_once</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ninjadog/ext/pyramid.html#run_once"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ninjadog.ext.pyramid.run_once" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the temporary directory at runtime idempotently.</p>
 </dd></dl>
 
 <dl class="function">
