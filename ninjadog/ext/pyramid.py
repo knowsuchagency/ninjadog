@@ -1,29 +1,27 @@
 import typing as T
 from pathlib import Path
-from shutil import rmtree as rmdir
 
 from pyramid.path import AssetResolver
 
 from ninjadog.ninjadog import render
-from ninjadog.constants import TEMPDIR
+from ninjadog.decorators import idempotent
 
 
-def get_and_update(dictionary: dict, key: T.Any, value: T.Any) -> T.Any:
+def changed(dictionary: dict, key: T.Any, value: T.Any) -> bool:
     """
-    Get the previous value for the key and update with the new value.
-    
+    Return true if the value for the given key in the dictionary has changed.
+
     Args:
         dictionary: dict
         key: any
         value: any
 
-    Returns: the previous value for that key or the value if the key didn't exist
+    Returns:
 
     """
-    previous = dictionary.setdefault(key, value)
-    dictionary.update({key: value})
-
-    return previous
+    previous = dictionary.get(key)
+    dictionary[key] = value
+    return previous != value
 
 
 def truth(value: T.Union[bool, str]) -> bool:
@@ -61,37 +59,30 @@ def resolve(path: str, caller=None) -> Path:
     return Path(Path(caller.__file__).parent, path).absolute()
 
 
-def run_once():
+@idempotent
+def remove_file_if_exists(file: Path) -> True:
     """
-    Creates the temporary directory at runtime idempotently.
+    Removes the file from the file system if it exists.
+
+    Args:
+        file: filepath
+
+    Returns: True
+
     """
-    has_run = False
+    if file.exists():
+        file.unlink()
 
-    def logic():
-        nonlocal has_run
-        if not has_run:
-            rmdir(TEMPDIR, ignore_errors=True)
-            TEMPDIR.mkdir(exist_ok=True)
-            has_run = True
-
-    return logic
-
-
-reset_tempdir = run_once()
+    return True
 
 
 class PugRendererFactory:
     def __init__(self, info):
         self.reload = info.settings['reload_all'] or info.settings['reload_templates']
-        self.static_only = truth(info.settings.get('ninjadog.cache', False))
+        self.cached = truth(info.settings.get('ninjadog.cache', False))
 
-        self.template_path = resolve(info.name,
-                                     info.package)
-        self.template_name = self.template_path.name
+        self.template_path = resolve(info.name, info.package)
         self.template_cache = {}
-
-        if self.static_only:
-            reset_tempdir()
 
     def __call__(self, value, system):
         if not isinstance(value, dict): raise ValueError('view must return dict')
@@ -99,22 +90,24 @@ class PugRendererFactory:
         context = system
         context.update(value)
 
-        if self.static_only:
+        if self.cached:
+            html_file = self.template_path.with_suffix('.html')
+            remove_file_if_exists(html_file)
             template_changed = False
+
             if self.reload:
                 template_text = self.template_path.read_text()
-                template_changed = get_and_update(self.template_cache, self.template_name,
-                                                  template_text) != template_text
+                template_changed = changed(self.template_cache, self.template_path, template_text)
+                if not template_changed:
+                    print(f"template {self.template_path} didn't change")
 
-            template_file = Path(TEMPDIR, self.template_name)
-
-            if (not template_file.exists()) or (self.reload and template_changed):
+            if (not html_file.exists()) or (self.reload and template_changed):
                 html = render(file=self.template_path, context=context, with_jinja=True)
-                template_file.write_text(html)
+                html_file.write_text(html)
 
                 return html
 
-            return template_file.read_text()
+            return html_file.read_text()
 
         return render(file=self.template_path, context=context, with_jinja=True)
 

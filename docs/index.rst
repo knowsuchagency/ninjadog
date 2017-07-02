@@ -38,6 +38,9 @@ While this will make each page load much faster after the first visit,
 **IT ALSO MEANS YOU CANNOT HAVE ANY MUTABLE STATE IN YOUR TEMPLATE**
 as the template itself will only be rendered once.
 
+Rendered templates will be saved alongside the original template with ``.html`` replacing ``.pug``
+as the suffix. This ensures relative paths in templates won't break.
+
 It may be best to prototype by using ninjadog as normal - mutable state, conditionals, mixins... whatever -
 but to set the aformentioned option to true and move any logic dealing with mutable state into
 javascript for production. The choice yours.
