@@ -6,7 +6,7 @@ py==1.4.34
 pytest==3.1.2
 pytest-runner==2.11.1
 PyYAML==3.12
-Sphinx==1.6.2
+Sphinx==1.6.3
 tox==2.7.0
 watchdog==0.8.3
 recommonmark==0.4.0
