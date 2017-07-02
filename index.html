@@ -177,6 +177,15 @@ This means that it can’t be as fast as a native template engine
 like <a class="reference external" href="https://github.com/syrusakbary/pyjade">pyjade</a>, but it will be more reliable as it’s leveraging
 the popular and well-maintained nodejs implementation.</p>
 </div>
+<div class="section" id="gotchas">
+<h3>Gotchas<a class="headerlink" href="#gotchas" title="Permalink to this headline">¶</a></h3>
+<p>Rendering with <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a> syntax currently processes content through <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a>, then through the <a class="reference external" href="https://www.npmjs.com/package/pug-cli">pug-cli</a> subprocess,
+then through <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a> again. This is because templates may include or extend from other templates that have
+<a class="reference external" href="http://jinja.pocoo.org/">jinja2</a> themselves. What this means is that if you want to escape <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a> syntax, you need to do it twice.</p>
+<p>For example, to have a literal <code class="docutils literal"><span class="pre">{{</span> <span class="pre">escaping</span> <span class="pre">inception</span> <span class="pre">}}</span></code> rendered,
+you’ll need to have <code class="docutils literal"><span class="pre">{{</span> <span class="pre">&quot;{{</span> <span class="pre">'{{</span> <span class="pre">escaping</span> <span class="pre">inception</span> <span class="pre">}}'</span> <span class="pre">}}&quot;</span> <span class="pre">}}</span></code> in your template.</p>
+<p>对不起</p>
+</div>
 <div class="section" id="command-line-interface">
 <h3>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span>ninjadog v0.5.0
@@ -290,6 +299,7 @@ javascript for production. The choice yours.</p>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#usage">Usage</a></li>
 <li><a class="reference internal" href="#why">Why?</a></li>
+<li><a class="reference internal" href="#gotchas">Gotchas</a></li>
 <li><a class="reference internal" href="#command-line-interface">Command Line Interface</a></li>
 <li><a class="reference internal" href="#id2">Pyramid</a></li>
 <li><a class="reference internal" href="#api-documentation">API Documentation</a></li>
