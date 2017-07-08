@@ -41,7 +41,7 @@ def clean():
 def test(capture=True):
     """
     Run tests quickly with default Python.
-    
+
     Args:
         capture: capture stdout [default: True]
     """
@@ -52,7 +52,10 @@ def test(capture=True):
 @task(alias='tox')
 def test_all():
     """Run on multiple Python versions with tox."""
-    local('tox')
+    from pathlib import Path
+    py35_path = Path(Path.home(), '.pyenv/versions/3.5.2/bin')
+    with path(str(py35_path.absolute())):
+        local('tox')
 
 
 @task
@@ -69,7 +72,7 @@ def coverage(open_browser=True):
 def docs(open_browser=True):
     """
     Generage Sphinx HTML documentation, including API docs.
-    
+
     Args:
         open_browser: Open browser automatically after building docs
     """
@@ -92,7 +95,7 @@ def docs(open_browser=True):
 def publish_docs():
     """
     Compile docs and publish to GitHub Pages.
-    
+
     Logic borrowed from `hugo <https://gohugo.io/tutorials/github-pages-blog/>`
     """
     with settings(warn_only=True):
