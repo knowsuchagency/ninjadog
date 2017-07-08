@@ -28,7 +28,7 @@ dev_packages = get_requirements(pip_config, 'dev-packages')
 
 setup(
     name='ninjadog',
-    version='0.5.0',
+    version='0.5.1',
     description="Pug template support in Python",
     long_description=Path('README.rst').read_text(),
     author="Stephan Fitzpatrick",
