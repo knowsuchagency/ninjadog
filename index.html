@@ -5,16 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>ninjadog: pug + jinja2 == ❤️ &#8212; ninjadog 0.5.0 documentation</title>
-    
+    <title>ninjadog: pug + jinja2 == ❤️ &#8212; ninjadog 0.5.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.5.0',
+        VERSION:     '0.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -169,26 +166,30 @@ template-rendering power.</p>
 html, IMO.</p>
 <p>There exists a project, <a class="reference external" href="https://github.com/syrusakbary/pyjade">pyjade</a> and a less-popular fork, <a class="reference external" href="https://github.com/matannoam/pypugjs">pypugjs</a>,
 that are pure-python implementations of the pug template engine,
-but they have some bugs and the maintenance is a bit lacking.</p>
-<p>It made more sense to me to use the existing nodejs implementation,
-and find a way to have it play nicely with Python.</p>
+but they have some minor bugs and the maintenance is a bit lacking.</p>
+<p>I figured it would be good to have an alternative method to render
+<a class="reference external" href="https://pugjs.org/api/getting-started.html">pug</a> templates that used the native javascript rendering engine.</p>
 <p>ninjadog does this by spawning the <a class="reference external" href="https://www.npmjs.com/package/pug-cli">pug cli</a> as a subprocess.
 This means that it can’t be as fast as a native template engine
-like <a class="reference external" href="https://github.com/syrusakbary/pyjade">pyjade</a>, but it will be more reliable as it’s leveraging
-the popular and well-maintained nodejs implementation.</p>
+like <a class="reference external" href="https://github.com/syrusakbary/pyjade">pyjade</a>, but it will likely be more reliable over time as
+it’s leveraging the popular and well-maintained nodejs implementation.</p>
 </div>
 <div class="section" id="gotchas">
 <h3>Gotchas<a class="headerlink" href="#gotchas" title="Permalink to this headline">¶</a></h3>
-<p>Rendering with <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a> syntax currently processes content through <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a>, then through the <a class="reference external" href="https://www.npmjs.com/package/pug-cli">pug-cli</a> subprocess,
-then through <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a> again. This is because templates may include or extend from other templates that have
-<a class="reference external" href="http://jinja.pocoo.org/">jinja2</a> themselves. What this means is that if you want to escape <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a> syntax, you need to do it twice.</p>
+<p>Currently, rendering a template with <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a> syntax goes through the following process:</p>
+<ol class="arabic simple">
+<li>Render elements on the initial template through <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a></li>
+<li>Pass the output to the <a class="reference external" href="https://www.npmjs.com/package/pug-cli">pug-cli</a>, gathering extensions and inclusions in the process</li>
+<li>Render the output through <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a> again, since the original template may have extended or included other templates that countained <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a> syntax themselves.</li>
+</ol>
+<p>What this means is that if you want to escape <a class="reference external" href="http://jinja.pocoo.org/">jinja2</a> syntax, you need to do it twice.</p>
 <p>For example, to have a literal <code class="docutils literal"><span class="pre">{{</span> <span class="pre">escaping</span> <span class="pre">inception</span> <span class="pre">}}</span></code> rendered,
 you’ll need to have <code class="docutils literal"><span class="pre">{{</span> <span class="pre">&quot;{{</span> <span class="pre">'{{</span> <span class="pre">escaping</span> <span class="pre">inception</span> <span class="pre">}}'</span> <span class="pre">}}&quot;</span> <span class="pre">}}</span></code> in your template.</p>
 <p>对不起</p>
 </div>
 <div class="section" id="command-line-interface">
 <h3>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>ninjadog v0.5.0
+<div class="highlight-default"><div class="highlight"><pre><span></span>ninjadog v0.5.1
 
 Render pug templates to html.
 
@@ -342,7 +343,7 @@ javascript for production. The choice yours.</p>
       &copy;2017, Stephan Fitzpatrick.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
