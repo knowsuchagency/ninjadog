@@ -160,23 +160,27 @@ html, IMO.
 
 There exists a project, `pyjade`_ and a less-popular fork, `pypugjs`_,
 that are pure-python implementations of the pug template engine,
-but they have some bugs and the maintenance is a bit lacking.
+but they have some minor bugs and the maintenance is a bit lacking.
 
-It made more sense to me to use the existing nodejs implementation,
-and find a way to have it play nicely with Python.
+I figured it would be good to have an alternative method to render
+`pug`_ templates that used the native javascript rendering engine.
 
 ninjadog does this by spawning the `pug cli`_ as a subprocess.
 This means that it can't be as fast as a native template engine
-like `pyjade`_, but it will be more reliable as it's leveraging
-the popular and well-maintained nodejs implementation.
+like `pyjade`_, but it will likely be more reliable over time as
+it's leveraging the popular and well-maintained nodejs implementation.
 
 
 Gotchas
 -------
 
-Rendering with `jinja2`_ syntax currently processes content through `jinja2`_, then through the `pug-cli`_ subprocess,
-then through `jinja2`_ again. This is because templates may include or extend from other templates that have
-`jinja2`_ themselves. What this means is that if you want to escape `jinja2`_ syntax, you need to do it twice.
+Currently, rendering a template with `jinja2`_ syntax goes through the following process:
+
+1. Render elements on the initial template through `jinja2`_
+2. Pass the output to the `pug-cli`_, gathering extensions and inclusions in the process
+3. Render the output through `jinja2`_ again, since the original template may have extended or included other templates that countained `jinja2`_ syntax themselves.
+
+What this means is that if you want to escape `jinja2`_ syntax, you need to do it twice.
 
 For example, to have a literal ``{{ escaping inception }}`` rendered,
 you'll need to have ``{{ "{{ '{{ escaping inception }}' }}" }}`` in your template.

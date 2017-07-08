@@ -43,7 +43,7 @@ from docopt import docopt
 from ninjadog import render
 
 
-def render_directory(source: Path, destination: Path=None, **kwargs):
+def render_directory(source: Path, destination: Path = None, **kwargs):
     """
     Render a directory of pug templates.
 
@@ -57,14 +57,13 @@ def render_directory(source: Path, destination: Path=None, **kwargs):
     destination = destination or source
     destination.mkdir(exist_ok=True)
 
-    pug_templates = filter(lambda p: p.suffix=='.pug', source.iterdir())
+    pug_templates = filter(lambda p: p.suffix == '.pug', source.iterdir())
 
     for template in pug_templates:
         rendered_template = render(file=template, **kwargs)
         new_template = Path(destination, template.stem).with_suffix('.html')
         new_template.write_text(rendered_template)
         print('Rendered', new_template.absolute())
-
 
 
 def main(argv: T.Optional[T.Iterable] = None):
@@ -95,7 +94,6 @@ def main(argv: T.Optional[T.Iterable] = None):
         return
 
     output = render(string=string, file=file, pretty=pretty, context=context, with_jinja=with_jinja)
-
     return output
 
 
