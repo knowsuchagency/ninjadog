@@ -139,6 +139,7 @@ def release():
     local('python setup.py sdist upload')
     local('python setup.py bdist_wheel upload')
 
+
 @task
 def gen_requirements_txt():
     """
@@ -160,7 +161,6 @@ def gen_requirements_txt():
 
     requirements_file.write_text('\n'.join(packages))
     print('successfully generated requirements.txt')
-
 
 
 @singledispatch
