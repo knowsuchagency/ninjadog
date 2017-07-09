@@ -13,11 +13,12 @@ ninjadog
      :target: https://pyup.io/repos/github/knowsuchagency/ninjadog/
      :alt: Updates
 
+.. image:: https://img.shields.io/github/license/mashape/apistatus.svg
+    :target:
 
 `Pug`_ template (formerly `jade`_) support in Python
 
 
-* Free software: MIT license
 * Documentation: http://journalpanic.com/ninjadog
 * GitHub: https://github.com/knowsuchagency/ninjadog
 
