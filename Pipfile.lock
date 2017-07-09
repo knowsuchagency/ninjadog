@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ded672b20637c3fdeab35eac0fcda2764326c8e5cc0615b9ed2b181acef703b3"
+            "sha256": "619b4bb1ff2fbe109b8fc76e84d205c70dd7a8862a432ea8a9b63fc5565edca1"
         },
         "requires": {},
         "sources": [
@@ -35,9 +35,6 @@
         },
         "pyramid": {
             "version": "==1.9"
-        },
-        "pyramid-jinja2": {
-            "version": "==2.7"
         },
         "repoze.lru": {
             "version": "==0.6"
@@ -196,9 +193,6 @@
         },
         "tox": {
             "version": "==2.7.0"
-        },
-        "tox-pyenv": {
-            "version": "==1.0.3"
         },
         "typed-ast": {
             "version": "==1.0.4"
