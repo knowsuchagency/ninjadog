@@ -1,5 +1,8 @@
-from fabric.api import *
 from functools import singledispatch
+from configparser import ConfigParser
+from pathlib import Path
+
+from fabric.api import *
 
 
 @task
@@ -136,6 +139,29 @@ def release():
     local('python setup.py sdist upload')
     local('python setup.py bdist_wheel upload')
 
+@task
+def gen_requirements_txt():
+    """
+    Generate a requirements.txt from Fabfile.
+
+    This is more for the benefit of third-party packages
+    like pyup.io that need requirements.txt
+    """
+    pip_config = ConfigParser()
+    pip_config.read('Pipfile')
+    requirements_file = Path('requirements.txt')
+    packages = []
+    for item in pip_config.items('packages'):
+        lib, version = item
+        lib, version = lib.strip('"'), version.strip('"')
+        # ungracefully handle wildcard requirements
+        if version == '*': version = ''
+        packages.append(lib + version)
+
+    requirements_file.write_text('\n'.join(packages))
+    print('successfully generated requirements.txt')
+
+
 
 @singledispatch
 def true(arg):
@@ -173,5 +199,6 @@ def true(arg):
 
 @true.register(str)
 def _(arg):
-    """If the lowercase string start with 't' return True."""
-    return arg.lower().startswith('t')
+    """If the lowercase string is 't' or 'true', return True else False."""
+    argument = arg.lower().strip()
+    return argument == 'true' or argument == 't'
