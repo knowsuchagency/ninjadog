@@ -14,7 +14,6 @@ ninjadog
      :alt: Updates
 
 .. image:: https://img.shields.io/github/license/mashape/apistatus.svg
-    :target:
 
 `Pug`_ template (formerly `jade`_) support in Python
 
