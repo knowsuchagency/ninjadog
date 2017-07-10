@@ -131,7 +131,7 @@ def dist():
 @task
 def release():
     """Package and upload a release."""
-    #clean()
+    clean()
     test_all()
     publish_docs()
     local('python setup.py sdist upload')
