@@ -110,7 +110,7 @@ def publish_docs():
     local('git worktree prune')
     local('rm -rf .git/worktrees/public/')
     # checkout out gh-pages branch into public
-    local('git worktree add -B gh-pages public ninjadog/gh-pages')
+    local('git worktree add -B gh-pages public gh-pages')
     # generating docs
     docs(open_browser=False)
     # push to github
@@ -131,7 +131,7 @@ def dist():
 @task
 def release():
     """Package and upload a release."""
-    clean()
+    #clean()
     test_all()
     publish_docs()
     local('python setup.py sdist upload')
