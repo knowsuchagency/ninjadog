@@ -54,7 +54,7 @@ def test(capture=True):
 def test_all(absolute_path=None):
     """Run on multiple Python versions with tox."""
     from pathlib import Path
-    py35_path = Path(Path.home(), '.pyenv/versions/3.5.2/bin') if absolute_path is not None else Path(absolute_path)
+    py35_path = Path(Path.home(), '.pyenv/versions/3.5.2/bin') if absolute_path is None else Path(absolute_path)
     with path(str(py35_path.absolute())):
         local('tox')
 
