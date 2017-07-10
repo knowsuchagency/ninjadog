@@ -1,6 +1,4 @@
 from functools import singledispatch
-from configparser import ConfigParser
-from pathlib import Path
 
 from fabric.api import *
 
@@ -53,10 +51,10 @@ def test(capture=True):
 
 
 @task(alias='tox')
-def test_all():
+def test_all(absolute_path=None):
     """Run on multiple Python versions with tox."""
     from pathlib import Path
-    py35_path = Path(Path.home(), '.pyenv/versions/3.5.2/bin')
+    py35_path = Path(Path.home(), '.pyenv/versions/3.5.2/bin') if absolute_path is not None else Path(absolute_path)
     with path(str(py35_path.absolute())):
         local('tox')
 
@@ -148,6 +146,9 @@ def gen_requirements_txt():
     This is more for the benefit of third-party packages
     like pyup.io that need requirements.txt
     """
+    from configparser import ConfigParser
+    from pathlib import Path
+
     pip_config = ConfigParser()
     pip_config.read('Pipfile')
     requirements_file = Path('requirements.txt')
